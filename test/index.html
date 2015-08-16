@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="../build/d3plus-shape-dev.js"></script>
+
+<body>
+  <svg width=500 height=500></svg>
+</body>
+
+<script>
+
+  // Javascript code should go here
+  var shape = require("d3plus-shape");
+
+  var test = new shape.Rectangle("svg")
+    .data([
+      {"x": 100, "y": 100, "r": 50, "color": "alex"},
+      {"x": 200, "y": 100, "r": 50, "color": "dave"}
+    ])
+    .attr("y", function(d){return d.y;})
+    .attr("x", function(d){return d.x;})
+    .attrs({
+      "width": 50,
+      "height": 40,
+      "id": "color",
+      "fill": "color"
+    })
+    .draw(600);
+
+  // console.log(test);
+
+  setTimeout(function(){
+    test
+      // .data([
+      //   {"x": 100, "y": 100, "r": 50, "color": "alex"},
+      //   {"x": 150, "y": 100, "r": 50, "color": "jonathan"}
+      // ])
+      .attr("x", 0)
+      .draw();
+  }, 1000)
+
+</script>

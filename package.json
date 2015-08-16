@@ -1,0 +1,55 @@
+{
+  "name": "d3plus-textbox",
+  "version": "0.1.0",
+  "description": "Smart SVG text box with line wrapping and automatic font scaling.",
+  "main": "src/textbox.js",
+  "license": "MIT",
+  "homepage": "http://www.d3plus.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d3plus/d3plus-textbox.git"
+  },
+  "keywords": [
+    "textbox",
+    "d3",
+    "d3plus",
+    "data",
+    "visualization"
+  ],
+  "author": {
+    "name": "Dave Landry",
+    "email": "landry.dave@gmail.com",
+    "url": "http://www.dave-landry.com"
+  },
+  "dependencies": {
+    "babelify": "^6.1.3",
+    "require-globify": "^1.2.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.5",
+    "babel-eslint": "^3.1.26",
+    "browserify": "^11.0.0",
+    "eslint": "^0.24.1",
+    "faucet": "0.0.1",
+    "jsdoc-to-markdown": "^1.1.1",
+    "livereloadify": "^2.0.0",
+    "node-static": "^0.7.7",
+    "tape": "^4.0.1",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.3.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      "require-globify"
+    ]
+  },
+  "scripts": {
+    "build": "npm test & npm run docs & browserify src/textbox.js > build/d3plus-textbox.js & browserify -g uglifyify src/textbox.js > build/d3plus-textbox-min.js",
+    "dev": "npm run watch & livereloadify / & static -p 4000",
+    "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
+    "lint": "eslint src/* test/unit/*",
+    "test": "npm run lint && babel-node test/**/*.js | faucet",
+    "watch": "watchify -d -r ./src/textbox.js:d3plus-textbox -o build/d3plus-textbox-dev.js -v"
+  }
+}
