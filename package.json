@@ -2,7 +2,7 @@
   "name": "d3plus-textbox",
   "version": "0.1.0",
   "description": "Smart SVG text box with line wrapping and automatic font scaling.",
-  "main": "src/textbox.js",
+  "main": "src/TextBox.js",
   "license": "MIT",
   "homepage": "http://www.d3plus.org",
   "repository": {
@@ -46,11 +46,11 @@
     ]
   },
   "scripts": {
-    "build": "npm test & npm run docs & browserify src/textbox.js > build/d3plus-textbox.js & browserify -g uglifyify src/textbox.js > build/d3plus-textbox-min.js",
+    "build": "npm test & npm run docs & browserify src/TextBox.js > build/d3plus-textbox.js & browserify -g uglifyify src/TextBox.js > build/d3plus-textbox-min.js",
     "dev": "npm run watch & livereloadify / & static -p 4000",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
     "lint": "eslint src/* test/unit/*",
     "test": "npm run lint && babel-node test/**/*.js | faucet",
-    "watch": "watchify -d -r ./src/textbox.js:d3plus-textbox -o build/d3plus-textbox-dev.js -v"
+    "watch": "watchify -d -r ./src/TextBox.js:d3plus-textbox -o build/d3plus-textbox-dev.js -v"
   }
 }
