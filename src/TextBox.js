@@ -1,8 +1,7 @@
 var d3 = require("d3-selection"),
-    DataPoint = require("../../d3plus-datapoint/src/datapoint.js"),
-    Shell = require("../../d3plus-shell/src/Shell.js");
+    DataPoint = require("d3plus-datapoint"),
+    Shell = require("d3plus-shell");
 
-/** @class */
 class TextBox extends Shell {
 
   constructor (data = []) {

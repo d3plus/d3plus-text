@@ -2,7 +2,7 @@
   "name": "d3plus-textbox",
   "version": "0.1.0",
   "description": "Smart SVG text box with line wrapping and automatic font scaling.",
-  "main": "src/TextBox.js",
+  "main": "lib/TextBox.js",
   "license": "MIT",
   "homepage": "http://www.d3plus.org",
   "repository": {
@@ -24,18 +24,20 @@
   "dependencies": {
     "babelify": "^6.1.3",
     "d3-selection": "^0.4.7",
+    "d3plus-datapoint": "^0.1.1",
+    "d3plus-shell": "^0.1.4",
     "require-globify": "^1.2.1"
   },
   "devDependencies": {
     "babel": "^5.8.5",
     "babel-eslint": "^3.1.26",
     "browserify": "^11.0.0",
+    "casperjs": "^1.1.0-beta3",
     "eslint": "^0.24.1",
-    "faucet": "0.0.1",
     "jsdoc-to-markdown": "^1.1.1",
     "livereloadify": "^2.0.0",
     "node-static": "^0.7.7",
-    "tape": "^4.0.1",
+    "phantomjs": "^1.9.18",
     "uglifyify": "^3.0.1",
     "watchify": "^3.3.0"
   },
@@ -46,11 +48,14 @@
     ]
   },
   "scripts": {
-    "build": "npm test & npm run docs & browserify src/TextBox.js > build/d3plus-textbox.js & browserify -g uglifyify src/TextBox.js > build/d3plus-textbox-min.js",
-    "dev": "npm run watch & livereloadify / & static -p 4000",
+    "build": "browserify src/TextBox.js > build/d3plus-TextBox.js && browserify -g uglifyify src/TextBox.js > build/d3plus-textbox-min.js",
+    "compile": "npm test && npm run docs && npm run build && babel -d lib/ src/",
+    "dev": "npm run watch & livereloadify / & npm run serve",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "lint": "eslint src/* test/unit/*",
-    "test": "npm run lint && babel-node test/**/*.js | faucet",
+    "lint": "eslint src/* test/**/*.js",
+    "prepublish": "npm run compile",
+    "serve": "static -p 4000",
+    "test": "npm run serve & npm run lint && casperjs test ./test/**/*.js",
     "watch": "watchify -d -r ./src/TextBox.js:d3plus-textbox -o build/d3plus-textbox-dev.js -v"
   }
 }
