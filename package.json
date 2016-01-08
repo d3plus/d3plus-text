@@ -1,5 +1,5 @@
 {
-  "name": "d3plus-textbox",
+  "name": "d3plus-text",
   "version": "0.2.0",
   "description": "Smart SVG text box with line wrapping and automatic font scaling.",
   "main": "lib/TextBox.js",
@@ -7,7 +7,7 @@
   "homepage": "http://www.d3plus.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/d3plus/d3plus-textbox.git"
+    "url": "https://github.com/d3plus/d3plus-text.git"
   },
   "keywords": [
     "textbox",
@@ -38,10 +38,10 @@
     "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3plus-textbox -n d3plus_textbox -o build/d3plus-textbox.js -- build/bundle.js",
+    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3plus-text -n d3plus_textbox -o build/d3plus-text.js -- build/bundle.js",
     "dev": "npm run serve & livereload ./ & nodemon --watch src/ --watch test/ -x \"npm run pretest\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "prepublish": "npm test && npm run docs && uglifyjs build/d3plus-textbox.js -c -m -o build/d3plus-textbox.min.js && rm -f build/d3plus-textbox.zip && zip -j build/d3plus-textbox.zip -- LICENSE README.md build/d3plus-textbox.js build/d3plus-textbox.min.js",
+    "prepublish": "npm test && npm run docs && uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js && rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js",
     "serve": "static -p 4000",
     "test": "npm run serve & eslint src/* test/**/*.js && casperjs test ./test/browser/*.js"
   }
