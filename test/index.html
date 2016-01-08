@@ -1,7 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 
-<script src="../build/d3plus-textbox-dev.js"></script>
+<script src="../build/d3plus-textbox.js"></script>
 
 <body>
   <svg width=500 height=500>
@@ -12,11 +12,6 @@
 <script>
 
   // Javascript code should go here
-  var Text = require("d3plus-textbox");
-
-  var test = new Text(".wrap")
-    .draw();
-
-  console.log(test.attr("resize"));
+  d3plus_textbox.box();
 
 </script>

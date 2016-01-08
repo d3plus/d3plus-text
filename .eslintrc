@@ -2,10 +2,11 @@
   "env": {
     "browser": true,
     "es6": true,
-    "mocha": true,
     "node": true
   },
-  "parser": "babel-eslint",
+  "ecmaFeatures": {
+    "modules": true
+  },
   "rules": {
     "no-loop-func": 0,
     "strict": 0

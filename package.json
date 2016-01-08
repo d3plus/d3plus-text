@@ -1,6 +1,6 @@
 {
   "name": "d3plus-textbox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Smart SVG text box with line wrapping and automatic font scaling.",
   "main": "lib/TextBox.js",
   "license": "MIT",
@@ -22,40 +22,27 @@
     "url": "http://www.dave-landry.com"
   },
   "dependencies": {
-    "babelify": "^6.1.3",
     "d3-selection": "^0.4.7",
     "d3plus-datapoint": "^0.1.1",
-    "d3plus-shell": "^0.1.4",
-    "require-globify": "^1.2.1"
+    "d3plus-shell": "^0.1.4"
   },
   "devDependencies": {
-    "babel": "^5.8.5",
-    "babel-eslint": "^3.1.26",
-    "browserify": "^11.0.0",
     "casperjs": "^1.1.0-beta3",
     "eslint": "^0.24.1",
     "jsdoc-to-markdown": "^1.1.1",
-    "livereloadify": "^2.0.0",
+    "livereload": "^0.4.0",
     "node-static": "^0.7.7",
+    "nodemon": "^1.8.1",
     "phantomjs": "^1.9.18",
-    "uglifyify": "^3.0.1",
-    "watchify": "^3.3.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "require-globify"
-    ]
+    "rollup": "^0.24.0",
+    "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "build": "browserify src/TextBox.js > build/d3plus-TextBox.js && browserify -g uglifyify src/TextBox.js > build/d3plus-textbox-min.js",
-    "compile": "npm test && npm run docs && npm run build && babel -d lib/ src/",
-    "dev": "npm run watch & livereloadify / & npm run serve",
+    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3plus-textbox -n d3plus_textbox -o build/d3plus-textbox.js -- build/bundle.js",
+    "dev": "npm run serve & livereload ./ & nodemon --watch src/ --watch test/ -x \"npm run pretest\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "lint": "eslint src/* test/**/*.js",
-    "prepublish": "npm run compile",
+    "prepublish": "npm test && npm run docs && uglifyjs build/d3plus-textbox.js -c -m -o build/d3plus-textbox.min.js && rm -f build/d3plus-textbox.zip && zip -j build/d3plus-textbox.zip -- LICENSE README.md build/d3plus-textbox.js build/d3plus-textbox.min.js",
     "serve": "static -p 4000",
-    "test": "npm run serve & npm run lint && casperjs test ./test/**/*.js",
-    "watch": "watchify -d -r ./src/TextBox.js:d3plus-textbox -o build/d3plus-textbox-dev.js -v"
+    "test": "npm run serve & eslint src/* test/**/*.js && casperjs test ./test/browser/*.js"
   }
 }
