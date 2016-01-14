@@ -7,10 +7,10 @@ casper.on("page.error", function(msg, trace) {
   this.echo("function: " + trace[0].function, "WARNING");
 });
 
-casper.test.begin("Rectangle Tests", function(test) {
+casper.test.begin("Box Tests", function(test) {
 
   casper
-    .start("http://localhost:4000/test/browser/Rectangle.html", function(){
+    .start("http://localhost:4000/test/browser/box.html", function(){
       test.assertElementCount("svg", 1);
 
       // this.wait(1000, function(){

@@ -2,7 +2,8 @@
   "name": "d3plus-text",
   "version": "0.2.0",
   "description": "Smart SVG text box with line wrapping and automatic font scaling.",
-  "main": "lib/TextBox.js",
+  "main": "build/d3plus-text.js",
+  "jsnext:main": "index",
   "license": "MIT",
   "homepage": "http://www.d3plus.org",
   "repository": {
@@ -22,27 +23,27 @@
     "url": "http://www.dave-landry.com"
   },
   "dependencies": {
-    "d3-selection": "^0.4.7",
-    "d3plus-datapoint": "^0.1.1",
-    "d3plus-shell": "^0.1.4"
+    "d3-selection": "^0.5.1"
   },
   "devDependencies": {
+    "babel-preset-es2015-rollup": "^1.1.1",
     "casperjs": "^1.1.0-beta3",
     "eslint": "^0.24.1",
     "jsdoc-to-markdown": "^1.1.1",
-    "livereload": "^0.4.0",
     "node-static": "^0.7.7",
     "nodemon": "^1.8.1",
     "phantomjs": "^1.9.18",
     "rollup": "^0.24.0",
+    "rollup-plugin-babel": "^2.3.8",
+    "rollup-plugin-json": "^2.0.0",
     "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3plus-text -n d3plus_textbox -o build/d3plus-text.js -- build/bundle.js",
-    "dev": "npm run serve & livereload ./ & nodemon --watch src/ --watch test/ -x \"npm run pretest\"",
+    "pretest": "mkdir -p build && rollup -c",
+    "dev": "npm run serve & nodemon --watch src/ -x \"npm run pretest\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "prepublish": "npm test && npm run docs && uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js && rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js",
+    "prepublish": "npm run docs && uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js && rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js",
     "serve": "static -p 4000",
-    "test": "npm run serve & eslint src/* test/**/*.js && casperjs test ./test/browser/*.js"
+    "test": "npm run serve & eslint src/* test/browser/*.js && casperjs test ./test/browser/*.js && killall node"
   }
 }
