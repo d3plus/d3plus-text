@@ -43,12 +43,13 @@ export default function() {
 
     const fS = fontSize(),
           h = height(select),
-          l = 1,
           lH = lineHeight(),
-          p = "",
           t = text(select),
           w = width(select),
           xP = x(select);
+
+    let l = 1,
+        p = "";
 
     select
       .attr("y", `${y(select)}px`)
@@ -66,25 +67,26 @@ export default function() {
         .style("baseline-shift", "0%");
     }
 
-    const tspan = select.html("").append("tspan").call(tspanStyle);
+    let tspan = select.html("").append("tspan").call(tspanStyle);
     function addWord(word) {
       const curr = tspan.html(),
-            join = t.charAt(temp.length),
             temp = p + word;
+      const join = t.charAt(temp.length);
       tspan.html(curr + word);
 
       if (select.node().getBBox().height > h) {
         tspan.remove();
         tspan = d3(select.node().lastChild);
         if (tspan.size()) {
-          t = tspan.html();
-          const e = ellipsis(t);
-          tspan.html(e ? e : t);
+          const tl = tspan.html();
+          const e = ellipsis(tl);
+          tspan.html(e ? e : tl);
         }
         return false;
       }
       else if (tspan.node().getComputedTextLength() > w) {
         tspan.html(curr.trimRight());
+        if (l === 1 && curr === "") return false;
         tspan = select.append("tspan").call(tspanStyle);
         l++;
         return addWord(word);
