@@ -1,23 +1,32 @@
 import {select as d3} from "d3-selection";
 import {default as constant} from "./constant";
 
+/**
+    The default ellipsis function.
+    @private
+*/
 function boxEllipsis(_) {
   if (_.includes(" ")) {
-    var a = _.split(/\s+/);
+    const a = _.split(/\s+/);
     return _.replace(` ${a[a.length - 1]}`, "...");
   }
   return "...";
 }
 
-var splitChars = ["-", "/", ";", ":", "&"],
-    splitRegex = new RegExp("[^\\s\\" + splitChars.join("\\") + "]+\\" + splitChars.join("?\\") + "?", "g");
+const splitChars = ["-", "/", ";", ":", "&"],
+      splitRegex = new RegExp(`[^\\s\\${splitChars.join("\\")}]+\\${splitChars.join("?\\")}?`, "g");
+
+/**
+    The default word split function.
+    @private
+*/
 function boxSplit(_) {
   return _.match(splitRegex);
 }
 
 export default function() {
 
-  var ellipsis = boxEllipsis,
+  let ellipsis = boxEllipsis,
       fontColor,
       fontFamily,
       fontSize,
@@ -32,14 +41,14 @@ export default function() {
 
   function box() {
 
-    var fS = fontSize(),
-        h = height(select),
-        l = 1,
-        lH = lineHeight(),
-        p = "",
-        t = text(select),
-        w = width(select),
-        xP = x(select);
+    const fS = fontSize(),
+          h = height(select),
+          l = 1,
+          lH = lineHeight(),
+          p = "",
+          t = text(select),
+          w = width(select),
+          xP = x(select);
 
     select
       .attr("y", `${y(select)}px`)
@@ -57,11 +66,11 @@ export default function() {
         .style("baseline-shift", "0%");
     }
 
-    var tspan = select.html("").append("tspan").call(tspanStyle);
+    const tspan = select.html("").append("tspan").call(tspanStyle);
     function addWord(word) {
-      var temp = p + word,
-          curr = tspan.html(),
-          join = t.charAt(temp.length);
+      const curr = tspan.html(),
+            join = t.charAt(temp.length),
+            temp = p + word;
       tspan.html(curr + word);
 
       if (select.node().getBBox().height > h) {
@@ -69,7 +78,7 @@ export default function() {
         tspan = d3(select.node().lastChild);
         if (tspan.size()) {
           t = tspan.html();
-          var e = ellipsis(t);
+          const e = ellipsis(t);
           tspan.html(e ? e : t);
         }
         return false;
@@ -81,16 +90,16 @@ export default function() {
         return addWord(word);
       }
       else {
-        var char = join === " " ? " " : "";
+        const char = join === " " ? " " : "";
         p = temp + char;
         tspan.html(curr + word + char);
         return true;
       }
     }
 
-    for (let word of split(t)) {
-      var r = addWord(word);
-      if (!r) { break; }
+    for (const word of split(t)) {
+      const r = addWord(word);
+      if (!r) break;
     }
 
   }
@@ -120,8 +129,8 @@ export default function() {
       select = d3(_);
       if (text === void 0) {
         text = constant(select.text());
-        if (fontColor === void 0) { fontColor = constant(select.style("font-color")); }
-        if (fontFamily === void 0) { fontFamily = constant(select.style("font-family")); }
+        if (fontColor === void 0) fontColor = constant(select.style("font-color"));
+        if (fontFamily === void 0) fontFamily = constant(select.style("font-family"));
         if (fontSize === void 0) {
           fontSize = constant(parseFloat(select.style("font-size"), 10));
           lineHeight = constant(Math.ceil(fontSize() * 1.1));

@@ -28,7 +28,7 @@
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.1.1",
     "casperjs": "^1.1.0-beta3",
-    "eslint": "^0.24.1",
+    "eslint": "^1.10.3",
     "jsdoc-to-markdown": "^1.1.1",
     "node-static": "^0.7.7",
     "nodemon": "^1.8.1",
