@@ -42,7 +42,7 @@
     "pretest": "mkdir -p build && rollup -c",
     "dev": "npm run serve & nodemon --watch src/ -x \"npm run pretest\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "prepublish": "npm run docs && uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js && rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js",
+    "prepublish": "npm test && npm run docs && uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js && rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js",
     "serve": "static -p 4000",
     "test": "npm run serve & eslint src/* test/browser/*.js && casperjs test ./test/browser/*.js && killall node"
   }
