@@ -1,6 +1,6 @@
 {
   "name": "d3plus-text",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Smart SVG text box with line wrapping and automatic font scaling.",
   "main": "build/d3plus-text.js",
   "jsnext:main": "index",
