@@ -121,13 +121,17 @@ export default function() {
   box.fontSize = function(_) {
     if (arguments.length) {
       fontSize = typeof _ === "function" ? _ : constant(_);
-      lineHeight = constant(Math.ceil(fontSize() * 1.1));
+      if (lineHeight === void 0) lineHeight = constant(Math.ceil(fontSize() * 1.1));
     }
     return fontSize;
   };
 
   box.height = function(_) {
     return arguments.length ? (height = typeof _ === "function" ? _ : constant(_), box) : height;
+  };
+
+  box.lineHeight = function(_) {
+    return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), box) : lineHeight;
   };
 
   box.select = function(_) {
