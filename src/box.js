@@ -119,7 +119,11 @@ export default function() {
   };
 
   box.fontSize = function(_) {
-    return arguments.length ? (fontSize = typeof _ === "function" ? _ : constant(_), box) : fontSize;
+    if (arguments.length) {
+      fontSize = typeof _ === "function" ? _ : constant(_);
+      lineHeight = constant(Math.ceil(fontSize() * 1.1));
+    }
+    return fontSize;
   };
 
   box.height = function(_) {
@@ -131,12 +135,9 @@ export default function() {
       select = d3(_);
       if (text === void 0) {
         text = constant(select.text());
-        if (fontColor === void 0) fontColor = constant(select.style("font-color"));
-        if (fontFamily === void 0) fontFamily = constant(select.style("font-family"));
-        if (fontSize === void 0) {
-          fontSize = constant(parseFloat(select.style("font-size"), 10));
-          lineHeight = constant(Math.ceil(fontSize() * 1.1));
-        }
+        if (fontColor === void 0) box.fontColor(select.style("font-color"));
+        if (fontFamily === void 0) box.fontFamily(select.style("font-family"));
+        if (fontSize === void 0) box.fontSize(parseFloat(select.style("font-size"), 10));
       }
       return box;
     }
