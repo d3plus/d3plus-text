@@ -75,7 +75,9 @@ function boxY(d) {
 
 export default function(data = []) {
 
-  let ellipsis = boxEllipsis,
+  let delay = 0,
+      duration = 0,
+      ellipsis = boxEllipsis,
       fontColor,
       fontFamily,
       fontSize,
@@ -150,22 +152,42 @@ export default function(data = []) {
 
         }
 
+        function tspanStyle(tspan) {
+          tspan
+            .text((d) => d.trimRight())
+            .attr("x", `${x(d, i)}px`)
+            .attr("dx", "0px")
+            .attr("dy", `${lH}px`);
+        }
+
         const tspans = d3.select(this).selectAll("tspan").data(lineData);
-        tspans.enter().append("tspan");
-        tspans
-          .text((d) => d.trimRight())
-          .attr("x", `${x(d, i)}px`)
-          .attr("dx", "0px")
-          .attr("dy", `${lH}px`)
+
+        tspans.transition().duration(duration).call(tspanStyle);
+
+        tspans.enter().append("tspan")
           .attr("dominant-baseline", "alphabetic")
-          .style("baseline-shift", "0%");
+          .style("baseline-shift", "0%")
+          .attr("opacity", 0)
+          .call(tspanStyle)
+          .transition().duration(duration).delay(delay)
+            .attr("opacity", 1);
 
       });
+
+    return box;
 
   }
 
   box.data = function(_) {
     return arguments.length ? (data = _, box) : data;
+  };
+
+  box.delay = function(_) {
+    return arguments.length ? (delay = _, box) : delay;
+  };
+
+  box.duration = function(_) {
+    return arguments.length ? (duration = _, box) : duration;
   };
 
   box.ellipsis = function(_) {
