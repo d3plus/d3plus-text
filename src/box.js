@@ -102,7 +102,7 @@ export default function(data = []) {
       .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`);
 
     boxes
-      .attr("y", (d, i) => `${y(d, i)}px`)
+      .attr("y", (d, i) => `${y(d, i) - fontSize(d, i) / 3.5}px`)
       .attr("fill", (d, i) => fontColor(d, i))
       .attr("font-family", (d, i) => fontFamily(d, i))
       .attr("font-size", (d, i) => `${fontSize(d, i)}px`)
