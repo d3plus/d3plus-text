@@ -3,7 +3,13 @@ import {default as d3} from "d3";
 export default function(text, style = {"font-size": 10, "font-family": "sans-serif"}) {
 
   const canvas = d3.select("body").selectAll("canvas#d3plus-text-size").data([0]);
-  canvas.enter().append("canvas").attr("id", "d3plus-text-size");
+  canvas.enter().append("canvas")
+    .attr("id", "d3plus-text-size")
+    .style("position", "absolute")
+    .style("left", "-9999px")
+    .style("top", "-9999px")
+    .style("visibility", "hidden")
+    .style("display", "block");
   const context = canvas.node().getContext("2d");
 
   const font = [];
