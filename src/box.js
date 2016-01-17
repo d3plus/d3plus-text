@@ -1,5 +1,6 @@
-import {select as d3} from "d3-selection";
+import {default as d3} from "d3";
 import {default as constant} from "./constant";
+import {default as measure} from "./width";
 
 /**
     The default ellipsis function.
@@ -13,6 +14,22 @@ function boxEllipsis(_) {
   return "...";
 }
 
+/**
+    The default height accessor function.
+    @private
+*/
+function boxHeight(d) {
+  return d.height || 200;
+}
+
+/**
+    The default id accessor function.
+    @private
+*/
+function boxId(d, i) {
+  return d.id || `${i}`;
+}
+
 const splitChars = ["-", "/", ";", ":", "&"],
       splitRegex = new RegExp(`[^\\s\\${splitChars.join("\\")}]+\\${splitChars.join("?\\")}?`, "g");
 
@@ -24,87 +41,132 @@ function boxSplit(_) {
   return _.match(splitRegex);
 }
 
-export default function() {
+/**
+    The default text accessor function.
+    @private
+*/
+function boxText(d) {
+  return d.text;
+}
+
+/**
+    The default width accessor function.
+    @private
+*/
+function boxWidth(d) {
+  return d.width || 200;
+}
+
+/**
+    The default x accessor function.
+    @private
+*/
+function boxX(d) {
+  return d.x || 0;
+}
+
+/**
+    The default y accessor function.
+    @private
+*/
+function boxY(d) {
+  return d.y || 0;
+}
+
+export default function(data = []) {
 
   let ellipsis = boxEllipsis,
       fontColor,
       fontFamily,
       fontSize,
-      height = constant(200),
+      height = boxHeight,
+      id = boxId,
       lineHeight,
       select,
       split = boxSplit,
-      text,
-      width = constant(200),
-      x = constant(0),
-      y = constant(0);
+      text = boxText,
+      width = boxWidth,
+      x = boxX,
+      y = boxY;
 
   function box() {
 
-    const fS = fontSize(),
-          h = height(select),
-          lH = lineHeight(),
-          t = text(select),
-          w = width(select),
-          xP = x(select);
+    if (select === void 0) box.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
 
-    let l = 1,
-        p = "";
+    const boxes = select.selectAll(".d3plus-text-box").data(data, id);
 
-    select
-      .attr("y", `${y(select)}px`)
-      .attr("fill", fontColor())
-      .attr("font-family", fontFamily())
-      .attr("font-size", `${fS}px`)
-      .size("font-size", `${fS}px`);
+    boxes.enter().append("text")
+      .attr("class", "d3plus-text-box")
+      .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`);
 
-    function tspanStyle(tspan) {
-      tspan
-        .attr("x", `${xP}px`)
-        .attr("dx", "0px")
-        .attr("dy", `${lH}px`)
-        .attr("dominant-baseline", "alphabetic")
-        .style("baseline-shift", "0%");
-    }
+    boxes
+      .attr("y", (d, i) => `${y(d, i)}px`)
+      .attr("fill", (d, i) => fontColor(d, i))
+      .attr("font-family", (d, i) => fontFamily(d, i))
+      .attr("font-size", (d, i) => `${fontSize(d, i)}px`)
+      .style("font-size", (d, i) => `${fontSize(d, i)}px`)
+      .each(function(d, i) {
 
-    let tspan = select.html("").append("tspan").call(tspanStyle);
-    function addWord(word) {
-      const curr = tspan.html(),
-            temp = p + word;
-      const join = t.charAt(temp.length);
-      tspan.html(curr + word);
+        let line = 1,
+            textProg = "",
+            widthProg = 0;
 
-      if (select.node().getBBox().height > h) {
-        tspan.remove();
-        tspan = d3(select.node().lastChild);
-        if (tspan.size()) {
-          const tl = tspan.html();
-          const e = ellipsis(tl);
-          tspan.html(e ? e : tl);
+        const h = height(d, i),
+              lH = lineHeight(d, i),
+              lineData = [""],
+              space = measure(" ", style),
+              t = text(d, i),
+              w = width(d, i),
+              words = split(t, i);
+
+        const style = {
+          "font-family": fontFamily(d, i),
+          "font-size": fontSize(d, i),
+          "line-height": lH
+        };
+
+        if (h > lH) {
+
+          const sizes = measure(words, style);
+          for (let word of words) {
+            const wordWidth = sizes[words.indexOf(word)];
+            if (wordWidth > w) break;
+            const nextChar = t.charAt(textProg.length + word.length);
+            if (nextChar === " ") word += nextChar;
+            if (widthProg + wordWidth > w) {
+              line++;
+              if (lH * line > h) {
+                lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
+                break;
+              }
+              widthProg = wordWidth;
+              lineData.push(word);
+            }
+            else lineData[line - 1] += word;
+            textProg += word;
+            widthProg += wordWidth;
+            if (nextChar === " ") widthProg += space;
+          }
+
         }
-        return false;
-      }
-      else if (tspan.node().getComputedTextLength() > w) {
-        tspan.html(curr.trimRight());
-        if (l === 1 && curr === "") return false;
-        tspan = select.append("tspan").call(tspanStyle);
-        l++;
-        return addWord(word);
-      }
-      else {
-        const char = join === " " ? " " : "";
-        p = temp + char;
-        tspan.html(curr + word + char);
-        return true;
-      }
-    }
 
-    for (const word of split(t)) {
-      const r = addWord(word);
-      if (!r) break;
-    }
+        const tspans = d3.select(this).selectAll("tspan").data(lineData);
+        tspans.enter().append("tspan");
+        tspans
+          .text((d) => d.trimRight())
+          .attr("x", `${x(d, i)}px`)
+          .attr("dx", "0px")
+          .attr("dy", `${lH}px`)
+          .attr("dominant-baseline", "alphabetic")
+          .style("baseline-shift", "0%");
+
+      });
 
   }
+
+  box.data = function(_) {
+    return arguments.length ? (data = _, box) : data;
+  };
 
   box.ellipsis = function(_) {
     return arguments.length ? (ellipsis = typeof _ === "function" ? _ : constant(_), box) : ellipsis;
@@ -122,6 +184,7 @@ export default function() {
     if (arguments.length) {
       fontSize = typeof _ === "function" ? _ : constant(_);
       if (lineHeight === void 0) lineHeight = constant(Math.ceil(fontSize() * 1.1));
+      return box;
     }
     return fontSize;
   };
@@ -130,19 +193,20 @@ export default function() {
     return arguments.length ? (height = typeof _ === "function" ? _ : constant(_), box) : height;
   };
 
+  box.id = function(_) {
+    return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), box) : id;
+  };
+
   box.lineHeight = function(_) {
     return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), box) : lineHeight;
   };
 
   box.select = function(_) {
     if (arguments.length) {
-      select = d3(_);
-      if (text === void 0) {
-        text = constant(select.text());
-        if (fontColor === void 0) box.fontColor(select.style("font-color"));
-        if (fontFamily === void 0) box.fontFamily(select.style("font-family"));
-        if (fontSize === void 0) box.fontSize(parseFloat(select.style("font-size"), 10));
-      }
+      select = d3.select(_);
+      if (fontColor === void 0) box.fontColor(select.style("font-color"));
+      if (fontFamily === void 0) box.fontFamily(select.style("font-family"));
+      if (fontSize === void 0) box.fontSize(parseFloat(select.style("font-size"), 10));
       return box;
     }
     return select;
@@ -168,6 +232,6 @@ export default function() {
     return arguments.length ? (y = typeof _ === "function" ? _ : constant(_), box) : y;
   };
 
-  return box;
+  return data.length ? box() : box;
 
 }
