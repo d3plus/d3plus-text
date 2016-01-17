@@ -162,6 +162,9 @@ export default function(data = []) {
 
         const tspans = d3.select(this).selectAll("tspan").data(lineData);
 
+        tspans.exit().transition().duration(duration)
+          .attr("opacity", 0).remove();
+
         tspans.transition().duration(duration).call(tspanStyle);
 
         tspans.enter().append("tspan")
