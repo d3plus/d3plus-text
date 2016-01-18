@@ -78,11 +78,11 @@ export default function(data = []) {
       fontFamily,
       fontMax = constant(50),
       fontMin = constant(8),
+      fontResize = constant(false),
       fontSize,
       height = boxHeight,
       id = boxId,
       lineHeight,
-      resize = false,
       select,
       split = boxSplit,
       text = boxText,
@@ -108,6 +108,8 @@ export default function(data = []) {
       .attr("text-anchor", (d, i) => textAnchor(d, i))
       .attr("font-family", (d, i) => fontFamily(d, i))
       .each(function(d, i) {
+
+        const resize = fontResize(d, i);
 
         let fS = resize ? fontMax(d, i) : fontSize(d, i),
             lH = resize ? fS * 1.1 : lineHeight(d, i),
@@ -284,6 +286,10 @@ export default function(data = []) {
     return arguments.length ? (fontMin = typeof _ === "function" ? _ : constant(_), box) : fontMin;
   };
 
+  box.fontResize = function(_) {
+    return arguments.length ? (fontResize = typeof _ === "function" ? _ : constant(_), box) : fontResize;
+  };
+
   box.fontSize = function(_) {
     if (arguments.length) {
       fontSize = typeof _ === "function" ? _ : constant(_);
@@ -303,10 +309,6 @@ export default function(data = []) {
 
   box.lineHeight = function(_) {
     return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), box) : lineHeight;
-  };
-
-  box.resize = function(_) {
-    return arguments.length ? (resize = _, box) : resize;
   };
 
   box.select = function(_) {
