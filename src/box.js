@@ -103,6 +103,7 @@ export default function(data = []) {
       .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`);
 
     boxes
+      .attr("y", (d, i) => `${y(d, i)}px`)
       .attr("fill", (d, i) => fontColor(d, i))
       .attr("text-anchor", (d, i) => textAnchor(d, i))
       .attr("font-family", (d, i) => fontFamily(d, i))
@@ -153,8 +154,6 @@ export default function(data = []) {
           }
 
           sizes = measure(words, style);
-
-          console.log(fS, sizes);
 
           for (let word of words) {
             const wordWidth = sizes[words.indexOf(word)];
