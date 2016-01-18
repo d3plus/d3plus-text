@@ -1,2 +1,4 @@
 build/*.zip
 test/
+test/libs
+test/index.html
