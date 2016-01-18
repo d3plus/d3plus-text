@@ -3,18 +3,6 @@ import {default as constant} from "./constant";
 import {default as measure} from "./width";
 
 /**
-    The default ellipsis function.
-    @private
-*/
-function boxEllipsis(_) {
-  if (_.includes(" ")) {
-    const a = _.split(/\s+/);
-    return _.replace(` ${a[a.length - 1]}`, "...");
-  }
-  return "...";
-}
-
-/**
     The default height accessor function.
     @private
 */
@@ -75,15 +63,26 @@ function boxY(d) {
 
 export default function(data = []) {
 
+  /**
+      The default ellipsis function.
+      @private
+  */
+  function boxEllipsis(_) {
+    return `${_}...`;
+  }
+
   let delay = 0,
       duration = 0,
       ellipsis = boxEllipsis,
       fontColor,
       fontFamily,
+      fontMax = constant(50),
+      fontMin = constant(8),
       fontSize,
       height = boxHeight,
       id = boxId,
       lineHeight,
+      resize = false,
       select,
       split = boxSplit,
       text = boxText,
@@ -107,17 +106,17 @@ export default function(data = []) {
       .attr("fill", (d, i) => fontColor(d, i))
       .attr("text-anchor", (d, i) => textAnchor(d, i))
       .attr("font-family", (d, i) => fontFamily(d, i))
-      .attr("font-size", (d, i) => `${fontSize(d, i)}px`)
-      .style("font-size", (d, i) => `${fontSize(d, i)}px`)
       .each(function(d, i) {
 
-        let line = 1,
-            textProg = "",
-            widthProg = 0;
+        let fS = resize ? fontMax(d, i) : fontSize(d, i),
+            lH = resize ? fS * 1.1 : lineHeight(d, i),
+            line = 1,
+            lineData = [""],
+            sizes;
 
-        const h = height(d, i),
-              lH = lineHeight(d, i),
-              lineData = [""],
+        const fMax = fontMax(d, i),
+              fMin = fontMin(d, i),
+              h = height(d, i),
               space = measure(" ", style),
               t = text(d, i),
               tA = textAnchor(d, i),
@@ -129,25 +128,54 @@ export default function(data = []) {
 
         const style = {
           "font-family": fontFamily(d, i),
-          "font-size": fontSize(d, i),
+          "font-size": fS,
           "line-height": lH
         };
 
-        if (h > lH) {
+        function checkSize() {
 
-          const sizes = measure(words, style);
+          line = 1;
+          lineData = [""];
+
+          if (fS < fMin) {
+            lineData = [];
+            return;
+          }
+          else if (fS > fMax) fS = fMax;
+
+          let textProg = "",
+              widthProg = 0;
+
+          if (resize) {
+            lH = fS * 1.1;
+            style["font-size"] = fS;
+            style["line-height"] = lH;
+          }
+
+          sizes = measure(words, style);
+
+          console.log(fS, sizes);
+
           for (let word of words) {
             const wordWidth = sizes[words.indexOf(word)];
             if (wordWidth > w) break;
             const nextChar = t.charAt(textProg.length + word.length);
             if (nextChar === " ") word += nextChar;
-            if (widthProg + wordWidth > w) {
+            if (widthProg + wordWidth > w - fS) {
               line++;
               if (lH * line > h) {
-                lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
+                if (resize) {
+                  fS--;
+                  if (fS < fMin) {
+                    lineData = [];
+                    break;
+                  }
+                  checkSize();
+                }
+                else lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
                 break;
               }
-              widthProg = wordWidth;
+              widthProg = 0;
               lineData.push(word);
             }
             else lineData[line - 1] += word;
@@ -155,6 +183,37 @@ export default function(data = []) {
             widthProg += wordWidth;
             if (nextChar === " ") widthProg += space;
           }
+
+        }
+
+        if (h > lH || resize) {
+
+          if (resize) {
+
+            sizes = measure(words, style);
+
+            const areaMod = 1.165 + w / h * 0.1,
+                  boxArea = w * h,
+                  maxWidth = d3.max(sizes),
+                  textArea = d3.sum(sizes, (d) => d * lH) * areaMod;
+
+            if (maxWidth > w || textArea > boxArea) {
+              const areaRatio = Math.sqrt(boxArea / textArea),
+                    widthRatio = w / maxWidth;
+              const sizeRatio = d3.min([areaRatio, widthRatio]);
+              fS = Math.floor(fS * sizeRatio);
+            }
+
+            const heightMax = Math.floor(h * 0.8);
+            if (fS > heightMax) fS = heightMax;
+
+          }
+
+          checkSize();
+
+          d3.select(this)
+            .attr("font-size", `${fS}px`)
+            .style("font-size", `${fS}px`);
 
         }
 
@@ -218,6 +277,14 @@ export default function(data = []) {
     return arguments.length ? (fontFamily = typeof _ === "function" ? _ : constant(_), box) : fontFamily;
   };
 
+  box.fontMax = function(_) {
+    return arguments.length ? (fontMax = typeof _ === "function" ? _ : constant(_), box) : fontMax;
+  };
+
+  box.fontMin = function(_) {
+    return arguments.length ? (fontMin = typeof _ === "function" ? _ : constant(_), box) : fontMin;
+  };
+
   box.fontSize = function(_) {
     if (arguments.length) {
       fontSize = typeof _ === "function" ? _ : constant(_);
@@ -237,6 +304,10 @@ export default function(data = []) {
 
   box.lineHeight = function(_) {
     return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), box) : lineHeight;
+  };
+
+  box.resize = function(_) {
+    return arguments.length ? (resize = _, box) : resize;
   };
 
   box.select = function(_) {
