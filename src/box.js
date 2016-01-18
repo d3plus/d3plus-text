@@ -87,6 +87,7 @@ export default function(data = []) {
       select,
       split = boxSplit,
       text = boxText,
+      textAnchor = constant("start"),
       width = boxWidth,
       x = boxX,
       y = boxY;
@@ -104,6 +105,7 @@ export default function(data = []) {
     boxes
       .attr("y", (d, i) => `${y(d, i) - fontSize(d, i) / 3.5}px`)
       .attr("fill", (d, i) => fontColor(d, i))
+      .attr("text-anchor", (d, i) => textAnchor(d, i))
       .attr("font-family", (d, i) => fontFamily(d, i))
       .attr("font-size", (d, i) => `${fontSize(d, i)}px`)
       .style("font-size", (d, i) => `${fontSize(d, i)}px`)
@@ -118,8 +120,11 @@ export default function(data = []) {
               lineData = [""],
               space = measure(" ", style),
               t = text(d, i),
+              tA = textAnchor(d, i),
               w = width(d, i),
               words = split(t, i);
+
+        const dx = tA === "start" ? 0 : tA === "end" ? w : w / 2;
 
         const style = {
           "font-family": fontFamily(d, i),
@@ -156,7 +161,7 @@ export default function(data = []) {
           tspan
             .text((d) => d.trimRight())
             .attr("x", `${x(d, i)}px`)
-            .attr("dx", "0px")
+            .attr("dx", `${dx}px`)
             .attr("dy", `${lH}px`);
         }
 
@@ -243,6 +248,10 @@ export default function(data = []) {
 
   box.text = function(_) {
     return arguments.length ? (text = typeof _ === "function" ? _ : constant(_), box) : text;
+  };
+
+  box.textAnchor = function(_) {
+    return arguments.length ? (textAnchor = typeof _ === "function" ? _ : constant(_), box) : textAnchor;
   };
 
   box.width = function(_) {
