@@ -88,6 +88,7 @@ export default function(data = []) {
       split = boxSplit,
       text = boxText,
       textAnchor = constant("start"),
+      verticalAlign = constant("top"),
       width = boxWidth,
       x = boxX,
       y = boxY;
@@ -103,7 +104,6 @@ export default function(data = []) {
       .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`);
 
     boxes
-      .attr("y", (d, i) => `${y(d, i) - fontSize(d, i) / 3.5}px`)
       .attr("fill", (d, i) => fontColor(d, i))
       .attr("text-anchor", (d, i) => textAnchor(d, i))
       .attr("font-family", (d, i) => fontFamily(d, i))
@@ -121,6 +121,7 @@ export default function(data = []) {
               space = measure(" ", style),
               t = text(d, i),
               tA = textAnchor(d, i),
+              vA = verticalAlign(d, i),
               w = width(d, i),
               words = split(t, i);
 
@@ -156,6 +157,13 @@ export default function(data = []) {
           }
 
         }
+
+        const tH = line * lH;
+        let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
+        y -= lH * 0.2;
+
+        d3.select(this).transition().duration(duration)
+          .attr("transform", `translate(0,${y})`);
 
         function tspanStyle(tspan) {
           tspan
@@ -252,6 +260,10 @@ export default function(data = []) {
 
   box.textAnchor = function(_) {
     return arguments.length ? (textAnchor = typeof _ === "function" ? _ : constant(_), box) : textAnchor;
+  };
+
+  box.verticalAlign = function(_) {
+    return arguments.length ? (verticalAlign = typeof _ === "function" ? _ : constant(_), box) : verticalAlign;
   };
 
   box.width = function(_) {
