@@ -25,8 +25,13 @@ npm install d3plus-text
 In a vanilla environment, a `d3plus_text` global is exported. To use a compiled version hosted on [d3js.org](https://d3js.org) and [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://d3plus.org/js/d3plus-text.v0.3.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3plus.org/js/d3plus-text.v0.3.min.js"></script>
+```
+
+This library was written in ES6 and compiled using Babel for use in modern browsers. If you'd like to use it in older browsers that may not support some features, you will need to include the Babel polyfill. We're hosting the latest version on [d3plus.org](https://d3plus.org), so just include this line before loading the library:
+```html
+<script src="http://d3plus.org/js/polyfill.min.js"></script>
 ```
 
 Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
