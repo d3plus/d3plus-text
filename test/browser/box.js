@@ -7,22 +7,23 @@ casper.on("page.error", function(msg, trace) {
   this.echo("function: " + trace[0].function, "WARNING");
 });
 
+casper.on("remote.message", function(msg) {
+    this.echo("Console message: " + msg);
+});
+
 casper.test.begin("Box Tests", function(test) {
 
   casper
     .start("http://localhost:4000/test/browser/box.html", function(){
-      test.assertElementCount("svg", 1);
 
-      // this.wait(1000, function(){
-      //   // this.capture("image.png", {
-      //   //   top: 0,
-      //   //   left: 0,
-      //   //   width: 500,
-      //   //   height: 500
-      //   // });
-      //   test.assertElementCount("rect", 1);
-      //   test.assertEquals(this.getElementAttribute("rect", "width"), "100", "Correct width");
-      // });
+      test.assertElementCount("svg", 1, "Automatically added <svg> element to page.");
+      test.assertElementCount("text", 1, "Created <text> container element.");
+      test.assertElementCount("tspan", 2, "Created 2 <tspan> elements.");
+      test.assertEval(function(){
+        var tspans = d3.selectAll("tspan")[0];
+        return tspans[0].textContent === "Hello D3plus, please wrap" &&
+               tspans[1].textContent === "this sentence for me.";
+      }, "Wrapped text correctly.");
 
     })
     .run(function(){

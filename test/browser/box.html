@@ -1,20 +1,16 @@
 <!doctype html>
 <meta charset="utf-8">
 
-<script src="../libs/d3-selection.v0.5.min.js"></script>
+<script src="../libs/polyfill.min.js"></script>
+<script src="../libs/d3.v3.5.13.min.js"></script>
 <script src="../../build/d3plus-text.js"></script>
 
 <body>
-  <svg width=500 height=500>
-    <text class="wrap">Hello World, I'd like this text to be wrapped.</text>
-  </svg>
 </body>
 
 <script>
 
-  // Javascript code should go here
-  d3plus_text.box()
-    .select(".wrap")
-    .width(100).height(50)();
+  var data = {"text": "Hello D3plus, please wrap this sentence for me."};
+  d3plus_text.box([data]);
 
 </script>
