@@ -23,7 +23,7 @@
     "url": "http://www.dave-landry.com"
   },
   "dependencies": {
-    "d3": "^3.5.12"
+    "d3": "^3.5.13"
   },
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.1.1",
