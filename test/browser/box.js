@@ -21,8 +21,13 @@ casper.test.begin("Box Tests", function(test) {
       test.assertElementCount("tspan", 2, "Created 2 <tspan> elements.");
       test.assertEval(function(){
         var tspans = d3.selectAll("tspan")[0];
-        return tspans[0].textContent === "Hello D3plus, please wrap" &&
-               tspans[1].textContent === "this sentence for me.";
+
+        function getText(t) {
+          return t.textContent || t.innerText;
+        }
+
+        return getText(tspans[0]) === "Hello D3plus, please wrap" &&
+               getText(tspans[1]) === "this sentence for me.";
       }, "Wrapped text correctly.");
 
     })
