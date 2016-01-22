@@ -1,7 +1,7 @@
 {
   "name": "d3plus-text",
   "version": "0.2.1",
-  "description": "Smart SVG text box with line wrapping and automatic font scaling.",
+  "description": "SVG text functions, including line wrapping with automatic font scaling.",
   "main": "build/d3plus-text.js",
   "jsnext:main": "index",
   "license": "MIT",
@@ -39,11 +39,13 @@
     "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "pretest": "mkdir -p build && rollup -c",
+    "pretest": "mkdir -p build && rollup -c .rollup.js",
     "dev": "npm run serve & nodemon --watch src/ -x \"npm run pretest\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "prepublish": "npm test && npm run docs && uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js && rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js",
+    "min": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
+    "prepublish": "npm test && npm run docs && npm run min && npm run zip",
     "serve": "static -p 4000",
-    "test": "npm run serve & eslint src/* test/browser/*.js && casperjs test ./test/browser/*.js && killall node"
+    "test": "eslint src/* test/browser/*.js",
+    "zip": "rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js"
   }
 }

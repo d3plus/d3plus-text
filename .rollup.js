@@ -1,5 +1,5 @@
-import json from "rollup-plugin-json";
 import babel from "rollup-plugin-babel";
+import json from "rollup-plugin-json";
 
 export default {
   dest: "build/d3plus-text.js",
@@ -8,5 +8,8 @@ export default {
   globals: function(id) { return id.replace(/-/g, "_"); },
   moduleId: "d3plus-text",
   moduleName: "d3plus_text",
-  plugins: [json(), babel({"presets": ["es2015-rollup"]})]
+  plugins: [
+    json(),
+    babel({"presets": ["es2015-rollup"]})
+  ]
 };
