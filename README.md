@@ -102,6 +102,7 @@ box([data]);
     * [.height([*value*])](#box.height)
     * [.id([*value*])](#box.id)
     * [.lineHeight([*value*])](#box.lineHeight)
+    * [.overflow([*value*])](#box.overflow)
     * [.select([*selector*])](#box.select)
     * [.split([*value*])](#box.split)
     * [.text([*value*])](#box.text)
@@ -258,6 +259,16 @@ If *value* is specified, sets the line height accessor to the specified function
 | Param | Type |
 | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | 
+
+<a name="box.overflow"></a>
+### box.overflow([*value*])
+If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this box generator. If *value* is not specified, returns the current overflow accessor.
+
+**Kind**: static method of <code>[box](#box)</code>  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>Boolean</code> | <code>false</code> | 
 
 <a name="box.select"></a>
 ### box.select([*selector*])
