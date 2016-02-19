@@ -23,7 +23,9 @@
     "url": "http://www.dave-landry.com"
   },
   "dependencies": {
-    "d3": "^3.5.13"
+    "d3-array": "^0.7.1",
+    "d3-selection": "^0.6.11",
+    "d3-transition": "^0.1.2"
   },
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.1.1",
@@ -36,16 +38,20 @@
     "rollup": "^0.25.1",
     "rollup-plugin-babel": "^2.3.8",
     "rollup-plugin-json": "^2.0.0",
+    "rollup-plugin-npm": "^1.4.0",
     "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "pretest": "mkdir -p build && rollup -c .rollup.js",
-    "dev": "npm run serve & nodemon --watch src/ -x \"npm run pretest\"",
+    "pretest": "npm run make:lite && npm run make:full && cp build/d3plus-text.full.js test/libs/d3plus-text.full.js",
+    "make:lite": "mkdir -p build && rollup -c .rollup.js",
+    "make:full": "mkdir -p build && rollup -c .rollup.full.js",
+    "dev": "npm run serve & nodemon --watch src/ -x \"npm run make:lite\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "min": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
-    "prepublish": "npm test && npm run docs && npm run min && npm run zip",
+    "min:lite": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
+    "min:full": "uglifyjs build/d3plus-text.full.js -c -m -o build/d3plus-text.full.min.js",
+    "prepublish": "npm test && npm run docs && npm run min:lite && npm run min:full && npm run zip",
     "serve": "static -p 4000",
     "test": "npm run serve & eslint index.js src/* && casperjs test ./test/browser/*.js && killall node",
-    "zip": "rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js"
+    "zip": "rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js build/d3plus-text.full.js build/d3plus-text.full.min.js"
   }
 }

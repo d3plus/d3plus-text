@@ -1,4 +1,14 @@
-import {default as d3} from "d3";
+import {select as d3Select} from "d3-selection";
+import {transition as d3Transition} from "d3-transition";
+import {max as d3Max, min as d3Min, sum as d3Sum} from "d3-array";
+const d3 = {
+  "max": d3Max,
+  "min": d3Min,
+  "select": d3Select,
+  "sum": d3Sum,
+  "transition": d3Transition
+};
+
 import {default as constant} from "./constant";
 import {default as measure} from "./width";
 

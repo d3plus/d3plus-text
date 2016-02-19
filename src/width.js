@@ -1,4 +1,4 @@
-import {default as d3} from "d3";
+import {select} from "d3-selection";
 
 /**
     @function width
@@ -8,7 +8,7 @@ import {default as d3} from "d3";
 */
 export default function(text, style = {"font-size": 10, "font-family": "sans-serif"}) {
 
-  const canvas = d3.select("body").selectAll("canvas#d3plus-text-size").data([0]);
+  const canvas = select("body").selectAll("canvas#d3plus-text-size").data([0]);
   canvas.enter().append("canvas")
     .attr("id", "d3plus-text-size")
     .style("position", "absolute")
