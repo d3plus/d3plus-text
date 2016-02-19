@@ -20,7 +20,7 @@ casper.test.begin("Box Tests", function(test) {
       test.assertElementCount("text", 1, "Created <text> container element.");
       test.assertElementCount("tspan", 2, "Created 2 <tspan> elements.");
       test.assertEval(function(){
-        var tspans = this.document.getElementsByTagName("tspan");
+        var tspans = __utils__.findAll("tspan");
 
         function getText(t) {
           return t.textContent || t.innerText;
