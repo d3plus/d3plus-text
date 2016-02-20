@@ -3,7 +3,11 @@ language: node_js
 node_js:
   - "node"
 
-before_script:
-  - "export PHANTOMJS_EXECUTABLE='phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes'"
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+addons:
+  apt:
+    packages:
+      - xvfb
+install:
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - npm install
