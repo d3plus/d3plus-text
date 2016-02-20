@@ -1,6 +1,6 @@
 import babel from "rollup-plugin-babel";
 import json from "rollup-plugin-json";
-import npm from "rollup-plugin-npm";
+import deps from "rollup-plugin-node-resolve";
 
 export default {
   dest: "build/d3plus-text.full.js",
@@ -11,7 +11,7 @@ export default {
   moduleName: "d3plus_text",
   plugins: [
     json(),
-    npm({"jsnext": true, "main": true}),
+    deps({"jsnext": true, "main": true}),
     babel({"presets": ["es2015-rollup"]})
   ]
 };
