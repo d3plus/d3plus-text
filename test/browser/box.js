@@ -8,7 +8,7 @@ casper.on("page.error", function(msg, trace) {
 });
 
 casper.on("remote.message", function(msg) {
-    this.echo("Console message: " + msg);
+  this.echo("Console message: " + msg);
 });
 
 casper.test.begin("Box Tests", function(test) {
