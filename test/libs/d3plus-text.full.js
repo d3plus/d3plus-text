@@ -795,7 +795,7 @@
 	  return this.each((typeof params === "function" ? dispatchFunction : dispatchConstant)(type, params));
 	}
 
-	var root$1 = [null];
+	var root = [null];
 
 	function Selection(groups, parents) {
 	  this._groups = groups;
@@ -803,7 +803,7 @@
 	}
 
 	function selection() {
-	  return new Selection([[document.documentElement]], root$1);
+	  return new Selection([[document.documentElement]], root);
 	}
 
 	Selection.prototype = selection.prototype = {
@@ -837,7 +837,7 @@
 	};
 
 	function select (selector) {
-	    return typeof selector === "string" ? new Selection([[document.querySelector(selector)]], [document.documentElement]) : new Selection([[selector]], root$1);
+	    return typeof selector === "string" ? new Selection([[document.querySelector(selector)]], [document.documentElement]) : new Selection([[selector]], root);
 	}
 
 	var bug44083 = typeof navigator !== "undefined" && /WebKit/.test(navigator.userAgent) ? -1 : 0;
@@ -1839,8 +1839,8 @@
 	}
 
 	var frame = 0;
-	var timeout = 0;
-	var interval = 0;
+	var timeout$1 = 0;
+	var interval$1 = 0;
 	var pokeDelay = 1000;
 	var taskHead;
 	var taskTail;
@@ -1904,7 +1904,7 @@
 
 	function wake(time) {
 	  clockNow = (clockLast = time || clock.now()) + clockSkew;
-	  frame = timeout = 0;
+	  frame = timeout$1 = 0;
 	  try {
 	    timerFlush();
 	  } finally {
@@ -1938,18 +1938,18 @@
 
 	function sleep(time) {
 	  if (frame) return; // Soonest alarm already set, or will be.
-	  if (timeout) timeout = clearTimeout(timeout);
+	  if (timeout$1) timeout$1 = clearTimeout(timeout$1);
 	  var delay = time - clockNow;
 	  if (delay > 24) {
-	    if (time < Infinity) timeout = setTimeout(wake, delay);
-	    if (interval) interval = clearInterval(interval);
+	    if (time < Infinity) timeout$1 = setTimeout(wake, delay);
+	    if (interval$1) interval$1 = clearInterval(interval$1);
 	  } else {
-	    if (!interval) interval = setInterval(poke, pokeDelay);
+	    if (!interval$1) interval$1 = setInterval(poke, pokeDelay);
 	    frame = 1, setFrame(wake);
 	  }
 	}
 
-	function timeout$1 (callback, delay, time) {
+	function timeout (callback, delay, time) {
 	  var t = new Timer();
 	  delay = delay == null ? 0 : +delay;
 	  t.restart(function (elapsed) {
@@ -2060,7 +2060,7 @@
 	    // Note the transition may be canceled after start and before the first tick!
 	    // Note this must be scheduled before the start event; see d3/d3-transition#16!
 	    // Assuming this is successful, subsequent callbacks go straight to tick.
-	    timeout$1(function () {
+	    timeout(function () {
 	      if (schedules.active === self) {
 	        self.timer.restart(tick, self.delay, self.time);
 	        tick(elapsed);
