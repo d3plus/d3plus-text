@@ -5,7 +5,7 @@ const url = "http://localhost:4000/test/browser/box.html";
 
 test("automatically added <svg> element to page", (assert) => {
   const page = nightmare();
-  page.goto(url)
+  page.goto(url).wait(500)
     .evaluate(() => document.getElementsByTagName("svg").length)
     .then((result) => {
       assert.equal(1, result);
@@ -17,7 +17,7 @@ test("automatically added <svg> element to page", (assert) => {
 
 test("created <text> container element", (assert) => {
   const page = nightmare();
-  page.goto(url)
+  page.goto(url).wait(500)
     .evaluate(() => document.getElementsByTagName("text").length)
     .then((result) => {
       assert.equal(1, result);
@@ -29,7 +29,7 @@ test("created <text> container element", (assert) => {
 
 test("created 2 <tspan> elements", (assert) => {
   const page = nightmare();
-  page.goto(url)
+  page.goto(url).wait(500)
     .evaluate(() => document.getElementsByTagName("tspan").length)
     .then((result) => {
       assert.equal(2, result);
@@ -41,7 +41,7 @@ test("created 2 <tspan> elements", (assert) => {
 
 test("wrapped text correctly", (assert) => {
   const page = nightmare();
-  page.goto(url)
+  page.goto(url).wait(500)
     .evaluate(() => {
 
       const tspans = document.getElementsByTagName("tspan");
