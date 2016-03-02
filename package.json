@@ -44,7 +44,7 @@
     "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "pretest": "npm run make:lite && npm run make:full && cp build/d3plus-text.full.js test/libs/d3plus-text.full.js",
+    "pretest": "npm run make:lite && npm run make:full",
     "make:lite": "mkdir -p build && rollup -c .rollup.js",
     "make:full": "mkdir -p build && rollup -c .rollup.full.js",
     "dev": "npm run serve & nodemon --watch src/ -x \"npm run make:lite\"",

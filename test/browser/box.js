@@ -46,12 +46,8 @@ test("wrapped text correctly", (assert) => {
 
       const tspans = document.getElementsByTagName("tspan");
 
-      function getText(t) {
-        return t.textContent || t.innerText;
-      }
-
-      return getText(tspans[0]) === "Hello D3plus, please wrap" &&
-             getText(tspans[1]) === "this sentence for me.";
+      return tspans[0].textContent === "Hello D3plus, please wrap" &&
+             tspans[1].textContent === "this sentence for me.";
 
     })
     .then((result) => {
