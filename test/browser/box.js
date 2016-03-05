@@ -46,13 +46,7 @@ test("wrapped text correctly", (assert) => {
 
       const tspans = document.getElementsByTagName("tspan");
 
-      let ret = "";
-      tspans.forEach((line) => {
-        ret += line.textContent;
-        ret += " - ";
-      });
-
-      return ret;
+      return tspans[0].textContent;
 
       // return tspans[0].textContent === "Hello D3plus, please wrap" &&
       //        tspans[1].textContent === "this sentence for me.";
