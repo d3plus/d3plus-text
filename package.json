@@ -52,7 +52,7 @@
     "min:lite": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
     "min:full": "uglifyjs build/d3plus-text.full.js -c -m -o build/d3plus-text.full.min.js",
     "lint": "eslint index.js src/* text/browser/*.js",
-    "prepublish": "npm test && npm run docs && npm run min:lite && npm run min:full && npm run zip",
+    "release": "npm test && npm run docs && npm run min:lite && npm run min:full && npm run zip && npm publish ./",
     "serve": "static -p 4000",
     "test": "npm run serve & npm run lint && babel-tape-runner ./test/browser/*.js | faucet && killall node",
     "zip": "rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js build/d3plus-text.full.js build/d3plus-text.full.min.js"
