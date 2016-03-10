@@ -44,7 +44,7 @@
     "uglify-js": "^2.6.1"
   },
   "scripts": {
-    "pretest": "npm run make:lite && npm run make:full",
+    "pretest": "npm run make:full",
     "make:lite": "mkdir -p build && rollup -c .rollup.js",
     "make:full": "mkdir -p build && rollup -c .rollup.full.js",
     "dev": "npm run serve & nodemon --watch src/ -x \"npm run make:full\"",
@@ -52,9 +52,9 @@
     "min:lite": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
     "min:full": "uglifyjs build/d3plus-text.full.js -c -m -o build/d3plus-text.full.min.js",
     "lint": "eslint index.js src/* text/browser/*.js",
-    "release": "npm test && npm run docs && npm run min:lite && npm run min:full && npm run zip && npm publish ./",
+    "release": "npm run make:lite && npm test && npm run docs && npm run min:lite && npm run min:full && npm run zip && npm publish ./",
     "serve": "static -p 4000",
-    "test": "npm run serve & npm run lint && babel-tape-runner ./test/browser/*.js | faucet && killall node",
+    "test": "npm run lint && babel-tape-runner ./test/browser/*.js | faucet",
     "zip": "rm -f build/d3plus-text.zip && zip -j build/d3plus-text.zip -- LICENSE README.md build/d3plus-text.js build/d3plus-text.min.js build/d3plus-text.full.js build/d3plus-text.full.min.js"
   }
 }
