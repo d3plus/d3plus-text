@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "d3-array": "^0.7.1",
-    "d3-selection": "^0.6.11",
-    "d3-transition": "^0.1.2"
+    "d3-selection": "^0.7.0",
+    "d3-transition": "^0.2.7"
   },
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.1.1",
@@ -47,7 +47,7 @@
     "pretest": "npm run make:lite && npm run make:full",
     "make:lite": "mkdir -p build && rollup -c .rollup.js",
     "make:full": "mkdir -p build && rollup -c .rollup.full.js",
-    "dev": "npm run serve & nodemon --watch src/ -x \"npm run make:lite\"",
+    "dev": "npm run serve & nodemon --watch src/ -x \"npm run make:full\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
     "min:lite": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
     "min:full": "uglifyjs build/d3plus-text.full.js -c -m -o build/d3plus-text.full.min.js",

@@ -132,165 +132,166 @@ export default function(data = []) {
 
     const boxes = select.selectAll(".d3plus-text-box").data(data, id);
 
+    boxes.exit().remove();
+
     boxes.enter().append("text")
-      .attr("class", "d3plus-text-box")
-      .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`);
+        .attr("class", "d3plus-text-box")
+        .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`)
+      .merge(boxes)
+        .attr("y", (d, i) => `${y(d, i)}px`)
+        .attr("fill", (d, i) => fontColor(d, i))
+        .attr("text-anchor", (d, i) => textAnchor(d, i))
+        .attr("font-family", (d, i) => fontFamily(d, i))
+        .each(function(d, i) {
 
-    boxes
-      .attr("y", (d, i) => `${y(d, i)}px`)
-      .attr("fill", (d, i) => fontColor(d, i))
-      .attr("text-anchor", (d, i) => textAnchor(d, i))
-      .attr("font-family", (d, i) => fontFamily(d, i))
-      .each(function(d, i) {
+          const resize = fontResize(d, i);
 
-        const resize = fontResize(d, i);
+          let fS = resize ? fontMax(d, i) : fontSize(d, i),
+              lH = resize ? fS * 1.1 : lineHeight(d, i),
+              line = 1,
+              lineData = [""],
+              sizes;
 
-        let fS = resize ? fontMax(d, i) : fontSize(d, i),
-            lH = resize ? fS * 1.1 : lineHeight(d, i),
-            line = 1,
-            lineData = [""],
-            sizes;
+          const fMax = fontMax(d, i),
+                fMin = fontMin(d, i),
+                h = height(d, i),
+                oF = overflow(d, i),
+                space = measure(" ", style),
+                t = text(d, i),
+                tA = textAnchor(d, i),
+                vA = verticalAlign(d, i),
+                w = width(d, i),
+                words = split(t, i);
 
-        const fMax = fontMax(d, i),
-              fMin = fontMin(d, i),
-              h = height(d, i),
-              oF = overflow(d, i),
-              space = measure(" ", style),
-              t = text(d, i),
-              tA = textAnchor(d, i),
-              vA = verticalAlign(d, i),
-              w = width(d, i),
-              words = split(t, i);
+          const dx = tA === "start" ? 0 : tA === "end" ? w : w / 2;
 
-        const dx = tA === "start" ? 0 : tA === "end" ? w : w / 2;
+          const style = {
+            "font-family": fontFamily(d, i),
+            "font-size": fS,
+            "line-height": lH
+          };
 
-        const style = {
-          "font-family": fontFamily(d, i),
-          "font-size": fS,
-          "line-height": lH
-        };
+          /**
+              Figures out the lineData to be used for wrapping.
+              @private
+          */
+          function checkSize() {
 
-        /**
-            Figures out the lineData to be used for wrapping.
-            @private
-        */
-        function checkSize() {
+            line = 1;
+            lineData = [""];
 
-          line = 1;
-          lineData = [""];
-
-          if (fS < fMin) {
-            lineData = [];
-            return;
-          }
-          else if (fS > fMax) fS = fMax;
-
-          let textProg = "",
-              widthProg = 0;
-
-          if (resize) {
-            lH = fS * 1.1;
-            style["font-size"] = fS;
-            style["line-height"] = lH;
-          }
-
-          sizes = measure(words, style);
-
-          for (let word of words) {
-            const nextChar = t.charAt(textProg.length + word.length),
-                  wordWidth = sizes[words.indexOf(word)];
-            if (nextChar === " ") word += nextChar;
-            if (widthProg + wordWidth > w - fS) {
-              line++;
-              if (lH * line > h || wordWidth > w && !oF) {
-                if (resize) {
-                  fS--;
-                  if (fS < fMin) {
-                    lineData = [];
-                    break;
-                  }
-                  checkSize();
-                }
-                else lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
-                break;
-              }
-              widthProg = 0;
-              lineData.push(word);
+            if (fS < fMin) {
+              lineData = [];
+              return;
             }
-            else lineData[line - 1] += word;
-            textProg += word;
-            widthProg += wordWidth;
-            if (nextChar === " ") widthProg += space;
-          }
+            else if (fS > fMax) fS = fMax;
 
-        }
+            let textProg = "",
+                widthProg = 0;
 
-        if (h > lH || resize) {
-
-          if (resize) {
+            if (resize) {
+              lH = fS * 1.1;
+              style["font-size"] = fS;
+              style["line-height"] = lH;
+            }
 
             sizes = measure(words, style);
 
-            const areaMod = 1.165 + w / h * 0.1,
-                  boxArea = w * h,
-                  maxWidth = d3.max(sizes),
-                  textArea = d3.sum(sizes, (d) => d * lH) * areaMod;
-
-            if (maxWidth > w || textArea > boxArea) {
-              const areaRatio = Math.sqrt(boxArea / textArea),
-                    widthRatio = w / maxWidth;
-              const sizeRatio = d3.min([areaRatio, widthRatio]);
-              fS = Math.floor(fS * sizeRatio);
+            for (let word of words) {
+              const nextChar = t.charAt(textProg.length + word.length),
+                    wordWidth = sizes[words.indexOf(word)];
+              if (nextChar === " ") word += nextChar;
+              if (widthProg + wordWidth > w - fS) {
+                line++;
+                if (lH * line > h || wordWidth > w && !oF) {
+                  if (resize) {
+                    fS--;
+                    if (fS < fMin) {
+                      lineData = [];
+                      break;
+                    }
+                    checkSize();
+                  }
+                  else lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
+                  break;
+                }
+                widthProg = 0;
+                lineData.push(word);
+              }
+              else lineData[line - 1] += word;
+              textProg += word;
+              widthProg += wordWidth;
+              if (nextChar === " ") widthProg += space;
             }
-
-            const heightMax = Math.floor(h * 0.8);
-            if (fS > heightMax) fS = heightMax;
 
           }
 
-          checkSize();
+          if (h > lH || resize) {
 
-          d3.select(this)
-            .attr("font-size", `${fS}px`)
-            .style("font-size", `${fS}px`);
+            if (resize) {
 
-        }
+              sizes = measure(words, style);
 
-        const tH = line * lH;
-        let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
-        y -= lH * 0.2;
+              const areaMod = 1.165 + w / h * 0.1,
+                    boxArea = w * h,
+                    maxWidth = d3.max(sizes),
+                    textArea = d3.sum(sizes, (d) => d * lH) * areaMod;
 
-        d3.select(this).transition().duration(duration)
-          .attr("transform", `translate(0,${y})`);
+              if (maxWidth > w || textArea > boxArea) {
+                const areaRatio = Math.sqrt(boxArea / textArea),
+                      widthRatio = w / maxWidth;
+                const sizeRatio = d3.min([areaRatio, widthRatio]);
+                fS = Math.floor(fS * sizeRatio);
+              }
 
-        /**
-            Styles to apply to each <tspan> element.
-            @private
-        */
-        function tspanStyle(tspan) {
-          tspan
-            .text((d) => d.trimRight())
-            .attr("x", `${x(d, i)}px`)
-            .attr("dx", `${dx}px`)
-            .attr("dy", `${lH}px`);
-        }
+              const heightMax = Math.floor(h * 0.8);
+              if (fS > heightMax) fS = heightMax;
 
-        const tspans = d3.select(this).selectAll("tspan").data(lineData);
+            }
 
-        tspans.exit().transition().duration(duration)
-          .attr("opacity", 0).remove();
+            checkSize();
 
-        tspans.transition().duration(duration).call(tspanStyle);
+            d3.select(this)
+              .attr("font-size", `${fS}px`)
+              .style("font-size", `${fS}px`);
 
-        tspans.enter().append("tspan")
-          .attr("dominant-baseline", "alphabetic")
-          .style("baseline-shift", "0%")
-          .attr("opacity", 0)
-          .call(tspanStyle)
-          .transition().duration(duration).delay(delay)
-            .attr("opacity", 1);
+          }
 
-      });
+          const tH = line * lH;
+          let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
+          y -= lH * 0.2;
+
+          d3.select(this).transition().duration(duration)
+            .attr("transform", `translate(0,${y})`);
+
+          /**
+              Styles to apply to each <tspan> element.
+              @private
+          */
+          function tspanStyle(tspan) {
+            tspan
+              .text((d) => d.trimRight())
+              .attr("x", `${x(d, i)}px`)
+              .attr("dx", `${dx}px`)
+              .attr("dy", `${lH}px`);
+          }
+
+          const tspans = d3.select(this).selectAll("tspan").data(lineData);
+
+          tspans.transition().duration(duration).call(tspanStyle);
+
+          tspans.exit().transition().duration(duration)
+            .attr("opacity", 0).remove();
+
+          tspans.enter().append("tspan")
+            .attr("dominant-baseline", "alphabetic")
+            .style("baseline-shift", "0%")
+            .attr("opacity", 0)
+            .call(tspanStyle)
+            .transition().duration(duration).delay(delay)
+              .attr("opacity", 1);
+
+        });
 
     return box;
 
