@@ -152,6 +152,12 @@ export default function(data = []) {
               lineData = [""],
               sizes;
 
+          const style = {
+            "font-family": fontFamily(d, i),
+            "font-size": fS,
+            "line-height": lH
+          };
+
           const fMax = fontMax(d, i),
                 fMin = fontMin(d, i),
                 h = height(d, i),
@@ -164,12 +170,6 @@ export default function(data = []) {
                 words = split(t, i);
 
           const dx = tA === "start" ? 0 : tA === "end" ? w : w / 2;
-
-          const style = {
-            "font-family": fontFamily(d, i),
-            "font-size": fS,
-            "line-height": lH
-          };
 
           /**
               Figures out the lineData to be used for wrapping.
