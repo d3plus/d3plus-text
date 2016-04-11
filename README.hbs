@@ -31,14 +31,14 @@ In a vanilla environment, a `d3plus_text` global is exported. To use a compiled 
 For development purposes, you can also load all dependencies separately:
 
 ```html
-<script src="https://d3js.org/d3-array.v0.6.min.js"></script>
+<script src="https://d3js.org/d3-array.v0.7.min.js"></script>
 <script src="https://d3js.org/d3-color.v0.4.min.js"></script>
 <script src="https://d3js.org/d3-dispatch.v0.4.min.js"></script>
 <script src="https://d3js.org/d3-ease.v0.7.min.js"></script>
-<script src="https://d3js.org/d3-interpolate.v0.5.min.js"></script>
-<script src="https://d3js.org/d3-selection.v0.6.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v0.7.min.js"></script>
+<script src="https://d3js.org/d3-selection.v0.7.min.js"></script>
 <script src="https://d3js.org/d3-timer.v0.4.min.js"></script>
-<script src="https://d3js.org/d3-transition.v0.1.min.js"></script>
+<script src="https://d3js.org/d3-transition.v0.2.min.js"></script>
 <script src="http://d3plus.org/js/d3plus-text.v0.4.min.js"></script>
 ```
 
