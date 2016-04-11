@@ -4,8 +4,8 @@
     "es6": true,
     "node": true
   },
-  "ecmaFeatures": {
-    "modules": true
+  parserOptions: {
+    sourceType: "module"
   },
   "rules": {
     "array-bracket-spacing": 2,
@@ -42,6 +42,7 @@
       }],
     "jsx-quotes": 2,
     "key-spacing": 2,
+    "keyword-spacing": 2,
     "lines-around-comment": 2,
     "max-nested-callbacks": 2,
     "new-cap": 2,
@@ -92,13 +93,10 @@
     "semi": 2,
     "semi-spacing": 2,
     "sort-vars": 2,
-    "space-after-keywords": 2,
-    "space-before-keywords": 2,
     "space-before-blocks": 2,
     "space-before-function-paren": [2, "never"],
     "space-in-parens": 2,
     "space-infix-ops": 2,
-    "space-return-throw-case": 2,
     "space-unary-ops": 2,
     "spaced-comment": 2,
     "use-isnan": 2,
