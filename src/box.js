@@ -89,6 +89,10 @@ box([data]);
     this sentence for me.
   </tspan>
 </text>
+@example <caption>this is shorthand for the following</caption>
+box().data([data])();
+@example <caption>which also allows a post-draw callback function</caption>
+box().data([data])(function() { alert("draw complete!"); })
 */
 export default function(data = []) {
 
@@ -126,7 +130,7 @@ export default function(data = []) {
       The inner return object and draw function that gets assigned the public methods.
       @private
   */
-  function box() {
+  function box(callback) {
 
     if (select === void 0) box.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
 
@@ -293,6 +297,8 @@ export default function(data = []) {
               .attr("opacity", 1);
 
         });
+
+    if (callback) setTimeout(callback, duration);
 
     return box;
 
