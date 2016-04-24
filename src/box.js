@@ -197,7 +197,8 @@ export default function(data = []) {
 
             sizes = measure(words, style);
 
-            for (let word of words) {
+            for (let i = 0; i < words.length; i++) {
+              let word = words[i];
               const nextChar = t.charAt(textProg.length + word.length),
                     wordWidth = sizes[words.indexOf(word)];
               if (nextChar === " ") word += nextChar;

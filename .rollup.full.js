@@ -1,4 +1,4 @@
-import babel from "rollup-plugin-babel";
+import buble from "rollup-plugin-buble";
 import json from "rollup-plugin-json";
 import deps from "rollup-plugin-node-resolve";
 
@@ -9,9 +9,5 @@ export default {
   globals: function(id) { return id.replace(/-/g, "_"); },
   moduleId: "d3plus-text",
   moduleName: "d3plus_text",
-  plugins: [
-    json(),
-    deps({"jsnext": true, "main": true}),
-    babel({"presets": ["es2015-rollup"]})
-  ]
+  plugins: [json(), deps({"jsnext": true, "main": true}), buble()]
 };
