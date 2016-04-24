@@ -1,5 +1,3 @@
-import {select} from "d3-selection";
-
 /**
     @function width
     @desc Given a text string, returns the predicted pixel width of the string when placed into DOM.
@@ -8,16 +6,7 @@ import {select} from "d3-selection";
 */
 export default function(text, style = {"font-size": 10, "font-family": "sans-serif"}) {
 
-  const canvas = select("body").selectAll("canvas#d3plus-text-size").data([0]);
-
-  const context = canvas.enter().append("canvas")
-      .attr("id", "d3plus-text-size")
-      .style("position", "absolute")
-      .style("left", "-9999px")
-      .style("top", "-9999px")
-      .style("visibility", "hidden")
-      .style("display", "block")
-    .merge(canvas).node().getContext("2d");
+  const context = document.createElement("canvas").getContext("2d");
 
   const font = [];
   if ("font-style" in style) font.push(style["font-style"]);
