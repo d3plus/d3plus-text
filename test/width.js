@@ -3,9 +3,15 @@ import {default as width} from "../src/width.js";
 
 test("width", (assert) => {
 
-  assert.equal(width("Test Text", {"font-family": "Verdana", "font-size": 14}), 65.4677734375, "small");
-  assert.equal(width("Test Text", {"font-family": "Verdana", "font-size": 28}), 130.935546875, "large");
-  assert.equal(width("Test Text", {"font-family": "Verdana", "font-size": 14, "font-weight": "bold"}), 72.8916015625, "bold");
+  const base = width("Test", {"font-family": "Verdana", "font-size": 14}),
+        bigger = width("Test", {"font-family": "Verdana", "font-size": 28}),
+        bolder = width("Test", {"font-family": "Verdana", "font-size": 14, "font-weight": "bold"}),
+        longer = width("TestTest", {"font-family": "Verdana", "font-size": 14});
+
+  assert.true(base * 2 === longer, "string length");
+  assert.true(base < bigger, "font-size");
+  assert.true(base < bolder, "font-weight");
+
   assert.end();
 
 });
