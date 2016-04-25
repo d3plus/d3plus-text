@@ -9,15 +9,25 @@ export default function(text, style = {"font-size": 10, "font-family": "sans-ser
   const context = document.createElement("canvas").getContext("2d");
 
   const font = [];
+
   if ("font-style" in style) font.push(style["font-style"]);
+  else font.push("normal");
+
   if ("font-variant" in style) font.push(style["font-variant"]);
+  else font.push("normal");
+
   if ("font-weight" in style) font.push(style["font-weight"]);
+  else font.push("normal");
+
   if ("font-size" in style) {
     let s = `${style["font-size"]}px`;
     if ("line-height" in style) s += `/${style["line-height"]}px`;
     font.push(s);
   }
+  else font.push("10px");
+
   if ("font-family" in style) font.push(style["font-family"]);
+  else font.push("sans-serif");
 
   context.font = font.join(" ");
 
