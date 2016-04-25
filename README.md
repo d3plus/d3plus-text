@@ -44,12 +44,6 @@ For development purposes, you can also load all dependencies separately:
 
 Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
 
-## ES6 Polyfill
-This library was written in ES6 and compiled using Babel for use in modern browsers. If you'd like to use it in older browsers that may not support some features, you will need to include the Babel polyfill. We're hosting the latest version on [d3plus.org](https://d3plus.org), so just include this line before loading the library:
-```html
-<script src="http://d3plus.org/js/polyfill.min.js"></script>
-```
-
 Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
 
 <a name="install.amd"></a>
@@ -75,6 +69,7 @@ The source code is written using standard `import` and `export` statements. Crea
 </dl>
 
 <a name="box"></a>
+
 ## box([data])
 Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this box generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#box.data) method.
 
@@ -103,6 +98,14 @@ box([data]);
   </tspan>
 </text>
 ```
+**Example** *(this is shorthand for the following)*  
+```js
+box().data([data])();
+```
+**Example** *(which also allows a post-draw callback function)*  
+```js
+box().data([data])(function() { alert("draw complete!"); })
+```
 
 * [box([data])](#box)
     * [.data([*data*])](#box.data)
@@ -129,6 +132,7 @@ box([data]);
     * [.y([*value*])](#box.y)
 
 <a name="box.data"></a>
+
 ### box.data([*data*])
 If *data* is specified, sets the data array to the specified array and returns this box generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
 
@@ -139,6 +143,7 @@ If *data* is specified, sets the data array to the specified array and returns t
 | [*data*] | <code>Array</code> | <code>[]</code> | 
 
 <a name="box.delay"></a>
+
 ### box.delay([*value*])
 If *value* is specified, sets the animation delay to the specified number and returns this box generator. If *value* is not specified, returns the current animation delay.
 
@@ -149,6 +154,7 @@ If *value* is specified, sets the animation delay to the specified number and re
 | [*value*] | <code>Number</code> | <code>0</code> | 
 
 <a name="box.duration"></a>
+
 ### box.duration([*value*])
 If *value* is specified, sets the animation duration to the specified number and returns this box generator. If *value* is not specified, returns the current animation duration.
 
@@ -159,6 +165,7 @@ If *value* is specified, sets the animation duration to the specified number and
 | [*value*] | <code>Number</code> | <code>0</code> | 
 
 <a name="box.ellipsis"></a>
+
 ### box.ellipsis([*value*])
 If *value* is specified, sets the ellipsis method to the specified function or string and returns this box generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
 
@@ -175,6 +182,7 @@ function(d) {
 }
 ```
 <a name="box.fontColor"></a>
+
 ### box.fontColor([*value*])
 If *value* is specified, sets the font color accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#box.select) by default.
 
@@ -185,6 +193,7 @@ If *value* is specified, sets the font color accessor to the specified function 
 | [*value*] | <code>function</code> &#124; <code>String</code> | 
 
 <a name="box.fontFamily"></a>
+
 ### box.fontFamily([*value*])
 If *value* is specified, sets the font family accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#box.select) by default.
 
@@ -195,6 +204,7 @@ If *value* is specified, sets the font family accessor to the specified function
 | [*value*] | <code>function</code> &#124; <code>String</code> | 
 
 <a name="box.fontMax"></a>
+
 ### box.fontMax([*value*])
 If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#box.fontResize) dynamically.
 
@@ -205,6 +215,7 @@ If *value* is specified, sets the maximum font size accessor to the specified fu
 | [*value*] | <code>function</code> &#124; <code>Number</code> | <code>50</code> | 
 
 <a name="box.fontMin"></a>
+
 ### box.fontMin([*value*])
 If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#box.fontResize) dynamically.
 
@@ -215,6 +226,7 @@ If *value* is specified, sets the minimum font size accessor to the specified fu
 | [*value*] | <code>function</code> &#124; <code>Number</code> | <code>8</code> | 
 
 <a name="box.fontResize"></a>
+
 ### box.fontResize([*value*])
 If *value* is specified, sets the font resizing accessor to the specified function or boolean and returns this box generator. If *value* is not specified, returns the current font resizing accessor.
 
@@ -225,6 +237,7 @@ If *value* is specified, sets the font resizing accessor to the specified functi
 | [*value*] | <code>function</code> &#124; <code>Boolean</code> | <code>false</code> | 
 
 <a name="box.fontSize"></a>
+
 ### box.fontSize([*value*])
 If *value* is specified, sets the font size accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#box.select) by default.
 
@@ -235,6 +248,7 @@ If *value* is specified, sets the font size accessor to the specified function o
 | [*value*] | <code>function</code> &#124; <code>Number</code> | 
 
 <a name="box.height"></a>
+
 ### box.height([*value*])
 If *value* is specified, sets the height accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current height accessor.
 
@@ -251,6 +265,7 @@ function(d) {
 }
 ```
 <a name="box.id"></a>
+
 ### box.id([*value*])
 If *value* is specified, sets the id accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current id accessor.
 
@@ -267,6 +282,7 @@ function(d, i) {
 }
 ```
 <a name="box.lineHeight"></a>
+
 ### box.lineHeight([*value*])
 If *value* is specified, sets the line height accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#box.fontSize) by default.
 
@@ -277,6 +293,7 @@ If *value* is specified, sets the line height accessor to the specified function
 | [*value*] | <code>function</code> &#124; <code>Number</code> | 
 
 <a name="box.overflow"></a>
+
 ### box.overflow([*value*])
 If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this box generator. If *value* is not specified, returns the current overflow accessor.
 
@@ -287,6 +304,7 @@ If *value* is specified, sets the overflow accessor to the specified function or
 | [*value*] | <code>function</code> &#124; <code>Boolean</code> | <code>false</code> | 
 
 <a name="box.select"></a>
+
 ### box.select([*selector*])
 If *selector* is specified, sets the SVG container element to the specified d3 selector or DOM element and returns this box generator. If *selector* is not specified, returns the current SVG container element, which adds an SVG element to the page by default.
 
@@ -297,6 +315,7 @@ If *selector* is specified, sets the SVG container element to the specified d3 s
 | [*selector*] | <code>String</code> &#124; <code>HTMLElement</code> | 
 
 <a name="box.split"></a>
+
 ### box.split([*value*])
 If *value* is specified, sets the word split function to the specified function and returns this box generator. If *value* is not specified, returns the current word split function.
 
@@ -307,6 +326,7 @@ If *value* is specified, sets the word split function to the specified function 
 | [*value*] | <code>function</code> | A function that, when passed a string, is expected to return that string split into an array of words to wrap. The default split function splits strings on the following characters: `-`, `/`, `;`, `:`, `&` |
 
 <a name="box.text"></a>
+
 ### box.text([*value*])
 If *value* is specified, sets the text accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current text accessor.
 
@@ -323,6 +343,7 @@ function(d) {
 }
 ```
 <a name="box.textAnchor"></a>
+
 ### box.textAnchor([*value*])
 If *value* is specified, sets the horizontal text anchor accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current horizontal text anchor accessor.
 
@@ -333,6 +354,7 @@ If *value* is specified, sets the horizontal text anchor accessor to the specifi
 | [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;start&quot;</code> | Analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property. |
 
 <a name="box.verticalAlign"></a>
+
 ### box.verticalAlign([*value*])
 If *value* is specified, sets the vertical alignment accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current vertical alignment accessor.
 
@@ -343,6 +365,7 @@ If *value* is specified, sets the vertical alignment accessor to the specified f
 | [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;top&quot;</code> | Accepts `"top"`, `"middle"`, and `"bottom"`. |
 
 <a name="box.width"></a>
+
 ### box.width([*value*])
 If *value* is specified, sets the width accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current width accessor.
 
@@ -359,6 +382,7 @@ function(d) {
 }
 ```
 <a name="box.x"></a>
+
 ### box.x([*value*])
 If *value* is specified, sets the x accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the box.
 
@@ -375,6 +399,7 @@ function(d) {
 }
 ```
 <a name="box.y"></a>
+
 ### box.y([*value*])
 If *value* is specified, sets the y accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the box.
 
@@ -391,6 +416,7 @@ function(d) {
 }
 ```
 <a name="width"></a>
+
 ## width(text, [style])
 Given a text string, returns the predicted pixel width of the string when placed into DOM.
 
