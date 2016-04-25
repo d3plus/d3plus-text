@@ -47,7 +47,7 @@
   "scripts": {
     "dev": "npm run serve & nodemon --watch src/ -x \"npm run make:full\"",
     "docs": "jsdoc2md 'src/**/*.js' -t README.hbs > README.md",
-    "lint": "eslint index.js src/* text/browser/*.js",
+    "lint": "eslint index.js src/* test/*.js",
     "make:lite": "mkdir -p build && rollup -c .rollup.js",
     "make:full": "mkdir -p build && rollup -c .rollup.full.js",
     "min:lite": "uglifyjs build/d3plus-text.js -c -m -o build/d3plus-text.min.js",
