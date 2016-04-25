@@ -22,9 +22,9 @@ test("box", (assert) => {
                 tspans[2].textContent === "please" &&
                 tspans[3].textContent === "wrap this" &&
                 tspans[4].textContent === "sentence" &&
-                tspans[5].textContent === "for me.", "fontResize");
+                tspans[5].textContent === "for me.", "font resizing");
+
+    assert.end();
 
   });
-
-  assert.end();
 });

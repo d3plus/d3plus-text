@@ -298,7 +298,7 @@ export default function(data = []) {
 
         });
 
-    if (callback) setTimeout(callback, duration);
+    if (callback) setTimeout(callback, duration + 100);
 
     return box;
 
