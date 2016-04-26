@@ -22,7 +22,7 @@ npm install d3plus-text
 
 <a name="install.browser"></a>
 ### Browser
-In a vanilla environment, a `d3plus_text` global is exported. To use a compiled version hosted on [d3js.org](https://d3js.org) and [d3plus.org](https://d3plus.org) that includes all dependencies:
+In a vanilla environment, a `d3plus_text` global is exported. To use a compiled version hosted on [d3plus.org](https://d3plus.org) that includes all dependencies:
 
 ```html
 <script src="https://d3plus.org/js/d3plus-text.v0.4.full.min.js"></script>
@@ -41,8 +41,6 @@ For development purposes, you can also load all dependencies separately:
 <script src="https://d3js.org/d3-transition.v0.2.min.js"></script>
 <script src="http://d3plus.org/js/d3plus-text.v0.4.min.js"></script>
 ```
-
-Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
 
 Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
 
