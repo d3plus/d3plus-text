@@ -133,6 +133,7 @@ export default function(data = []) {
   function box(callback) {
 
     if (select === void 0) box.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
+    if (lineHeight === void 0) lineHeight = constant(Math.ceil(fontSize() * 1.1));
 
     const boxes = select.selectAll(".d3plus-text-box").data(data, id);
 
@@ -217,6 +218,7 @@ export default function(data = []) {
                     }
                     checkSize();
                   }
+                  else if (line === 2 && !lineData[line - 2].trimRight().length) lineData = [];
                   else lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
                   break;
                 }
@@ -397,7 +399,6 @@ function(d) {
   box.fontSize = function(_) {
     if (arguments.length) {
       fontSize = typeof _ === "function" ? _ : constant(_);
-      if (lineHeight === void 0) lineHeight = constant(Math.ceil(fontSize() * 1.1));
       return box;
     }
     return fontSize;
