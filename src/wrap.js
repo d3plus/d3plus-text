@@ -1,5 +1,6 @@
 import {default as measure} from "./width";
 import {default as defaultSplit} from "./split";
+import {default as stringify} from "./stringify";
 
 /**
     @function wrap
@@ -20,6 +21,8 @@ export default function() {
       @private
   */
   function wrap(sentence) {
+
+    sentence = stringify(sentence);
 
     if (lineHeight === void 0) lineHeight = Math.ceil(fontSize * 1.1);
 

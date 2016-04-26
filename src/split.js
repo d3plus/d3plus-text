@@ -1,3 +1,5 @@
+import {default as stringify} from "./stringify";
+
 const splitChars = ["-", "/", ";", ":", "&"],
       splitRegex = new RegExp(`[^\\s\\${splitChars.join("\\")}]+\\${splitChars.join("?\\")}?`, "g");
 
@@ -7,7 +9,7 @@ const splitChars = ["-", "/", ";", ":", "&"],
     @param {String} sentence
 */
 export default function(sentence) {
-  return sentence.match(splitRegex);
+  return stringify(sentence).match(splitRegex);
 }
 
 export {splitChars, splitRegex};
