@@ -10,7 +10,9 @@ const d3 = {
 };
 
 import {default as constant} from "./constant";
+import {default as boxSplit} from "./split";
 import {default as measure} from "./width";
+import {default as wrap} from "./wrap";
 
 /**
     The default height accessor function.
@@ -26,17 +28,6 @@ function boxHeight(d) {
 */
 function boxId(d, i) {
   return d.id || `${i}`;
-}
-
-const splitChars = ["-", "/", ";", ":", "&"],
-      splitRegex = new RegExp(`[^\\s\\${splitChars.join("\\")}]+\\${splitChars.join("?\\")}?`, "g");
-
-/**
-    The default word split function.
-    @private
-*/
-function boxSplit(_) {
-  return _.match(splitRegex);
 }
 
 /**
@@ -74,7 +65,7 @@ function boxY(d) {
 
 /**
     @function box
-    @desc Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this box generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#box.data) method.
+    @desc Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#box.data) method.
     @param {Array} [data = []]
     @example <caption>a sample row of data</caption>
 var data = {"text": "Hello D3plus, please wrap this sentence for me."};
@@ -108,11 +99,11 @@ export default function(data = []) {
       duration = 0,
       ellipsis = boxEllipsis,
       fontColor,
-      fontFamily,
+      fontFamily = constant("sans-serif"),
       fontMax = constant(50),
       fontMin = constant(8),
       fontResize = constant(false),
-      fontSize,
+      fontSize = constant(10),
       height = boxHeight,
       id = boxId,
       lineHeight,
@@ -166,8 +157,6 @@ export default function(data = []) {
           const fMax = fontMax(d, i),
                 fMin = fontMin(d, i),
                 h = height(d, i),
-                oF = overflow(d, i),
-                space = measure(" ", style),
                 t = text(d, i),
                 tA = textAnchor(d, i),
                 vA = verticalAlign(d, i),
@@ -176,14 +165,19 @@ export default function(data = []) {
 
           const dx = tA === "start" ? 0 : tA === "end" ? w : w / 2;
 
+          const wrapper = wrap()
+            .fontFamily(style["font-family"])
+            .fontSize(fS)
+            .lineHeight(lH)
+            .height(h)
+            .overflow(overflow(d, i))
+            .width(w);
+
           /**
               Figures out the lineData to be used for wrapping.
               @private
           */
           function checkSize() {
-
-            line = 1;
-            lineData = [""];
 
             if (fS < fMin) {
               lineData = [];
@@ -191,45 +185,29 @@ export default function(data = []) {
             }
             else if (fS > fMax) fS = fMax;
 
-            let textProg = "",
-                widthProg = 0;
-
             if (resize) {
               lH = fS * 1.1;
+              wrapper
+                .fontSize(fS)
+                .lineHeight(lH);
               style["font-size"] = fS;
               style["line-height"] = lH;
             }
 
-            sizes = measure(words, style);
+            const wrapResults = wrapper(t);
+            lineData = wrapResults.lines;
+            line = lineData.length + 1;
 
-            for (let i = 0; i < words.length; i++) {
-              let word = words[i];
-              const nextChar = t.charAt(textProg.length + word.length),
-                    wordWidth = sizes[words.indexOf(word)];
-              if (nextChar === " ") word += nextChar;
-              if (widthProg + wordWidth > w - fS) {
-                line++;
-                if (lH * line > h || wordWidth > w && !oF) {
-                  if (resize) {
-                    fS--;
-                    if (fS < fMin) {
-                      lineData = [];
-                      break;
-                    }
-                    checkSize();
-                  }
-                  else if (line === 2 && !lineData[line - 2].trimRight().length) lineData = [];
-                  else lineData[line - 2] = ellipsis(lineData[line - 2].trimRight());
-                  break;
-                }
-                widthProg = 0;
-                lineData.push(word);
+            if (wrapResults.truncated)
+
+              if (resize) {
+                fS--;
+                if (fS < fMin) lineData = [];
+                else checkSize();
               }
-              else lineData[line - 1] += word;
-              textProg += word;
-              widthProg += wordWidth;
-              if (nextChar === " ") widthProg += space;
-            }
+              else if (line === 2 && !lineData[line - 2].length) lineData = [];
+              else lineData[line - 2] = ellipsis(lineData[line - 2]);
+
 
           }
 
@@ -308,7 +286,7 @@ export default function(data = []) {
 
   /**
       @memberof box
-      @desc If *data* is specified, sets the data array to the specified array and returns this box generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
+      @desc If *data* is specified, sets the data array to the specified array and returns this generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
       @param {Array} [*data* = []]
   */
   box.data = function(_) {
@@ -317,7 +295,7 @@ export default function(data = []) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the animation delay to the specified number and returns this box generator. If *value* is not specified, returns the current animation delay.
+      @desc If *value* is specified, sets the animation delay to the specified number and returns this generator. If *value* is not specified, returns the current animation delay.
       @param {Number} [*value* = 0]
   */
   box.delay = function(_) {
@@ -326,7 +304,7 @@ export default function(data = []) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the animation duration to the specified number and returns this box generator. If *value* is not specified, returns the current animation duration.
+      @desc If *value* is specified, sets the animation duration to the specified number and returns this generator. If *value* is not specified, returns the current animation duration.
       @param {Number} [*value* = 0]
   */
   box.duration = function(_) {
@@ -335,7 +313,7 @@ export default function(data = []) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the ellipsis method to the specified function or string and returns this box generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
+      @desc If *value* is specified, sets the ellipsis method to the specified function or string and returns this generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
       @param {Function|String} [*value*]
       @example
 function(d) {
@@ -348,7 +326,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the font color accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#box.select) by default.
+      @desc If *value* is specified, sets the font color accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#box.select) by default.
       @param {Function|String} [*value*]
   */
   box.fontColor = function(_) {
@@ -357,7 +335,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#box.select) by default.
+      @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#box.select) by default.
       @param {Function|String} [*value*]
   */
   box.fontFamily = function(_) {
@@ -366,7 +344,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#box.fontResize) dynamically.
+      @desc If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#box.fontResize) dynamically.
       @param {Function|Number} [*value* = 50]
   */
   box.fontMax = function(_) {
@@ -375,7 +353,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#box.fontResize) dynamically.
+      @desc If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#box.fontResize) dynamically.
       @param {Function|Number} [*value* = 8]
   */
   box.fontMin = function(_) {
@@ -384,7 +362,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the font resizing accessor to the specified function or boolean and returns this box generator. If *value* is not specified, returns the current font resizing accessor.
+      @desc If *value* is specified, sets the font resizing accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current font resizing accessor.
       @param {Function|Boolean} [*value* = false]
   */
   box.fontResize = function(_) {
@@ -393,20 +371,16 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#box.select) by default.
+      @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#box.select) by default.
       @param {Function|Number} [*value*]
   */
   box.fontSize = function(_) {
-    if (arguments.length) {
-      fontSize = typeof _ === "function" ? _ : constant(_);
-      return box;
-    }
-    return fontSize;
+    return arguments.length ? (fontSize = typeof _ === "function" ? _ : constant(_), box) : fontSize;
   };
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the height accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current height accessor.
+      @desc If *value* is specified, sets the height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current height accessor.
       @param {Function|Number} [*value*]
       @example
 function(d) {
@@ -419,7 +393,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the id accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current id accessor.
+      @desc If *value* is specified, sets the id accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current id accessor.
       @param {Function|Number} [*value*]
       @example
 function(d, i) {
@@ -432,7 +406,7 @@ function(d, i) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the line height accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#box.fontSize) by default.
+      @desc If *value* is specified, sets the line height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#box.fontSize) by default.
       @param {Function|Number} [*value*]
   */
   box.lineHeight = function(_) {
@@ -441,7 +415,7 @@ function(d, i) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this box generator. If *value* is not specified, returns the current overflow accessor.
+      @desc If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current overflow accessor.
       @param {Function|Boolean} [*value* = false]
   */
   box.overflow = function(_) {
@@ -450,7 +424,7 @@ function(d, i) {
 
   /**
       @memberof box
-      @desc If *selector* is specified, sets the SVG container element to the specified d3 selector or DOM element and returns this box generator. If *selector* is not specified, returns the current SVG container element, which adds an SVG element to the page by default.
+      @desc If *selector* is specified, sets the SVG container element to the specified d3 selector or DOM element and returns this generator. If *selector* is not specified, returns the current SVG container element, which adds an SVG element to the page by default.
       @param {String|HTMLElement} [*selector*]
   */
   box.select = function(_) {
@@ -466,7 +440,7 @@ function(d, i) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the word split function to the specified function and returns this box generator. If *value* is not specified, returns the current word split function.
+      @desc If *value* is specified, sets the word split function to the specified function and returns this generator. If *value* is not specified, returns the current word split function.
       @param {Function} [*value*] A function that, when passed a string, is expected to return that string split into an array of words to wrap. The default split function splits strings on the following characters: `-`, `/`, `;`, `:`, `&`
   */
   box.split = function(_) {
@@ -475,7 +449,7 @@ function(d, i) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the text accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current text accessor.
+      @desc If *value* is specified, sets the text accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current text accessor.
       @param {Function|String} [*value*]
       @example
 function(d) {
@@ -488,7 +462,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the horizontal text anchor accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current horizontal text anchor accessor.
+      @desc If *value* is specified, sets the horizontal text anchor accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current horizontal text anchor accessor.
       @param {Function|String} [*value* = "start"] Analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property.
   */
   box.textAnchor = function(_) {
@@ -497,7 +471,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the vertical alignment accessor to the specified function or string and returns this box generator. If *value* is not specified, returns the current vertical alignment accessor.
+      @desc If *value* is specified, sets the vertical alignment accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current vertical alignment accessor.
       @param {Function|String} [*value* = "top"] Accepts `"top"`, `"middle"`, and `"bottom"`.
   */
   box.verticalAlign = function(_) {
@@ -506,7 +480,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the width accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current width accessor.
+      @desc If *value* is specified, sets the width accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current width accessor.
       @param {Function|Number} [*value*]
       @example
 function(d) {
@@ -519,7 +493,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the x accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the box.
+      @desc If *value* is specified, sets the x accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the box.
       @param {Function|Number} [*value*]
       @example
 function(d) {
@@ -532,7 +506,7 @@ function(d) {
 
   /**
       @memberof box
-      @desc If *value* is specified, sets the y accessor to the specified function or number and returns this box generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the box.
+      @desc If *value* is specified, sets the y accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the box.
       @param {Function|Number} [*value*]
       @example
 function(d) {
