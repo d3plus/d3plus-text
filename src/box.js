@@ -124,7 +124,7 @@ export default function(data = []) {
   function box(callback) {
 
     if (select === void 0) box.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
-    if (lineHeight === void 0) lineHeight = constant(Math.ceil(fontSize() * 1.1));
+    if (lineHeight === void 0) lineHeight = (d, i) => fontSize(d, i) * 1.1;
 
     const boxes = select.selectAll(".d3plus-text-box").data(data, id);
 
