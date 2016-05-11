@@ -66,7 +66,7 @@ export default function() {
 
     return {
       "lines": lineData,
-      sentence, truncated
+      sentence, truncated, words
     };
 
   }
