@@ -9,8 +9,9 @@ const splitChars = ["-",  "/",  ";",  ":",  "&",
                     "u0EC6",  // lao ko la (word repetition)
                     "u104A",  // myanmar sign little section
                     "u104B",  // myanmar sign section
-                    "u104D",  // myanmar symbol locative
+                    "u104C",  // myanmar symbol locative
                     "u104D",  // myanmar symbol completed
+                    "u104E",  // myanmar symbol aforementioned
                     "u104F",  // myanmar symbol genitive
                     "u2013",  // en dash
                     "u2014",  // em dash
@@ -33,17 +34,17 @@ const suffixChars = ["'",  ">",  ")",  "}",  "]",  ".",  "!",  "?",
                      "u3009"  // right angle bracket
                    ].concat(splitChars);
 
-const burmeseRange = "\u1000-\u102A\u103F-\u1055";
+const burmeseRange = "\u1000-\u102A\u103F-\u1049\u1050-\u1055";
 const japaneseRange = "\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u3400-\u4dbf";
 const chineseRange = "\u3400-\u9FBF";
 const laoRange = "\u0E80-\u0EFF";
 
 const noSpaceRange = burmeseRange + chineseRange + laoRange;
 
-const splitWords = new RegExp(`[^\\s\\${splitChars.join("|\\")}]+(\\${splitChars.join("|\\")})*`, "g");
+const splitWords = new RegExp(`[^\\s|\\${splitChars.join("|\\")}]+(\\${splitChars.join("|\\")})*`, "g");
 const japaneseChars = new RegExp(`[${japaneseRange}]`);
 const noSpaceLanguage = new RegExp(`[${noSpaceRange}]`);
-const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange}](\\${suffixChars.join("|\\")}|\\${combiningMarks.join("|\\")})*`, "g");
+const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange}]|[a-z0-9]+(\\${suffixChars.join("|\\")}|\\${combiningMarks.join("|\\")})*`, "gi");
 
 /**
     @function width
