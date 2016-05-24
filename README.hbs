@@ -25,7 +25,7 @@ npm install d3plus-text
 In a vanilla environment, a `d3plus_text` global is exported. To use a compiled version hosted on [d3plus.org](https://d3plus.org) that includes all dependencies:
 
 ```html
-<script src="https://d3plus.org/js/d3plus-text.v0.4.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-text.v0.5.full.min.js"></script>
 ```
 
 For development purposes, you can also load all dependencies separately:
