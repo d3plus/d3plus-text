@@ -128,7 +128,10 @@ export default function(data = []) {
 
     const boxes = select.selectAll(".d3plus-text-box").data(data, id);
 
-    boxes.exit().remove();
+    boxes.exit().transition().delay(duration).remove();
+
+    boxes.exit().selectAll("tspan").transition().duration(duration)
+      .attr("opacity", 0);
 
     boxes.enter().append("text")
         .attr("class", "d3plus-text-box")
