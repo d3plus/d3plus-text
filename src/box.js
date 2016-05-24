@@ -242,12 +242,13 @@ export default function(data = []) {
 
           }
 
-          const tH = line * lH;
+          const tB = d3.select(this),
+                tH = line * lH;
           let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
           y -= lH * 0.2;
 
-          d3.select(this).transition().duration(duration)
-            .attr("transform", `translate(0,${y})`);
+          if (tB.attr("transform") === null) tB.attr("transform", `translate(0,${y})`);
+          else tB.transition().duration(duration).attr("transform", `translate(0,${y})`);
 
           /**
               Styles to apply to each <tspan> element.
