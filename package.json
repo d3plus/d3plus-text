@@ -1,6 +1,6 @@
 {
   "name": "d3plus-text",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "SVG text functions, including line wrapping with automatic font scaling.",
   "main": "build/d3plus-text.js",
   "jsnext:main": "index",
