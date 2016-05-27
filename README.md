@@ -39,7 +39,7 @@ For development purposes, you can also load all dependencies separately:
 <script src="https://d3js.org/d3-selection.v0.7.min.js"></script>
 <script src="https://d3js.org/d3-timer.v0.4.min.js"></script>
 <script src="https://d3js.org/d3-transition.v0.2.min.js"></script>
-<script src="http://d3plus.org/js/d3plus-text.v0.4.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-text.v0.5.min.js"></script>
 ```
 
 Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
