@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "d3-array": "^1.0.0",
-    "d3-selection": "^0.7.0",
+    "d3-selection": "^0.8.0",
     "d3-transition": "^0.2.8"
   },
   "devDependencies": {
