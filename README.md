@@ -3,9 +3,8 @@
 [![NPM Release](http://img.shields.io/npm/v/d3plus-text.svg?style=flat-square)](https://www.npmjs.org/package/d3plus-text)
 [![Build Status](https://travis-ci.org/d3plus/d3plus-text.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-text)
 [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-text.svg?style=flat-square)](https://david-dm.org/d3plus/d3plus-text)
-[![Dependency Status](http://img.shields.io/david/dev/d3plus/d3plus-text.svg?style=flat-square)](https://david-dm.org/d3plus/d3plus-text#info=devDependencies)
 
-A javascript library that contains various text functions, most notably SVG text wrapping with automatic font size scaling.
+A smart SVG text box with line wrapping and automatic font size scaling.
 
 ## Installation Options
 
@@ -25,28 +24,14 @@ npm install d3plus-text
 In a vanilla environment, a `d3plus_text` global is exported. To use a compiled version hosted on [d3plus.org](https://d3plus.org) that includes all dependencies:
 
 ```html
-<script src="https://d3plus.org/js/d3plus-text.v0.5.full.min.js"></script>
-```
-
-For development purposes, you can also load all dependencies separately:
-
-```html
-<script src="https://d3js.org/d3-array.v0.7.min.js"></script>
-<script src="https://d3js.org/d3-color.v0.4.min.js"></script>
-<script src="https://d3js.org/d3-dispatch.v0.4.min.js"></script>
-<script src="https://d3js.org/d3-ease.v0.7.min.js"></script>
-<script src="https://d3js.org/d3-interpolate.v0.7.min.js"></script>
-<script src="https://d3js.org/d3-selection.v0.7.min.js"></script>
-<script src="https://d3js.org/d3-timer.v0.4.min.js"></script>
-<script src="https://d3js.org/d3-transition.v0.2.min.js"></script>
-<script src="https://d3plus.org/js/d3plus-text.v0.5.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-text.v0.6.full.min.js"></script>
 ```
 
 Otherwise, [click here](https://github.com/d3plus/d3plus-text/releases/latest) to download the latest release.
 
 <a name="install.amd"></a>
 ### AMD and CommonJS
-The released bundle natively supports both AMD and CommonJS, and vanilla environments.
+The released bundle natively supports both AMD and CommonJS, in addition to vanilla environments.
 
 <a name="install.custom"></a>
 ### Custom Builds
