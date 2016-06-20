@@ -9,7 +9,7 @@ const d3 = {
   "transition": d3Transition
 };
 
-import {constant} from "d3plus-common";
+import {accessor, constant} from "d3plus-common";
 import {default as boxSplit} from "./split";
 import {default as measure} from "./width";
 import {default as wrap} from "./wrap";
@@ -28,14 +28,6 @@ function boxHeight(d) {
 */
 function boxId(d, i) {
   return d.id || `${i}`;
-}
-
-/**
-    The default text accessor function.
-    @private
-*/
-function boxText(d) {
-  return d.text;
 }
 
 /**
@@ -110,7 +102,7 @@ export default function(data = []) {
       overflow = constant(false),
       select,
       split = boxSplit,
-      text = boxText,
+      text = accessor("text"),
       textAnchor = constant("start"),
       verticalAlign = constant("top"),
       width = boxWidth,
