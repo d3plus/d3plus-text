@@ -9,7 +9,7 @@ const d3 = {
   "transition": d3Transition
 };
 
-import {default as constant} from "./constant";
+import {constant} from "d3plus-common";
 import {default as boxSplit} from "./split";
 import {default as measure} from "./width";
 import {default as wrap} from "./wrap";
