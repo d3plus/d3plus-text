@@ -38,6 +38,7 @@
     "handle-callback-err": 2,
     "id-match": 2,
     "indent": [2, 2, {
+      "SwitchCase": 1,
       "VariableDeclarator": {"var": 2, "let": 2, "const": 3}
       }],
     "jsx-quotes": 2,
