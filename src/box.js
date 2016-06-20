@@ -120,9 +120,11 @@ export default function(data = []) {
 
     const boxes = select.selectAll(".d3plus-text-box").data(data, id);
 
+    const t = d3.transition().duration(duration);
+
     boxes.exit().transition().delay(duration).remove();
 
-    boxes.exit().selectAll("tspan").transition().duration(duration)
+    boxes.exit().selectAll("tspan").transition(t)
       .attr("opacity", 0);
 
     boxes.enter().append("text")
@@ -243,7 +245,7 @@ export default function(data = []) {
           y -= lH * 0.2;
 
           if (tB.attr("transform") === null) tB.attr("transform", `translate(0,${y})`);
-          else tB.transition().duration(duration).attr("transform", `translate(0,${y})`);
+          else tB.transition(t).attr("transform", `translate(0,${y})`);
 
           /**
               Styles to apply to each <tspan> element.
@@ -259,9 +261,9 @@ export default function(data = []) {
 
           const tspans = d3.select(this).selectAll("tspan").data(lineData);
 
-          tspans.transition().duration(duration).call(tspanStyle);
+          tspans.transition(t).call(tspanStyle);
 
-          tspans.exit().transition().duration(duration)
+          tspans.exit().transition(t)
             .attr("opacity", 0).remove();
 
           tspans.enter().append("tspan")
@@ -269,7 +271,7 @@ export default function(data = []) {
             .style("baseline-shift", "0%")
             .attr("opacity", 0)
             .call(tspanStyle)
-            .transition().duration(duration).delay(delay)
+            .transition(t).delay(delay)
               .attr("opacity", 1);
 
         });
