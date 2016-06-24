@@ -15,43 +15,11 @@ import {default as measure} from "./width";
 import {default as wrap} from "./wrap";
 
 /**
-    The default height accessor function.
-    @private
-*/
-function boxHeight(d) {
-  return d.height || 200;
-}
-
-/**
     The default id accessor function.
     @private
 */
 function boxId(d, i) {
   return d.id || `${i}`;
-}
-
-/**
-    The default width accessor function.
-    @private
-*/
-function boxWidth(d) {
-  return d.width || 200;
-}
-
-/**
-    The default x accessor function.
-    @private
-*/
-function boxX(d) {
-  return d.x || 0;
-}
-
-/**
-    The default y accessor function.
-    @private
-*/
-function boxY(d) {
-  return d.y || 0;
 }
 
 
@@ -96,7 +64,7 @@ export default function(data = []) {
       fontMin = constant(8),
       fontResize = constant(false),
       fontSize = constant(10),
-      height = boxHeight,
+      height = accessor("height", 200),
       id = boxId,
       lineHeight,
       overflow = constant(false),
@@ -105,9 +73,9 @@ export default function(data = []) {
       text = accessor("text"),
       textAnchor = constant("start"),
       verticalAlign = constant("top"),
-      width = boxWidth,
-      x = boxX,
-      y = boxY;
+      width = accessor("width", 200),
+      x = accessor("x", 0),
+      y = accessor("y", 0);
 
   /**
       The inner return object and draw function that gets assigned the public methods.
