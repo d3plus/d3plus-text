@@ -161,7 +161,7 @@ export default function(data = []) {
 
             const wrapResults = wrapper(t);
             lineData = wrapResults.lines;
-            line = lineData.length + 1;
+            line = lineData.length;
 
             if (wrapResults.truncated)
 
