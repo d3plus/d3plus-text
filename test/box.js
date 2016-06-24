@@ -3,7 +3,7 @@ import {default as box} from "../src/box.js";
 
 test("box", (assert) => {
 
-  const data = {"text": "Hello D3plus, please wrap this sentence for me."};
+  const data = {text: "Hello D3plus, please wrap this sentence for me."};
   const testBox = box().data([data]).fontFamily("Verdana").fontSize(14)();
 
   assert.equal(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
