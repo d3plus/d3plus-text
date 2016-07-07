@@ -55,6 +55,8 @@ export default function(data = []) {
     return `${_}...`;
   }
 
+  const on = {};
+
   let delay = 0,
       duration = 0,
       ellipsis = boxEllipsis,
@@ -95,7 +97,7 @@ export default function(data = []) {
     boxes.exit().selectAll("tspan").transition(t)
       .attr("opacity", 0);
 
-    boxes.enter().append("text")
+    const update = boxes.enter().append("text")
         .attr("class", "d3plus-text-box")
         .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`)
       .merge(boxes)
@@ -163,7 +165,7 @@ export default function(data = []) {
             lineData = wrapResults.lines;
             line = lineData.length;
 
-            if (wrapResults.truncated)
+            if (wrapResults.truncated) {
 
               if (resize) {
                 fS--;
@@ -172,6 +174,8 @@ export default function(data = []) {
               }
               else if (line === 2 && !lineData[line - 2].length) lineData = [];
               else lineData[line - 2] = ellipsis(lineData[line - 2]);
+
+            }
 
 
           }
@@ -243,6 +247,9 @@ export default function(data = []) {
               .attr("opacity", 1);
 
         });
+
+    const events = Object.keys(on);
+    for (let e = 0; e < events.length; e++) update.on(events[e], on[events[e]]);
 
     if (callback) setTimeout(callback, duration + 100);
 
@@ -377,6 +384,16 @@ function(d, i) {
   */
   box.lineHeight = function(_) {
     return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), box) : lineHeight;
+  };
+
+  /**
+      @memberof box
+      @desc Adds or removes a *listener* to each box for the specified event *typenames*. If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename*. Mirrors the core [d3-selection](https://github.com/d3/d3-selection#selection_on) behavior.
+      @param {String} [*typenames*]
+      @param {Function} [*listener*]
+  */
+  box.on = function(typenames, listener) {
+    return arguments.length === 2 ? (on[typenames] = listener, box) : arguments.length ? on[typenames] : on;
   };
 
   /**
