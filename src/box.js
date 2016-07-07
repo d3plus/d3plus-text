@@ -259,6 +259,23 @@ export default function(data = []) {
 
   /**
       @memberof box
+      @desc If *value* is specified, sets the methods that correspond to the key/value pairs and returns this generator. If *value* is not specified, returns the current configuration.
+      @param {Object} [*value*]
+  */
+  box.config = function(_) {
+    if (arguments.length) {
+      for (const k in _) if ({}.hasOwnProperty.call(_, k)) box[k](_[k]);
+      return box;
+    }
+    else {
+      const config = {};
+      for (const k in box.prototype.constructor) if (k !== "config" && {}.hasOwnProperty.call(box, k)) config[k] = box[k]();
+      return config;
+    }
+  };
+
+  /**
+      @memberof box
       @desc If *data* is specified, sets the data array to the specified array and returns this generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
       @param {Array} [*data* = []]
   */
