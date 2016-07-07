@@ -100,6 +100,7 @@ box().data([data])(function() { alert("draw complete!"); })
 ```
 
 * [box([data])](#box)
+    * [.config([*value*])](#box.config)
     * [.data([*data*])](#box.data)
     * [.delay([*value*])](#box.delay)
     * [.duration([*value*])](#box.duration)
@@ -113,6 +114,7 @@ box().data([data])(function() { alert("draw complete!"); })
     * [.height([*value*])](#box.height)
     * [.id([*value*])](#box.id)
     * [.lineHeight([*value*])](#box.lineHeight)
+    * [.on([*typenames*], [*listener*])](#box.on)
     * [.overflow([*value*])](#box.overflow)
     * [.select([*selector*])](#box.select)
     * [.split([*value*])](#box.split)
@@ -122,6 +124,17 @@ box().data([data])(function() { alert("draw complete!"); })
     * [.width([*value*])](#box.width)
     * [.x([*value*])](#box.x)
     * [.y([*value*])](#box.y)
+
+<a name="box.config"></a>
+
+### box.config([*value*])
+If *value* is specified, sets the methods that correspond to the key/value pairs and returns this generator. If *value* is not specified, returns the current configuration.
+
+**Kind**: static method of <code>[box](#box)</code>  
+
+| Param | Type |
+| --- | --- |
+| [*value*] | <code>Object</code> | 
 
 <a name="box.data"></a>
 
@@ -283,6 +296,18 @@ If *value* is specified, sets the line height accessor to the specified function
 | Param | Type |
 | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | 
+
+<a name="box.on"></a>
+
+### box.on([*typenames*], [*listener*])
+Adds or removes a *listener* to each box for the specified event *typenames*. If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename*. Mirrors the core [d3-selection](https://github.com/d3/d3-selection#selection_on) behavior.
+
+**Kind**: static method of <code>[box](#box)</code>  
+
+| Param | Type |
+| --- | --- |
+| [*typenames*] | <code>String</code> | 
+| [*listener*] | <code>function</code> | 
 
 <a name="box.overflow"></a>
 
