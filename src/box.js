@@ -88,136 +88,160 @@ export default function(data = []) {
     if (select === void 0) box.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
     if (lineHeight === void 0) lineHeight = (d, i) => fontSize(d, i) * 1.1;
 
-    const boxes = select.selectAll(".d3plus-text-box").data(data, id);
+    const boxes = select.selectAll(".d3plus-text-box").data(data.reduce((arr, d, i) => {
+
+      const t = text(d, i);
+      if (t === void 0) return arr;
+
+      const resize = fontResize(d, i);
+
+      let fS = resize ? fontMax(d, i) : fontSize(d, i),
+          lH = resize ? fS * 1.1 : lineHeight(d, i),
+          line = 1,
+          lineData = [],
+          sizes;
+
+      const style = {
+        "font-family": fontFamily(d, i),
+        "font-size": fS,
+        "line-height": lH
+      };
+
+      const h = height(d, i),
+            w = width(d, i);
+
+      const wrapper = wrap()
+        .fontFamily(style["font-family"])
+        .fontSize(fS)
+        .lineHeight(lH)
+        .height(h)
+        .overflow(overflow(d, i))
+        .width(w);
+
+      const fMax = fontMax(d, i),
+            fMin = fontMin(d, i),
+            vA = verticalAlign(d, i),
+            words = split(t, i);
+
+      /**
+          Figures out the lineData to be used for wrapping.
+          @private
+      */
+      function checkSize() {
+
+        if (fS < fMin) {
+          lineData = [];
+          return;
+        }
+        else if (fS > fMax) fS = fMax;
+
+        if (resize) {
+          lH = fS * 1.1;
+          wrapper
+            .fontSize(fS)
+            .lineHeight(lH);
+          style["font-size"] = fS;
+          style["line-height"] = lH;
+        }
+
+        const wrapResults = wrapper(t);
+        lineData = wrapResults.lines;
+        line = lineData.length;
+
+        if (wrapResults.truncated) {
+
+          if (resize) {
+            fS--;
+            if (fS < fMin) lineData = [];
+            else checkSize();
+          }
+          else if (line === 2 && !lineData[line - 2].length) lineData = [];
+          else lineData[line - 2] = ellipsis(lineData[line - 2]);
+
+        }
+
+
+      }
+
+      if (w > fMin && (h > lH || resize && h > fMin * 1.1)) {
+
+        if (resize) {
+
+          sizes = measure(words, style);
+
+          const areaMod = 1.165 + w / h * 0.1,
+                boxArea = w * h,
+                maxWidth = d3.max(sizes),
+                textArea = d3.sum(sizes, (d) => d * lH) * areaMod;
+
+          if (maxWidth > w || textArea > boxArea) {
+            const areaRatio = Math.sqrt(boxArea / textArea),
+                  widthRatio = w / maxWidth;
+            const sizeRatio = d3.min([areaRatio, widthRatio]);
+            fS = Math.floor(fS * sizeRatio);
+          }
+
+          const heightMax = Math.floor(h * 0.8);
+          if (fS > heightMax) fS = heightMax;
+
+        }
+
+        checkSize();
+
+      }
+
+      if (lineData.length) {
+
+        const tH = line * lH;
+        let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
+        y -= lH * 0.2;
+
+        arr.push({
+          data: lineData,
+          fC: fontColor(d, i),
+          fF: style["font-family"],
+          id: id(d, i),
+          tA: textAnchor(d, i),
+          fS, lH, w, x: x(d, i), y
+        });
+
+      }
+
+      return arr;
+
+    }, []), id);
 
     const t = d3.transition().duration(duration);
 
-    boxes.exit().transition().delay(duration).remove();
+    if (duration === 0) {
 
-    boxes.exit().selectAll("tspan").transition(t)
-      .attr("opacity", 0);
+      boxes.exit().remove();
+
+    }
+    else {
+
+      boxes.exit().transition().delay(duration).remove();
+
+      boxes.exit().selectAll("tspan").transition(t)
+        .attr("opacity", 0);
+
+    }
 
     const update = boxes.enter().append("text")
         .attr("class", "d3plus-text-box")
-        .attr("id", (d, i) => `d3plus-text-box-${id(d, i)}`)
+        .attr("id", (d) => `d3plus-text-box-${d.id}`)
       .merge(boxes)
-        .attr("y", (d, i) => `${y(d, i)}px`)
-        .attr("fill", (d, i) => fontColor(d, i))
-        .attr("text-anchor", (d, i) => textAnchor(d, i))
-        .attr("font-family", (d, i) => fontFamily(d, i))
-        .each(function(d, i) {
+        .attr("y", (d) => `${d.y}px`)
+        .attr("fill", (d) => d.fC)
+        .attr("text-anchor", (d) => d.tA)
+        .attr("font-family", (d) => d.fF)
+        .each(function(d) {
 
-          const resize = fontResize(d, i);
+          const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
+                tB = d3.select(this);
 
-          let fS = resize ? fontMax(d, i) : fontSize(d, i),
-              lH = resize ? fS * 1.1 : lineHeight(d, i),
-              line = 1,
-              lineData = [""],
-              sizes;
-
-          const style = {
-            "font-family": fontFamily(d, i),
-            "font-size": fS,
-            "line-height": lH
-          };
-
-          const fMax = fontMax(d, i),
-                fMin = fontMin(d, i),
-                h = height(d, i),
-                t = text(d, i),
-                tA = textAnchor(d, i),
-                vA = verticalAlign(d, i),
-                w = width(d, i),
-                words = split(t, i);
-
-          const dx = tA === "start" ? 0 : tA === "end" ? w : w / 2;
-
-          const wrapper = wrap()
-            .fontFamily(style["font-family"])
-            .fontSize(fS)
-            .lineHeight(lH)
-            .height(h)
-            .overflow(overflow(d, i))
-            .width(w);
-
-          /**
-              Figures out the lineData to be used for wrapping.
-              @private
-          */
-          function checkSize() {
-
-            if (fS < fMin) {
-              lineData = [];
-              return;
-            }
-            else if (fS > fMax) fS = fMax;
-
-            if (resize) {
-              lH = fS * 1.1;
-              wrapper
-                .fontSize(fS)
-                .lineHeight(lH);
-              style["font-size"] = fS;
-              style["line-height"] = lH;
-            }
-
-            const wrapResults = wrapper(t);
-            lineData = wrapResults.lines;
-            line = lineData.length;
-
-            if (wrapResults.truncated) {
-
-              if (resize) {
-                fS--;
-                if (fS < fMin) lineData = [];
-                else checkSize();
-              }
-              else if (line === 2 && !lineData[line - 2].length) lineData = [];
-              else lineData[line - 2] = ellipsis(lineData[line - 2]);
-
-            }
-
-
-          }
-
-          if (h > lH || resize) {
-
-            if (resize) {
-
-              sizes = measure(words, style);
-
-              const areaMod = 1.165 + w / h * 0.1,
-                    boxArea = w * h,
-                    maxWidth = d3.max(sizes),
-                    textArea = d3.sum(sizes, (d) => d * lH) * areaMod;
-
-              if (maxWidth > w || textArea > boxArea) {
-                const areaRatio = Math.sqrt(boxArea / textArea),
-                      widthRatio = w / maxWidth;
-                const sizeRatio = d3.min([areaRatio, widthRatio]);
-                fS = Math.floor(fS * sizeRatio);
-              }
-
-              const heightMax = Math.floor(h * 0.8);
-              if (fS > heightMax) fS = heightMax;
-
-            }
-
-            checkSize();
-
-            d3.select(this)
-              .attr("font-size", `${fS}px`)
-              .style("font-size", `${fS}px`);
-
-          }
-
-          const tB = d3.select(this),
-                tH = line * lH;
-          let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
-          y -= lH * 0.2;
-
-          if (tB.attr("transform") === null) tB.attr("transform", `translate(0,${y})`);
-          else tB.transition(t).attr("transform", `translate(0,${y})`);
+          if (duration === 0 || tB.attr("transform") === null) tB.attr("transform", `translate(0,${d.y})`);
+          else tB.transition(t).attr("transform", `translate(0,${d.y})`);
 
           /**
               Styles to apply to each <tspan> element.
@@ -225,26 +249,45 @@ export default function(data = []) {
           */
           function tspanStyle(tspan) {
             tspan
-              .text((d) => d.trimRight())
-              .attr("x", `${x(d, i)}px`)
+              .text((t) => t.trimRight())
+              .attr("x", `${d.x}px`)
               .attr("dx", `${dx}px`)
-              .attr("dy", `${lH}px`);
+              .attr("dy", `${d.lH}px`);
           }
 
-          const tspans = d3.select(this).selectAll("tspan").data(lineData);
+          const tspans = tB
+            .attr("font-size", `${d.fS}px`)
+            .style("font-size", `${d.fS}px`)
+            .selectAll("tspan").data(d.data);
 
-          tspans.transition(t).call(tspanStyle);
+          if (duration === 0) {
 
-          tspans.exit().transition(t)
-            .attr("opacity", 0).remove();
+            tspans.call(tspanStyle);
 
-          tspans.enter().append("tspan")
-            .attr("dominant-baseline", "alphabetic")
-            .style("baseline-shift", "0%")
-            .attr("opacity", 0)
-            .call(tspanStyle)
-            .transition(t).delay(delay)
-              .attr("opacity", 1);
+            tspans.exit().remove();
+
+            tspans.enter().append("tspan")
+              .attr("dominant-baseline", "alphabetic")
+              .style("baseline-shift", "0%")
+              .call(tspanStyle);
+
+          }
+          else {
+
+            tspans.transition(t).call(tspanStyle);
+
+            tspans.exit().transition(t)
+              .attr("opacity", 0).remove();
+
+            tspans.enter().append("tspan")
+              .attr("dominant-baseline", "alphabetic")
+              .style("baseline-shift", "0%")
+              .attr("opacity", 0)
+              .call(tspanStyle)
+              .transition(t).delay(delay)
+                .attr("opacity", 1);
+
+          }
 
         });
 
