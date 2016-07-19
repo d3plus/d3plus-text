@@ -1,4 +1,6 @@
 .DS_Store
 build/
+example/*.html
 node_modules
-test/index.html
+test/*.html
+test/*.png
