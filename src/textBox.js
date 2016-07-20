@@ -193,8 +193,8 @@ export default function(data = []) {
       if (lineData.length) {
 
         const tH = line * lH;
-        let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
-        y -= lH * 0.1;
+        let yP = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
+        yP -= lH * 0.1;
 
         arr.push({
           data: lineData,
@@ -202,7 +202,7 @@ export default function(data = []) {
           fF: style["font-family"],
           id: id(d, i),
           tA: textAnchor(d, i),
-          fS, lH, w, x: x(d, i), y
+          fS, lH, w, x: x(d, i), y: y(d, i) + yP
         });
 
       }
