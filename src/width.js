@@ -21,7 +21,7 @@ export default function(text, style = {"font-size": 10, "font-family": "sans-ser
 
   context.font = font.join(" ");
 
-  if (text instanceof Array) return text.map((t) => context.measureText(t).width);
+  if (text instanceof Array) return text.map(t => context.measureText(t).width);
   return context.measureText(text).width;
 
 }

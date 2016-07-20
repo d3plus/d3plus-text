@@ -1,10 +1,10 @@
 import {test} from "tape";
-import {default as box} from "../src/box.js";
+import {default as textBox} from "../src/textBox.js";
 
-test("box", (assert) => {
+test("textBox", assert => {
 
   const data = {text: "Hello D3plus, please wrap this sentence for me."};
-  const testBox = box().data([data]).fontFamily("Verdana").fontSize(14)();
+  const testBox = textBox().data([data]).fontFamily("Verdana").fontSize(14)();
 
   assert.equal(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
   assert.equal(document.getElementsByTagName("text").length, 1, "created <text> container element");

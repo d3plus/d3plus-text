@@ -1,7 +1,7 @@
 import {test} from "tape";
 import {default as stringify} from "../src/stringify.js";
 
-test("stringify", (assert) => {
+test("stringify", assert => {
 
   assert.equal(stringify(true), "true");
   assert.equal(stringify(false), "false");

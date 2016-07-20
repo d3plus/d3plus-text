@@ -1,7 +1,7 @@
 import {test} from "tape";
 import {default as width} from "../src/width.js";
 
-test("width", (assert) => {
+test("width", assert => {
 
   const base = width("Test", {"font-family": "Verdana", "font-size": 14}),
         bigger = width("Test", {"font-family": "Verdana", "font-size": 28}),

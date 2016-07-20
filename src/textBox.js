@@ -24,15 +24,15 @@ function boxId(d, i) {
 
 
 /**
-    @function box
-    @desc Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#box.data) method.
+    @function textBox
+    @desc Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#textBox.data) method.
     @param {Array} [data = []]
     @example <caption>a sample row of data</caption>
 var data = {"text": "Hello D3plus, please wrap this sentence for me."};
 @example <caption>passed to the generator</caption>
-box([data]);
+textBox([data]);
 @example <caption>creates the following</caption>
-<text class="d3plus-text-box" id="d3plus-text-box-0" text-anchor="start" font-family="Helvetica Neue" font-size="16px" transform="translate(0,-3.6)">
+<text class="d3plus-textBox" id="d3plus-textBox-0" text-anchor="start" font-family="Helvetica Neue" font-size="16px" transform="translate(0,-3.6)">
   <tspan dominant-baseline="alphabetic" opacity="1" x="0px" dx="0px" dy="18px" style="baseline-shift: 0%;">
     Hello D3plus, please wrap
   </tspan>
@@ -41,9 +41,9 @@ box([data]);
   </tspan>
 </text>
 @example <caption>this is shorthand for the following</caption>
-box().data([data])();
+textBox().data([data])();
 @example <caption>which also allows a post-draw callback function</caption>
-box().data([data])(function() { alert("draw complete!"); })
+textBox().data([data])(function() { alert("draw complete!"); })
 */
 export default function(data = []) {
 
@@ -83,12 +83,12 @@ export default function(data = []) {
       The inner return object and draw function that gets assigned the public methods.
       @private
   */
-  function box(callback) {
+  function textBox(callback) {
 
-    if (select === void 0) box.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
+    if (select === void 0) textBox.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
     if (lineHeight === void 0) lineHeight = (d, i) => fontSize(d, i) * 1.1;
 
-    const boxes = select.selectAll(".d3plus-text-box").data(data.reduce((arr, d, i) => {
+    const boxes = select.selectAll(".d3plus-textBox").data(data.reduce((arr, d, i) => {
 
       const t = text(d, i);
       if (t === void 0) return arr;
@@ -172,7 +172,7 @@ export default function(data = []) {
           const areaMod = 1.165 + w / h * 0.1,
                 boxArea = w * h,
                 maxWidth = d3.max(sizes),
-                textArea = d3.sum(sizes, (d) => d * lH) * areaMod;
+                textArea = d3.sum(sizes, d => d * lH) * areaMod;
 
           if (maxWidth > w || textArea > boxArea) {
             const areaRatio = Math.sqrt(boxArea / textArea),
@@ -228,13 +228,13 @@ export default function(data = []) {
     }
 
     const update = boxes.enter().append("text")
-        .attr("class", "d3plus-text-box")
-        .attr("id", (d) => `d3plus-text-box-${d.id}`)
+        .attr("class", "d3plus-textBox")
+        .attr("id", d => `d3plus-textBox-${d.id}`)
       .merge(boxes)
-        .attr("y", (d) => `${d.y}px`)
-        .attr("fill", (d) => d.fC)
-        .attr("text-anchor", (d) => d.tA)
-        .attr("font-family", (d) => d.fF)
+        .attr("y", d => `${d.y}px`)
+        .attr("fill", d => d.fC)
+        .attr("text-anchor", d => d.tA)
+        .attr("font-family", d => d.fF)
         .each(function(d) {
 
           const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
@@ -249,7 +249,7 @@ export default function(data = []) {
           */
           function tspanStyle(tspan) {
             tspan
-              .text((t) => t.trimRight())
+              .text(t => t.trimRight())
               .attr("x", `${d.x}px`)
               .attr("dx", `${dx}px`)
               .attr("dy", `${d.lH}px`);
@@ -296,56 +296,56 @@ export default function(data = []) {
 
     if (callback) setTimeout(callback, duration + 100);
 
-    return box;
+    return textBox;
 
   }
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the methods that correspond to the key/value pairs and returns this generator. If *value* is not specified, returns the current configuration.
       @param {Object} [*value*]
   */
-  box.config = function(_) {
+  textBox.config = function(_) {
     if (arguments.length) {
-      for (const k in _) if ({}.hasOwnProperty.call(_, k)) box[k](_[k]);
-      return box;
+      for (const k in _) if ({}.hasOwnProperty.call(_, k)) textBox[k](_[k]);
+      return textBox;
     }
     else {
       const config = {};
-      for (const k in box.prototype.constructor) if (k !== "config" && {}.hasOwnProperty.call(box, k)) config[k] = box[k]();
+      for (const k in textBox.prototype.constructor) if (k !== "config" && {}.hasOwnProperty.call(textBox, k)) config[k] = textBox[k]();
       return config;
     }
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *data* is specified, sets the data array to the specified array and returns this generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
       @param {Array} [*data* = []]
   */
-  box.data = function(_) {
-    return arguments.length ? (data = _, box) : data;
+  textBox.data = function(_) {
+    return arguments.length ? (data = _, textBox) : data;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the animation delay to the specified number and returns this generator. If *value* is not specified, returns the current animation delay.
       @param {Number} [*value* = 0]
   */
-  box.delay = function(_) {
-    return arguments.length ? (delay = _, box) : delay;
+  textBox.delay = function(_) {
+    return arguments.length ? (delay = _, textBox) : delay;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the animation duration to the specified number and returns this generator. If *value* is not specified, returns the current animation duration.
       @param {Number} [*value* = 0]
   */
-  box.duration = function(_) {
-    return arguments.length ? (duration = _, box) : duration;
+  textBox.duration = function(_) {
+    return arguments.length ? (duration = _, textBox) : duration;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the ellipsis method to the specified function or string and returns this generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
       @param {Function|String} [*value*]
       @example
@@ -353,66 +353,66 @@ function(d) {
   return d + "...";
 }
   */
-  box.ellipsis = function(_) {
-    return arguments.length ? (ellipsis = typeof _ === "function" ? _ : constant(_), box) : ellipsis;
+  textBox.ellipsis = function(_) {
+    return arguments.length ? (ellipsis = typeof _ === "function" ? _ : constant(_), textBox) : ellipsis;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the font color accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#box.select) by default.
+      @memberof textBox
+      @desc If *value* is specified, sets the font color accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#textBox.select) by default.
       @param {Function|String} [*value*]
   */
-  box.fontColor = function(_) {
-    return arguments.length ? (fontColor = typeof _ === "function" ? _ : constant(_), box) : fontColor;
+  textBox.fontColor = function(_) {
+    return arguments.length ? (fontColor = typeof _ === "function" ? _ : constant(_), textBox) : fontColor;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#box.select) by default.
+      @memberof textBox
+      @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#textBox.select) by default.
       @param {Function|String} [*value*]
   */
-  box.fontFamily = function(_) {
-    return arguments.length ? (fontFamily = typeof _ === "function" ? _ : constant(_), box) : fontFamily;
+  textBox.fontFamily = function(_) {
+    return arguments.length ? (fontFamily = typeof _ === "function" ? _ : constant(_), textBox) : fontFamily;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#box.fontResize) dynamically.
+      @memberof textBox
+      @desc If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#textBox.fontResize) dynamically.
       @param {Function|Number} [*value* = 50]
   */
-  box.fontMax = function(_) {
-    return arguments.length ? (fontMax = typeof _ === "function" ? _ : constant(_), box) : fontMax;
+  textBox.fontMax = function(_) {
+    return arguments.length ? (fontMax = typeof _ === "function" ? _ : constant(_), textBox) : fontMax;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#box.fontResize) dynamically.
+      @memberof textBox
+      @desc If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#textBox.fontResize) dynamically.
       @param {Function|Number} [*value* = 8]
   */
-  box.fontMin = function(_) {
-    return arguments.length ? (fontMin = typeof _ === "function" ? _ : constant(_), box) : fontMin;
+  textBox.fontMin = function(_) {
+    return arguments.length ? (fontMin = typeof _ === "function" ? _ : constant(_), textBox) : fontMin;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the font resizing accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current font resizing accessor.
       @param {Function|Boolean} [*value* = false]
   */
-  box.fontResize = function(_) {
-    return arguments.length ? (fontResize = typeof _ === "function" ? _ : constant(_), box) : fontResize;
+  textBox.fontResize = function(_) {
+    return arguments.length ? (fontResize = typeof _ === "function" ? _ : constant(_), textBox) : fontResize;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#box.select) by default.
+      @memberof textBox
+      @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#textBox.select) by default.
       @param {Function|Number} [*value*]
   */
-  box.fontSize = function(_) {
-    return arguments.length ? (fontSize = typeof _ === "function" ? _ : constant(_), box) : fontSize;
+  textBox.fontSize = function(_) {
+    return arguments.length ? (fontSize = typeof _ === "function" ? _ : constant(_), textBox) : fontSize;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current height accessor.
       @param {Function|Number} [*value*]
       @example
@@ -420,12 +420,12 @@ function(d) {
   return d.height || 200;
 }
   */
-  box.height = function(_) {
-    return arguments.length ? (height = typeof _ === "function" ? _ : constant(_), box) : height;
+  textBox.height = function(_) {
+    return arguments.length ? (height = typeof _ === "function" ? _ : constant(_), textBox) : height;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the id accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current id accessor.
       @param {Function|Number} [*value*]
       @example
@@ -433,65 +433,65 @@ function(d, i) {
   return d.id || i + "";
 }
   */
-  box.id = function(_) {
-    return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), box) : id;
+  textBox.id = function(_) {
+    return arguments.length ? (id = typeof _ === "function" ? _ : constant(_), textBox) : id;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the line height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#box.fontSize) by default.
+      @memberof textBox
+      @desc If *value* is specified, sets the line height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#textBox.fontSize) by default.
       @param {Function|Number} [*value*]
   */
-  box.lineHeight = function(_) {
-    return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), box) : lineHeight;
+  textBox.lineHeight = function(_) {
+    return arguments.length ? (lineHeight = typeof _ === "function" ? _ : constant(_), textBox) : lineHeight;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc Adds or removes a *listener* to each box for the specified event *typenames*. If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename*. Mirrors the core [d3-selection](https://github.com/d3/d3-selection#selection_on) behavior.
       @param {String} [*typenames*]
       @param {Function} [*listener*]
   */
-  box.on = function(typenames, listener) {
-    return arguments.length === 2 ? (on[typenames] = listener, box) : arguments.length ? on[typenames] : on;
+  textBox.on = function(typenames, listener) {
+    return arguments.length === 2 ? (on[typenames] = listener, textBox) : arguments.length ? on[typenames] : on;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current overflow accessor.
       @param {Function|Boolean} [*value* = false]
   */
-  box.overflow = function(_) {
-    return arguments.length ? (overflow = typeof _ === "function" ? _ : constant(_), box) : overflow;
+  textBox.overflow = function(_) {
+    return arguments.length ? (overflow = typeof _ === "function" ? _ : constant(_), textBox) : overflow;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *selector* is specified, sets the SVG container element to the specified d3 selector or DOM element and returns this generator. If *selector* is not specified, returns the current SVG container element, which adds an SVG element to the page by default.
       @param {String|HTMLElement} [*selector*]
   */
-  box.select = function(_) {
+  textBox.select = function(_) {
     if (arguments.length) {
       select = d3.select(_);
-      if (fontColor === void 0) box.fontColor(select.style("font-color"));
-      if (fontFamily === void 0) box.fontFamily(select.style("font-family"));
-      if (fontSize === void 0) box.fontSize(parseFloat(select.style("font-size"), 10));
-      return box;
+      if (fontColor === void 0) textBox.fontColor(select.style("font-color"));
+      if (fontFamily === void 0) textBox.fontFamily(select.style("font-family"));
+      if (fontSize === void 0) textBox.fontSize(parseFloat(select.style("font-size"), 10));
+      return textBox;
     }
     return select;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the word split function to the specified function and returns this generator. If *value* is not specified, returns the current word split function.
       @param {Function} [*value*] A function that, when passed a string, is expected to return that string split into an array of words to wrap. The default split function splits strings on the following characters: `-`, `/`, `;`, `:`, `&`
   */
-  box.split = function(_) {
-    return arguments.length ? (split = _, box) : split;
+  textBox.split = function(_) {
+    return arguments.length ? (split = _, textBox) : split;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the text accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current text accessor.
       @param {Function|String} [*value*]
       @example
@@ -499,30 +499,30 @@ function(d) {
   return d.text;
 }
   */
-  box.text = function(_) {
-    return arguments.length ? (text = typeof _ === "function" ? _ : constant(_), box) : text;
+  textBox.text = function(_) {
+    return arguments.length ? (text = typeof _ === "function" ? _ : constant(_), textBox) : text;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the horizontal text anchor accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current horizontal text anchor accessor.
       @param {Function|String} [*value* = "start"] Analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property.
   */
-  box.textAnchor = function(_) {
-    return arguments.length ? (textAnchor = typeof _ === "function" ? _ : constant(_), box) : textAnchor;
+  textBox.textAnchor = function(_) {
+    return arguments.length ? (textAnchor = typeof _ === "function" ? _ : constant(_), textBox) : textAnchor;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the vertical alignment accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current vertical alignment accessor.
       @param {Function|String} [*value* = "top"] Accepts `"top"`, `"middle"`, and `"bottom"`.
   */
-  box.verticalAlign = function(_) {
-    return arguments.length ? (verticalAlign = typeof _ === "function" ? _ : constant(_), box) : verticalAlign;
+  textBox.verticalAlign = function(_) {
+    return arguments.length ? (verticalAlign = typeof _ === "function" ? _ : constant(_), textBox) : verticalAlign;
   };
 
   /**
-      @memberof box
+      @memberof textBox
       @desc If *value* is specified, sets the width accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current width accessor.
       @param {Function|Number} [*value*]
       @example
@@ -530,36 +530,36 @@ function(d) {
   return d.width || 200;
 }
   */
-  box.width = function(_) {
-    return arguments.length ? (width = typeof _ === "function" ? _ : constant(_), box) : width;
+  textBox.width = function(_) {
+    return arguments.length ? (width = typeof _ === "function" ? _ : constant(_), textBox) : width;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the x accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the box.
+      @memberof textBox
+      @desc If *value* is specified, sets the x accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the textBox.
       @param {Function|Number} [*value*]
       @example
 function(d) {
   return d.x || 0;
 }
   */
-  box.x = function(_) {
-    return arguments.length ? (x = typeof _ === "function" ? _ : constant(_), box) : x;
+  textBox.x = function(_) {
+    return arguments.length ? (x = typeof _ === "function" ? _ : constant(_), textBox) : x;
   };
 
   /**
-      @memberof box
-      @desc If *value* is specified, sets the y accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the box.
+      @memberof textBox
+      @desc If *value* is specified, sets the y accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the textBox.
       @param {Function|Number} [*value*]
       @example
 function(d) {
   return d.y || 0;
 }
   */
-  box.y = function(_) {
-    return arguments.length ? (y = typeof _ === "function" ? _ : constant(_), box) : y;
+  textBox.y = function(_) {
+    return arguments.length ? (y = typeof _ === "function" ? _ : constant(_), textBox) : y;
   };
 
-  return data.length ? box() : box;
+  return data.length ? textBox() : textBox;
 
 }

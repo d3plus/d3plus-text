@@ -1,7 +1,7 @@
 import {test} from "tape";
 import {default as split, splitChars} from "../src/split.js";
 
-test("split", (assert) => {
+test("split", assert => {
 
   for (let i = 0; i < splitChars.length; i++) {
     let char = splitChars[i];

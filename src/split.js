@@ -53,7 +53,7 @@ const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange
 */
 export default function(sentence) {
   if (!noSpaceLanguage.test(sentence)) return stringify(sentence).match(splitWords);
-  return merge(stringify(sentence).match(splitWords).map((d) => {
+  return merge(stringify(sentence).match(splitWords).map(d => {
     if (!japaneseChars.test(d) && noSpaceLanguage.test(d)) return d.match(splitAllChars);
     return [d];
   }));

@@ -1,7 +1,7 @@
 import {test} from "tape";
 import {default as wrap} from "../src/wrap.js";
 
-test("wrap", (assert) => {
+test("wrap", assert => {
 
   const sentence = "Hello D3plus, please wrap this sentence for me.",
         testWrap = wrap()
