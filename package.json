@@ -30,6 +30,8 @@
   },
   "scripts": {
     "dev": "d3plus-dev",
+    "docs": "d3plus-docs",
+    "examples": "d3plus-examples",
     "release": "d3plus-release",
     "test": "d3plus-test"
   }
