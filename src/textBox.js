@@ -25,25 +25,8 @@ function boxId(d, i) {
 
 /**
     @function textBox
-    @desc Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#textBox.data) method.
-    @param {Array} [data = []]
-    @example <caption>a sample row of data</caption>
-var data = {"text": "Hello D3plus, please wrap this sentence for me."};
-@example <caption>passed to the generator</caption>
-textBox([data]);
-@example <caption>creates the following</caption>
-<text class="d3plus-textBox" id="d3plus-textBox-0" text-anchor="start" font-family="Helvetica Neue" font-size="16px" transform="translate(0,-3.6)">
-  <tspan dominant-baseline="alphabetic" opacity="1" x="0px" dx="0px" dy="18px" style="baseline-shift: 0%;">
-    Hello D3plus, please wrap
-  </tspan>
-  <tspan dominant-baseline="alphabetic" opacity="1" x="0px" dx="0px" dy="18px" style="baseline-shift: 0%;">
-    this sentence for me.
-  </tspan>
-</text>
-@example <caption>this is shorthand for the following</caption>
-textBox().data([data])();
-@example <caption>which also allows a post-draw callback function</caption>
-textBox().data([data])(function() { alert("draw complete!"); })
+    @desc Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#textBox.data) method. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
+    @param {Array} [data = []] An array of text blocks to be wrapped.
 */
 export default function(data = []) {
 
@@ -348,7 +331,7 @@ export default function(data = []) {
       @memberof textBox
       @desc If *value* is specified, sets the ellipsis method to the specified function or string and returns this generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
       @param {Function|String} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d) {
   return d + "...";
 }
@@ -415,7 +398,7 @@ function(d) {
       @memberof textBox
       @desc If *value* is specified, sets the height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current height accessor.
       @param {Function|Number} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d) {
   return d.height || 200;
 }
@@ -428,7 +411,7 @@ function(d) {
       @memberof textBox
       @desc If *value* is specified, sets the id accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current id accessor.
       @param {Function|Number} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d, i) {
   return d.id || i + "";
 }
@@ -494,7 +477,7 @@ function(d, i) {
       @memberof textBox
       @desc If *value* is specified, sets the text accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current text accessor.
       @param {Function|String} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d) {
   return d.text;
 }
@@ -525,7 +508,7 @@ function(d) {
       @memberof textBox
       @desc If *value* is specified, sets the width accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current width accessor.
       @param {Function|Number} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d) {
   return d.width || 200;
 }
@@ -538,7 +521,7 @@ function(d) {
       @memberof textBox
       @desc If *value* is specified, sets the x accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the textBox.
       @param {Function|Number} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d) {
   return d.x || 0;
 }
@@ -551,7 +534,7 @@ function(d) {
       @memberof textBox
       @desc If *value* is specified, sets the y accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the textBox.
       @param {Function|Number} [*value*]
-      @example
+      @example <caption>default accessor</caption>
 function(d) {
   return d.y || 0;
 }
