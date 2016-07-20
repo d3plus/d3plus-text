@@ -1,10 +1,10 @@
 import {test} from "tape";
-import {default as wrap} from "../src/wrap.js";
+import {default as textWrap} from "../src/textWrap.js";
 
-test("wrap", assert => {
+test("textWrap", assert => {
 
   const sentence = "Hello D3plus, please wrap this sentence for me.",
-        testWrap = wrap()
+        testWrap = textWrap()
           .fontFamily("Verdana").fontSize(14)
           (sentence);
 

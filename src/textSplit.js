@@ -47,7 +47,7 @@ const noSpaceLanguage = new RegExp(`[${noSpaceRange}]`);
 const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange}](\\${suffixChars.join("|\\")}|\\${combiningMarks.join("|\\")})*|[a-z0-9]+`, "gi");
 
 /**
-    @function width
+    @function textSplit
     @desc Splits a given sentence into an array of words.
     @param {String} sentence
 */

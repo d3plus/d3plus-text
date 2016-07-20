@@ -10,9 +10,9 @@ const d3 = {
 };
 
 import {accessor, constant} from "d3plus-common";
-import {default as boxSplit} from "./split";
-import {default as measure} from "./width";
-import {default as wrap} from "./wrap";
+import {default as textSplit} from "./textSplit";
+import {default as measure} from "./textWidth";
+import {default as wrap} from "./textWrap";
 
 /**
     The default id accessor function.
@@ -71,7 +71,7 @@ export default function(data = []) {
       lineHeight,
       overflow = constant(false),
       select,
-      split = boxSplit,
+      split = textSplit,
       text = accessor("text"),
       textAnchor = constant("start"),
       verticalAlign = constant("top"),
