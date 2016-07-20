@@ -194,7 +194,7 @@ export default function(data = []) {
 
         const tH = line * lH;
         let y = vA === "top" ? 0 : vA === "middle" ? h / 2 - tH / 2 : h - tH;
-        y -= lH * 0.2;
+        y -= lH * 0.1;
 
         arr.push({
           data: lineData,
