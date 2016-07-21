@@ -213,8 +213,8 @@ export default function(data = []) {
     const update = boxes.enter().append("text")
         .attr("class", "d3plus-textBox")
         .attr("id", d => `d3plus-textBox-${d.id}`)
-      .merge(boxes)
         .attr("y", d => `${d.y}px`)
+      .merge(boxes)
         .attr("fill", d => d.fC)
         .attr("text-anchor", d => d.tA)
         .attr("font-family", d => d.fF)
@@ -223,8 +223,8 @@ export default function(data = []) {
           const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
                 tB = d3.select(this);
 
-          if (duration === 0 || tB.attr("transform") === null) tB.attr("transform", `translate(0,${d.y})`);
-          else tB.transition(t).attr("transform", `translate(0,${d.y})`);
+          if (duration === 0) tB.attr("y", d => `${d.y}px`);
+          else tB.transition(t).attr("y", d => `${d.y}px`);
 
           /**
               Styles to apply to each <tspan> element.
