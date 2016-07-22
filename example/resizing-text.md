@@ -1,3 +1,5 @@
+[width]: 450
+[height]: 100
 # Automatic Font Resizing to Fit Container
 
 A useful method when using text to label variable sized shapes (like in a [tree map](https://github.com/d3plus/d3plus-treemap)) is the [fontResize](https://github.com/d3plus/d3plus-text#textBox.fontResize) function. When set to `true`, the [textBox](https://github.com/d3plus/d3plus-text#textBox) will attempt to scale up or down the [fontSize](https://github.com/d3plus/d3plus-text#textBox.fontSize) value to best fit the containing shape.
