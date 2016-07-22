@@ -194,9 +194,9 @@ If *value* is specified, sets the font color accessor to the specified function 
 
 **Kind**: static method of <code>[textBox](#textBox)</code>  
 
-| Param | Type |
-| --- | --- |
-| [*value*] | <code>function</code> &#124; <code>String</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;black&quot;</code> | 
 
 <a name="textBox.fontFamily"></a>
 
@@ -205,9 +205,9 @@ If *value* is specified, sets the font family accessor to the specified function
 
 **Kind**: static method of <code>[textBox](#textBox)</code>  
 
-| Param | Type |
-| --- | --- |
-| [*value*] | <code>function</code> &#124; <code>String</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;Verdana&quot;</code> | 
 
 <a name="textBox.fontMax"></a>
 
@@ -249,9 +249,9 @@ If *value* is specified, sets the font size accessor to the specified function o
 
 **Kind**: static method of <code>[textBox](#textBox)</code>  
 
-| Param | Type |
-| --- | --- |
-| [*value*] | <code>function</code> &#124; <code>Number</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>Number</code> | <code>10</code> | 
 
 <a name="textBox.height"></a>
 
@@ -551,4 +551,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Fri, 22 Jul 2016 18:18:11 GMT</sub>
+###### <sub>Documentation generated on Fri, 22 Jul 2016 19:40:21 GMT</sub>
