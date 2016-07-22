@@ -43,7 +43,7 @@ export default function(data = []) {
   let delay = 0,
       duration = 0,
       ellipsis = boxEllipsis,
-      fontColor,
+      fontColor = constant("black"),
       fontFamily = constant("Verdana"),
       fontMax = constant(50),
       fontMin = constant(8),
@@ -218,6 +218,9 @@ export default function(data = []) {
         .attr("fill", d => d.fC)
         .attr("text-anchor", d => d.tA)
         .attr("font-family", d => d.fF)
+        .style("font-family", d => d.fF)
+        .attr("font-size", d => `${d.fS}px`)
+        .style("font-size", d => `${d.fS}px`)
         .each(function(d) {
 
           const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
@@ -238,10 +241,7 @@ export default function(data = []) {
               .attr("dy", `${d.lH}px`);
           }
 
-          const tspans = tB
-            .attr("font-size", `${d.fS}px`)
-            .style("font-size", `${d.fS}px`)
-            .selectAll("tspan").data(d.data);
+          const tspans = tB.selectAll("tspan").data(d.data);
 
           if (duration === 0) {
 
@@ -343,7 +343,7 @@ function(d) {
   /**
       @memberof textBox
       @desc If *value* is specified, sets the font color accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#textBox.select) by default.
-      @param {Function|String} [*value*]
+      @param {Function|String} [*value* = "black"]
   */
   textBox.fontColor = function(_) {
     return arguments.length ? (fontColor = typeof _ === "function" ? _ : constant(_), textBox) : fontColor;
@@ -454,14 +454,7 @@ function(d, i) {
       @param {String|HTMLElement} [*selector*]
   */
   textBox.select = function(_) {
-    if (arguments.length) {
-      select = d3.select(_);
-      if (fontColor === void 0) textBox.fontColor(select.style("font-color"));
-      if (fontFamily === void 0) textBox.fontFamily(select.style("font-family"));
-      if (fontSize === void 0) textBox.fontSize(parseFloat(select.style("font-size"), 10));
-      return textBox;
-    }
-    return select;
+    return arguments.length ? (select = d3.select(_), textBox) : select;
   };
 
   /**
