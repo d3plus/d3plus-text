@@ -15,7 +15,8 @@ If you use NPM, `npm install d3plus-text`. Otherwise, download the [latest relea
 ```
 
 [width]: 700
-[height]: 200
+[height]: 75
+
 ## Getting Started
 
 Without a doubt, the most commonly used aspect of this module is [textBox](https://github.com/d3plus/d3plus-text#textBox), which is used for intelligently wrapping SVG text. At it's core, you can simply pass along data points with "text" values and the generator will add them to the page using a set of defaults. Here is a data array containing 3 different sentences to be wrapped:
@@ -549,4 +550,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Fri, 22 Jul 2016 16:26:04 GMT</sub>
+###### <sub>Documentation generated on Fri, 22 Jul 2016 17:09:18 GMT</sub>

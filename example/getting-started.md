@@ -1,5 +1,6 @@
 [width]: 700
-[height]: 200
+[height]: 75
+
 # Getting Started
 
 Without a doubt, the most commonly used aspect of this module is [textBox](https://github.com/d3plus/d3plus-text#textBox), which is used for intelligently wrapping SVG text. At it's core, you can simply pass along data points with "text" values and the generator will add them to the page using a set of defaults. Here is a data array containing 3 different sentences to be wrapped:
