@@ -44,7 +44,7 @@ export default function(data = []) {
       duration = 0,
       ellipsis = boxEllipsis,
       fontColor,
-      fontFamily = constant("sans-serif"),
+      fontFamily = constant("Verdana"),
       fontMax = constant(50),
       fontMin = constant(8),
       fontResize = constant(false),

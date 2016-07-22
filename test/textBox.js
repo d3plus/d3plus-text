@@ -11,7 +11,6 @@ test("textBox", assert => {
 
   const testBox = textBox()
     .data([data])
-    .fontFamily("Verdana")
     .fontSize(14)
     .height(height)
     .width(width)
