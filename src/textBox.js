@@ -352,7 +352,7 @@ function(d) {
   /**
       @memberof textBox
       @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#textBox.select) by default.
-      @param {Function|String} [*value*]
+      @param {Function|String} [*value* = "Verdana"]
   */
   textBox.fontFamily = function(_) {
     return arguments.length ? (fontFamily = typeof _ === "function" ? _ : constant(_), textBox) : fontFamily;
@@ -388,7 +388,7 @@ function(d) {
   /**
       @memberof textBox
       @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#textBox.select) by default.
-      @param {Function|Number} [*value*]
+      @param {Function|Number} [*value* = 10]
   */
   textBox.fontSize = function(_) {
     return arguments.length ? (fontSize = typeof _ === "function" ? _ : constant(_), textBox) : fontSize;
