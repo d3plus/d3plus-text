@@ -126,7 +126,16 @@
     ],
     "quotes": 2,
     "radix": 2,
-    "require-jsdoc": 1,
+    "require-jsdoc": [
+      1,
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true
+        }
+      }
+    ],
     "require-yield": 2,
     "semi": 2,
     "semi-spacing": 2,
