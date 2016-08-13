@@ -1,8 +1,9 @@
 # d3plus-text
 
-[![NPM Release](http://img.shields.io/npm/v/d3plus-text.svg?style=flat-square)](https://www.npmjs.org/package/d3plus-text)
+[![NPM Release](http://img.shields.io/npm/v/d3plus-text.svg?style=flat)](https://www.npmjs.org/package/d3plus-text)
 [![Build Status](https://travis-ci.org/d3plus/d3plus-text.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-text)
-[![Dependency Status](http://img.shields.io/david/d3plus/d3plus-text.svg?style=flat-square)](https://david-dm.org/d3plus/d3plus-text)
+[![Dependency Status](http://img.shields.io/david/d3plus/d3plus-text.svg?style=flat)](https://david-dm.org/d3plus/d3plus-text)
+[![Slack](https://img.shields.io/badge/Slack-Click%20to%20Join!-green.svg?style=social)](https://goo.gl/forms/ynrKdvusekAwRMPf2)
 
 A smart SVG text box with line wrapping and automatic font size scaling.
 
@@ -11,7 +12,7 @@ A smart SVG text box with line wrapping and automatic font size scaling.
 If you use NPM, `npm install d3plus-text`. Otherwise, download the [latest release](https://github.com/d3plus/d3plus-text/releases/latest). The released bundle supports AMD, CommonJS, and vanilla environments. Create a [custom bundle using Rollup](https://github.com/rollup/rollup) or your preferred bundler. You can also load directly from [d3plus.org](https://d3plus.org):
 
 ```html
-<script src="https://d3plus.org/js/d3plus-text.v0.8.full.min.js"></script>
+<script src="https://d3plus.org/js/d3plus-text.v0.9.full.min.js"></script>
 ```
 
 [width]: 700
@@ -63,8 +64,8 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 <dt><a href="#stringify">stringify(value)</a></dt>
 <dd><p>Coerces value into a String.</p>
 </dd>
-<dt><a href="#textBox">textBox([data])</a></dt>
-<dd><p>Creates a wrapped text box based on an array of data. If <em>data</em> is specified, immediately wraps the text based on the specified array and returns this generator. If <em>data</em> is not specified on instantiation, it can be passed/updated after instantiation using the <a href="#textBox.data">data</a> method. See <a href="https://d3plus.org/examples/d3plus-text/getting-started/">this example</a> for help getting started using the textBox function.</p>
+<dt><a href="#TextBox">TextBox()</a></dt>
+<dd><p>Creates a wrapped text box for each point in an array of data. See <a href="https://d3plus.org/examples/d3plus-text/getting-started/">this example</a> for help getting started using the textBox function.</p>
 </dd>
 <dt><a href="#textSplit">textSplit(sentence)</a></dt>
 <dd><p>Splits a given sentence into an array of words.</p>
@@ -88,94 +89,90 @@ Coerces value into a String.
 | --- | --- |
 | value | <code>String</code> | 
 
-<a name="textBox"></a>
+<a name="TextBox"></a>
 
-### textBox([data])
-Creates a wrapped text box based on an array of data. If *data* is specified, immediately wraps the text based on the specified array and returns this generator. If *data* is not specified on instantiation, it can be passed/updated after instantiation using the [data](#textBox.data) method. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
+### TextBox()
+Creates a wrapped text box for each point in an array of data. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
 
 **Kind**: global function  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [data] | <code>Array</code> | <code>[]</code> | An array of text blocks to be wrapped. |
+* [TextBox()](#TextBox)
+    * [.render([*callback*])](#TextBox.render)
+    * [.data([*data*])](#TextBox.data)
+    * [.delay([*value*])](#TextBox.delay)
+    * [.duration([*value*])](#TextBox.duration)
+    * [.ellipsis([*value*])](#TextBox.ellipsis)
+    * [.fontColor([*value*])](#TextBox.fontColor)
+    * [.fontFamily([*value*])](#TextBox.fontFamily)
+    * [.fontMax([*value*])](#TextBox.fontMax)
+    * [.fontMin([*value*])](#TextBox.fontMin)
+    * [.fontResize([*value*])](#TextBox.fontResize)
+    * [.fontSize([*value*])](#TextBox.fontSize)
+    * [.height([*value*])](#TextBox.height)
+    * [.id([*value*])](#TextBox.id)
+    * [.lineHeight([*value*])](#TextBox.lineHeight)
+    * [.on([*typenames*], [*listener*])](#TextBox.on)
+    * [.overflow([*value*])](#TextBox.overflow)
+    * [.rotate([*value*])](#TextBox.rotate)
+    * [.select([*selector*])](#TextBox.select)
+    * [.split([*value*])](#TextBox.split)
+    * [.text([*value*])](#TextBox.text)
+    * [.textAnchor([*value*])](#TextBox.textAnchor)
+    * [.verticalAlign([*value*])](#TextBox.verticalAlign)
+    * [.width([*value*])](#TextBox.width)
+    * [.x([*value*])](#TextBox.x)
+    * [.y([*value*])](#TextBox.y)
 
+<a name="TextBox.render"></a>
 
-* [textBox([data])](#textBox)
-    * [.config([*value*])](#textBox.config)
-    * [.data([*data*])](#textBox.data)
-    * [.delay([*value*])](#textBox.delay)
-    * [.duration([*value*])](#textBox.duration)
-    * [.ellipsis([*value*])](#textBox.ellipsis)
-    * [.fontColor([*value*])](#textBox.fontColor)
-    * [.fontFamily([*value*])](#textBox.fontFamily)
-    * [.fontMax([*value*])](#textBox.fontMax)
-    * [.fontMin([*value*])](#textBox.fontMin)
-    * [.fontResize([*value*])](#textBox.fontResize)
-    * [.fontSize([*value*])](#textBox.fontSize)
-    * [.height([*value*])](#textBox.height)
-    * [.id([*value*])](#textBox.id)
-    * [.lineHeight([*value*])](#textBox.lineHeight)
-    * [.on([*typenames*], [*listener*])](#textBox.on)
-    * [.overflow([*value*])](#textBox.overflow)
-    * [.select([*selector*])](#textBox.select)
-    * [.split([*value*])](#textBox.split)
-    * [.text([*value*])](#textBox.text)
-    * [.textAnchor([*value*])](#textBox.textAnchor)
-    * [.verticalAlign([*value*])](#textBox.verticalAlign)
-    * [.width([*value*])](#textBox.width)
-    * [.x([*value*])](#textBox.x)
-    * [.y([*value*])](#textBox.y)
+#### TextBox.render([*callback*])
+Renders the text boxes. If a *callback* is specified, it will be called once the shapes are done drawing.
 
-<a name="textBox.config"></a>
-
-#### textBox.config([*value*])
-If *value* is specified, sets the methods that correspond to the key/value pairs and returns this generator. If *value* is not specified, returns the current configuration.
-
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
-| [*value*] | <code>Object</code> | 
+| [*callback*] | <code>function</code> | 
 
-<a name="textBox.data"></a>
+<a name="TextBox.data"></a>
 
-#### textBox.data([*data*])
+#### TextBox.data([*data*])
 If *data* is specified, sets the data array to the specified array and returns this generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*data*] | <code>Array</code> | <code>[]</code> | 
 
-<a name="textBox.delay"></a>
+<a name="TextBox.delay"></a>
 
-#### textBox.delay([*value*])
+#### TextBox.delay([*value*])
 If *value* is specified, sets the animation delay to the specified number and returns this generator. If *value* is not specified, returns the current animation delay.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>Number</code> | <code>0</code> | 
 
-<a name="textBox.duration"></a>
+<a name="TextBox.duration"></a>
 
-#### textBox.duration([*value*])
+#### TextBox.duration([*value*])
 If *value* is specified, sets the animation duration to the specified number and returns this generator. If *value* is not specified, returns the current animation duration.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>Number</code> | <code>0</code> | 
 
-<a name="textBox.ellipsis"></a>
+<a name="TextBox.ellipsis"></a>
 
-#### textBox.ellipsis([*value*])
+#### TextBox.ellipsis([*value*])
 If *value* is specified, sets the ellipsis method to the specified function or string and returns this generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -187,78 +184,78 @@ function(d) {
   return d + "...";
 }
 ```
-<a name="textBox.fontColor"></a>
+<a name="TextBox.fontColor"></a>
 
-#### textBox.fontColor([*value*])
+#### TextBox.fontColor([*value*])
 If *value* is specified, sets the font color accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#textBox.select) by default.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;black&quot;</code> | 
 
-<a name="textBox.fontFamily"></a>
+<a name="TextBox.fontFamily"></a>
 
-#### textBox.fontFamily([*value*])
+#### TextBox.fontFamily([*value*])
 If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#textBox.select) by default.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;Verdana&quot;</code> | 
 
-<a name="textBox.fontMax"></a>
+<a name="TextBox.fontMax"></a>
 
-#### textBox.fontMax([*value*])
+#### TextBox.fontMax([*value*])
 If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#textBox.fontResize) dynamically.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | <code>50</code> | 
 
-<a name="textBox.fontMin"></a>
+<a name="TextBox.fontMin"></a>
 
-#### textBox.fontMin([*value*])
+#### TextBox.fontMin([*value*])
 If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#textBox.fontResize) dynamically.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | <code>8</code> | 
 
-<a name="textBox.fontResize"></a>
+<a name="TextBox.fontResize"></a>
 
-#### textBox.fontResize([*value*])
+#### TextBox.fontResize([*value*])
 If *value* is specified, sets the font resizing accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current font resizing accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Boolean</code> | <code>false</code> | 
 
-<a name="textBox.fontSize"></a>
+<a name="TextBox.fontSize"></a>
 
-#### textBox.fontSize([*value*])
+#### TextBox.fontSize([*value*])
 If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#textBox.select) by default.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | <code>10</code> | 
 
-<a name="textBox.height"></a>
+<a name="TextBox.height"></a>
 
-#### textBox.height([*value*])
+#### TextBox.height([*value*])
 If *value* is specified, sets the height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current height accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -270,12 +267,12 @@ function(d) {
   return d.height || 200;
 }
 ```
-<a name="textBox.id"></a>
+<a name="TextBox.id"></a>
 
-#### textBox.id([*value*])
+#### TextBox.id([*value*])
 If *value* is specified, sets the id accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current id accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -287,68 +284,79 @@ function(d, i) {
   return d.id || i + "";
 }
 ```
-<a name="textBox.lineHeight"></a>
+<a name="TextBox.lineHeight"></a>
 
-#### textBox.lineHeight([*value*])
+#### TextBox.lineHeight([*value*])
 If *value* is specified, sets the line height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#textBox.fontSize) by default.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | 
 
-<a name="textBox.on"></a>
+<a name="TextBox.on"></a>
 
-#### textBox.on([*typenames*], [*listener*])
+#### TextBox.on([*typenames*], [*listener*])
 Adds or removes a *listener* to each box for the specified event *typenames*. If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename*. Mirrors the core [d3-selection](https://github.com/d3/d3-selection#selection_on) behavior.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
 | [*typenames*] | <code>String</code> | 
 | [*listener*] | <code>function</code> | 
 
-<a name="textBox.overflow"></a>
+<a name="TextBox.overflow"></a>
 
-#### textBox.overflow([*value*])
+#### TextBox.overflow([*value*])
 If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current overflow accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Boolean</code> | <code>false</code> | 
 
-<a name="textBox.select"></a>
+<a name="TextBox.rotate"></a>
 
-#### textBox.select([*selector*])
+#### TextBox.rotate([*value*])
+If *value* is specified, sets the rotate accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current rotate accessor.
+
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>Number</code> | <code>0</code> | 
+
+<a name="TextBox.select"></a>
+
+#### TextBox.select([*selector*])
 If *selector* is specified, sets the SVG container element to the specified d3 selector or DOM element and returns this generator. If *selector* is not specified, returns the current SVG container element, which adds an SVG element to the page by default.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
 | [*selector*] | <code>String</code> &#124; <code>HTMLElement</code> | 
 
-<a name="textBox.split"></a>
+<a name="TextBox.split"></a>
 
-#### textBox.split([*value*])
+#### TextBox.split([*value*])
 If *value* is specified, sets the word split function to the specified function and returns this generator. If *value* is not specified, returns the current word split function.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [*value*] | <code>function</code> | A function that, when passed a string, is expected to return that string split into an array of words to wrap. The default split function splits strings on the following characters: `-`, `/`, `;`, `:`, `&` |
 
-<a name="textBox.text"></a>
+<a name="TextBox.text"></a>
 
-#### textBox.text([*value*])
+#### TextBox.text([*value*])
 If *value* is specified, sets the text accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current text accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -360,34 +368,34 @@ function(d) {
   return d.text;
 }
 ```
-<a name="textBox.textAnchor"></a>
+<a name="TextBox.textAnchor"></a>
 
-#### textBox.textAnchor([*value*])
+#### TextBox.textAnchor([*value*])
 If *value* is specified, sets the horizontal text anchor accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current horizontal text anchor accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;start&quot;</code> | Analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property. |
 
-<a name="textBox.verticalAlign"></a>
+<a name="TextBox.verticalAlign"></a>
 
-#### textBox.verticalAlign([*value*])
+#### TextBox.verticalAlign([*value*])
 If *value* is specified, sets the vertical alignment accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current vertical alignment accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;top&quot;</code> | Accepts `"top"`, `"middle"`, and `"bottom"`. |
 
-<a name="textBox.width"></a>
+<a name="TextBox.width"></a>
 
-#### textBox.width([*value*])
+#### TextBox.width([*value*])
 If *value* is specified, sets the width accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current width accessor.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -399,12 +407,12 @@ function(d) {
   return d.width || 200;
 }
 ```
-<a name="textBox.x"></a>
+<a name="TextBox.x"></a>
 
-#### textBox.x([*value*])
+#### TextBox.x([*value*])
 If *value* is specified, sets the x accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the textBox.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -416,12 +424,12 @@ function(d) {
   return d.x || 0;
 }
 ```
-<a name="textBox.y"></a>
+<a name="TextBox.y"></a>
 
-#### textBox.y([*value*])
+#### TextBox.y([*value*])
 If *value* is specified, sets the y accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the textBox.
 
-**Kind**: static method of <code>[textBox](#textBox)</code>  
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
 
 | Param | Type |
 | --- | --- |
@@ -551,4 +559,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Fri, 22 Jul 2016 19:40:21 GMT</sub>
+###### <sub>Documentation generated on Sat, 13 Aug 2016 01:41:08 GMT</sub>
