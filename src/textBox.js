@@ -37,6 +37,7 @@ export default class TextBox extends BaseClass {
     this._id = (d, i) => d.id || `${i}`;
     this._on = {};
     this._overflow = constant(false);
+    this._rotate = constant(0);
     this._split = textSplit;
     this._text = accessor("text");
     this._textAnchor = constant("start");
@@ -260,7 +261,9 @@ export default class TextBox extends BaseClass {
 
           }
 
-        });
+        })
+        .transition(t)
+          .attr("transform", (d, i) => `rotate(${this._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.data.length / 2})`);
 
     const events = Object.keys(this._on);
     for (let e = 0; e < events.length; e++) update.on(events[e], this._on[events[e]]);
@@ -417,6 +420,15 @@ function(d, i) {
   */
   overflow(_) {
     return arguments.length ? (this._overflow = typeof _ === "function" ? _ : constant(_), this) : this._overflow;
+  }
+
+  /**
+      @memberof TextBox
+      @desc If *value* is specified, sets the rotate accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current rotate accessor.
+      @param {Function|Number} [*value* = 0]
+  */
+  rotate(_) {
+    return arguments.length ? (this._rotate = typeof _ === "function" ? _ : constant(_), this) : this._rotate;
   }
 
   /**
