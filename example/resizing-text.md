@@ -15,13 +15,13 @@ var data = [
 Here, we can compare the output of using [fontResize](https://github.com/d3plus/d3plus-text#textBox.fontResize) against the normal output, given a 200 x 100 rectangle boundary.
 
 ```js
-d3plus.textBox()
+new d3plus.TextBox()
   .data(data)
   .fontResize(function(d) { return d.resize; })
   .height(100)
   .width(200)
   .x(function(d, i) { return i * 250; })
-  ();
+  .render();
 ```
 
 The [fontSize](https://github.com/d3plus/d3plus-text#textBox.fontSize) calculated by this method is constrained by the [fontMin](https://github.com/d3plus/d3plus-text#textBox.fontMin) and [fontMax](https://github.com/d3plus/d3plus-text#textBox.fontMax) values, which default to `8` and `50` respectively.

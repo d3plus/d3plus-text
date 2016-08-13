@@ -33,12 +33,12 @@ var data = [
 And finally, this is how that data array would be passed to the [textBox](https://github.com/d3plus/d3plus-text#textBox) generator.
 
 ```js
-d3plus.textBox()
+new d3plus.TextBox()
   .data(data)
   .fontSize(16)
   .width(200)
   .x(function(d, i) { return i * 250; })
-  ();
+  .render();
 ```
 
 While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some handy defaults, this example shows how any of the methods can be overridden with static values or accessor functions. For more information on how the [textSplit](#textSplit) function splits strings, specifically in languages that don't use spaces, check out [this blog post](https://blog.datawheel.us/english-is-not-chinese-69b43959bb47).
@@ -559,4 +559,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Sat, 13 Aug 2016 01:41:08 GMT</sub>
+###### <sub>Documentation generated on Sat, 13 Aug 2016 01:43:01 GMT</sub>
