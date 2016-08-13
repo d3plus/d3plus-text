@@ -1,7 +1,9 @@
 import {test} from "tape";
-import {default as textBox} from "../src/textBox.js";
+import {default as TextBox} from "../src/TextBox.js";
 
-test("textBox", assert => {
+test("TextBox", assert => {
+
+  assert.end();
 
   const data = {text: "Hello D3plus, please wrap this sentence for me."},
         height = 200,
@@ -9,14 +11,14 @@ test("textBox", assert => {
         x = 100,
         y = 100;
 
-  const testBox = textBox()
+  const testBox = new TextBox()
     .data([data])
     .fontSize(14)
     .height(height)
     .width(width)
     .x(x)
     .y(y)
-    ();
+    .render();
 
   assert.equal(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
   assert.equal(document.getElementsByTagName("text").length, 1, "created <text> container element");
@@ -36,19 +38,19 @@ test("textBox", assert => {
   let y2 = y;
   assert.true(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (top)");
 
-  testBox.verticalAlign("middle")(() => {
+  testBox.verticalAlign("middle").render(() => {
 
     bbox = elem.getBBox();
     y2 = y + height / 2 - bbox.height / 2;
     assert.true(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (middle)");
 
-    testBox.verticalAlign("bottom")(() => {
+    testBox.verticalAlign("bottom").render(() => {
 
       bbox = elem.getBBox();
       y2 = y + height - bbox.height;
       assert.true(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (bottom)");
 
-      testBox.fontResize(true).verticalAlign("top")(() => {
+      testBox.fontResize(true).verticalAlign("top").render(() => {
 
         tspans = document.getElementsByTagName("tspan");
         assert.true(tspans[0].textContent === "Hello" &&
