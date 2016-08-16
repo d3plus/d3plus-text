@@ -199,10 +199,15 @@ export default class TextBox extends BaseClass {
 
     const that = this;
 
+    function rotate(text) {
+      text.attr("transform", (d, i) => `rotate(${that._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.data.length / 2})`);
+    }
+
     const update = boxes.enter().append("text")
         .attr("class", "d3plus-textBox")
         .attr("id", d => `d3plus-textBox-${d.id}`)
         .attr("y", d => `${d.y}px`)
+        .call(rotate)
       .merge(boxes)
         .attr("fill", d => d.fC)
         .attr("text-anchor", d => d.tA)
@@ -262,8 +267,7 @@ export default class TextBox extends BaseClass {
           }
 
         })
-        .transition(t)
-          .attr("transform", (d, i) => `rotate(${this._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.data.length / 2})`);
+        .transition(t).call(rotate);
 
     const events = Object.keys(this._on);
     for (let e = 0; e < events.length; e++) update.on(events[e], this._on[events[e]]);
