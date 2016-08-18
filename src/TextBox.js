@@ -57,6 +57,7 @@ export default class TextBox extends BaseClass {
 
     if (this._select === void 0) this.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
     if (this._lineHeight === void 0) this._lineHeight = (d, i) => this._fontSize(d, i) * 1.1;
+    const that = this;
 
     const boxes = this._select.selectAll(".d3plus-textBox").data(this._data.reduce((arr, d, i) => {
 
@@ -126,7 +127,10 @@ export default class TextBox extends BaseClass {
             else checkSize();
           }
           else if (line === 2 && !lineData[line - 2].length) lineData = [];
-          else lineData[line - 2] = this._ellipsis(lineData[line - 2]);
+          else {
+            lineData[line - 2] = that._ellipsis(lineData[line - 2]);
+            lineData = lineData.slice(0, line - 1);
+          }
 
         }
 
@@ -196,8 +200,6 @@ export default class TextBox extends BaseClass {
         .attr("opacity", 0);
 
     }
-
-    const that = this;
 
     function rotate(text) {
       text.attr("transform", (d, i) => `rotate(${that._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.data.length / 2})`);
