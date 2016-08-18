@@ -559,4 +559,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Tue, 16 Aug 2016 19:29:14 GMT</sub>
+###### <sub>Documentation generated on Thu, 18 Aug 2016 19:47:53 GMT</sub>
