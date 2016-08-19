@@ -210,66 +210,68 @@ export default class TextBox extends BaseClass {
         .attr("id", d => `d3plus-textBox-${d.id}`)
         .attr("y", d => `${d.y}px`)
         .call(rotate)
-      .merge(boxes)
-        .attr("fill", d => d.fC)
-        .attr("text-anchor", d => d.tA)
-        .attr("font-family", d => d.fF)
-        .style("font-family", d => d.fF)
-        .attr("font-size", d => `${d.fS}px`)
-        .style("font-size", d => `${d.fS}px`)
-        .each(function(d) {
+      .merge(boxes);
 
-          const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
-                tB = d3.select(this);
+    update
+      .attr("fill", d => d.fC)
+      .attr("text-anchor", d => d.tA)
+      .attr("font-family", d => d.fF)
+      .style("font-family", d => d.fF)
+      .attr("font-size", d => `${d.fS}px`)
+      .style("font-size", d => `${d.fS}px`)
+      .each(function(d) {
 
-          if (that._duration === 0) tB.attr("y", d => `${d.y}px`);
-          else tB.transition(t).attr("y", d => `${d.y}px`);
+        const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
+              tB = d3.select(this);
 
-          /**
-              Styles to apply to each <tspan> element.
-              @private
-          */
-          function tspanStyle(tspan) {
-            tspan
-              .text(t => t.trimRight())
-              .attr("x", `${d.x}px`)
-              .attr("dx", `${dx}px`)
-              .attr("dy", `${d.lH}px`);
-          }
+        if (that._duration === 0) tB.attr("y", d => `${d.y}px`);
+        else tB.transition(t).attr("y", d => `${d.y}px`);
 
-          const tspans = tB.selectAll("tspan").data(d.data);
+        /**
+            Styles to apply to each <tspan> element.
+            @private
+        */
+        function tspanStyle(tspan) {
+          tspan
+            .text(t => t.trimRight())
+            .attr("x", `${d.x}px`)
+            .attr("dx", `${dx}px`)
+            .attr("dy", `${d.lH}px`);
+        }
 
-          if (that._duration === 0) {
+        const tspans = tB.selectAll("tspan").data(d.data);
 
-            tspans.call(tspanStyle);
+        if (that._duration === 0) {
 
-            tspans.exit().remove();
+          tspans.call(tspanStyle);
 
-            tspans.enter().append("tspan")
-              .attr("dominant-baseline", "alphabetic")
-              .style("baseline-shift", "0%")
-              .call(tspanStyle);
+          tspans.exit().remove();
 
-          }
-          else {
+          tspans.enter().append("tspan")
+            .attr("dominant-baseline", "alphabetic")
+            .style("baseline-shift", "0%")
+            .call(tspanStyle);
 
-            tspans.transition(t).call(tspanStyle);
+        }
+        else {
 
-            tspans.exit().transition(t)
-              .attr("opacity", 0).remove();
+          tspans.transition(t).call(tspanStyle);
 
-            tspans.enter().append("tspan")
-              .attr("dominant-baseline", "alphabetic")
-              .style("baseline-shift", "0%")
-              .attr("opacity", 0)
-              .call(tspanStyle)
-              .transition(t).delay(that._delay)
-                .attr("opacity", 1);
+          tspans.exit().transition(t)
+            .attr("opacity", 0).remove();
 
-          }
+          tspans.enter().append("tspan")
+            .attr("dominant-baseline", "alphabetic")
+            .style("baseline-shift", "0%")
+            .attr("opacity", 0)
+            .call(tspanStyle)
+            .transition(t).delay(that._delay)
+              .attr("opacity", 1);
 
-        })
-        .transition(t).call(rotate);
+        }
+
+      })
+      .transition(t).call(rotate);
 
     const events = Object.keys(this._on);
     for (let e = 0; e < events.length; e++) update.on(events[e], this._on[events[e]]);
