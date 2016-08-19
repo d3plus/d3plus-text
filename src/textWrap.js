@@ -39,7 +39,7 @@ export default function() {
         truncated = false,
         widthProg = 0;
 
-    const lineData = [""],
+    const lineData = [],
           sizes = measure(words, style),
           space = measure(" ", style);
 
@@ -48,7 +48,11 @@ export default function() {
       const nextChar = sentence.charAt(textProg.length + word.length),
             wordWidth = sizes[words.indexOf(word)];
       if (nextChar === " ") word += nextChar;
-      if (widthProg + wordWidth > width - fontSize) {
+      if (widthProg + wordWidth > width) {
+        if (!i && !overflow) {
+          truncated = true;
+          break;
+        }
         lineData[line - 1] = lineData[line - 1].trimRight();
         line++;
         if (lineHeight * line > height || wordWidth > width && !overflow) {
@@ -58,6 +62,7 @@ export default function() {
         widthProg = 0;
         lineData.push(word);
       }
+      else if (!i) lineData[0] = word;
       else lineData[line - 1] += word;
       textProg += word;
       widthProg += wordWidth;
