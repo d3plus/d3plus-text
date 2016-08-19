@@ -64,7 +64,7 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 <dt><a href="#stringify">stringify(value)</a></dt>
 <dd><p>Coerces value into a String.</p>
 </dd>
-<dt><a href="#TextBox">TextBox()</a></dt>
+<dt><a href="#TextBox">TextBox()</a> ⇐ <code>BaseClass</code></dt>
 <dd><p>Creates a wrapped text box for each point in an array of data. See <a href="https://d3plus.org/examples/d3plus-text/getting-started/">this example</a> for help getting started using the textBox function.</p>
 </dd>
 <dt><a href="#textSplit">textSplit(sentence)</a></dt>
@@ -91,12 +91,13 @@ Coerces value into a String.
 
 <a name="TextBox"></a>
 
-### TextBox()
+### TextBox() ⇐ <code>BaseClass</code>
 Creates a wrapped text box for each point in an array of data. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
 
 **Kind**: global function  
+**Extends:** <code>BaseClass</code>  
 
-* [TextBox()](#TextBox)
+* [TextBox()](#TextBox) ⇐ <code>BaseClass</code>
     * [.render([*callback*])](#TextBox.render)
     * [.data([*data*])](#TextBox.data)
     * [.delay([*value*])](#TextBox.delay)
@@ -559,4 +560,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Thu, 18 Aug 2016 19:47:53 GMT</sub>
+###### <sub>Documentation generated on Fri, 19 Aug 2016 01:36:59 GMT</sub>
