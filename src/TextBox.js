@@ -171,7 +171,8 @@ export default class TextBox extends BaseClass {
         yP -= lH * 0.1;
 
         arr.push({
-          data: lineData,
+          data: d,
+          lines: lineData,
           fC: this._fontColor(d, i),
           fF: style["font-family"],
           id: this._id(d, i),
@@ -202,7 +203,7 @@ export default class TextBox extends BaseClass {
     }
 
     function rotate(text) {
-      text.attr("transform", (d, i) => `rotate(${that._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.data.length / 2})`);
+      text.attr("transform", (d, i) => `rotate(${that._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.lines.length / 2})`);
     }
 
     const update = boxes.enter().append("text")
@@ -239,7 +240,7 @@ export default class TextBox extends BaseClass {
             .attr("dy", `${d.lH}px`);
         }
 
-        const tspans = tB.selectAll("tspan").data(d.data);
+        const tspans = tB.selectAll("tspan").data(d.lines);
 
         if (that._duration === 0) {
 
@@ -273,8 +274,12 @@ export default class TextBox extends BaseClass {
       })
       .transition(t).call(rotate);
 
-    const events = Object.keys(this._on);
-    for (let e = 0; e < events.length; e++) update.on(events[e], this._on[events[e]]);
+    const events = Object.keys(this._on),
+          on = events.reduce((obj, e) => {
+            obj[e] = (d, i) => this._on[e](d.data, i);
+            return obj;
+          }, {});
+    for (let e = 0; e < events.length; e++) update.on(events[e], on[events[e]]);
 
     if (callback) setTimeout(callback, this._duration + 100);
 
