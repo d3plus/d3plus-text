@@ -1,13 +1,6 @@
-import {select as d3Select} from "d3-selection";
-import {transition as d3Transition} from "d3-transition";
-import {max as d3Max, min as d3Min, sum as d3Sum} from "d3-array";
-const d3 = {
-  max: d3Max,
-  min: d3Min,
-  select: d3Select,
-  sum: d3Sum,
-  transition: d3Transition
-};
+import {select} from "d3-selection";
+import {transition} from "d3-transition";
+import {max, min, sum} from "d3-array";
 
 import {accessor, BaseClass, constant} from "d3plus-common";
 import {default as textSplit} from "./textSplit";
@@ -16,6 +9,7 @@ import {default as wrap} from "./textWrap";
 
 /**
     @function TextBox
+    @extends BaseClass
     @desc Creates a wrapped text box for each point in an array of data. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
 */
 export default class TextBox extends BaseClass {
@@ -55,7 +49,7 @@ export default class TextBox extends BaseClass {
   */
   render(callback) {
 
-    if (this._select === void 0) this.select(d3.select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
+    if (this._select === void 0) this.select(select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
     if (this._lineHeight === void 0) this._lineHeight = (d, i) => this._fontSize(d, i) * 1.1;
     const that = this;
 
@@ -145,13 +139,13 @@ export default class TextBox extends BaseClass {
 
           const areaMod = 1.165 + w / h * 0.1,
                 boxArea = w * h,
-                maxWidth = d3.max(sizes),
-                textArea = d3.sum(sizes, d => d * lH) * areaMod;
+                maxWidth = max(sizes),
+                textArea = sum(sizes, d => d * lH) * areaMod;
 
           if (maxWidth > w || textArea > boxArea) {
             const areaRatio = Math.sqrt(boxArea / textArea),
                   widthRatio = w / maxWidth;
-            const sizeRatio = d3.min([areaRatio, widthRatio]);
+            const sizeRatio = min([areaRatio, widthRatio]);
             fS = Math.floor(fS * sizeRatio);
           }
 
@@ -186,7 +180,7 @@ export default class TextBox extends BaseClass {
 
     }, []), this._id);
 
-    const t = d3.transition().duration(this._duration);
+    const t = transition().duration(this._duration);
 
     if (this._duration === 0) {
 
@@ -223,7 +217,7 @@ export default class TextBox extends BaseClass {
       .each(function(d) {
 
         const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
-              tB = d3.select(this);
+              tB = select(this);
 
         if (that._duration === 0) tB.attr("y", d => `${d.y}px`);
         else tB.transition(t).attr("y", d => `${d.y}px`);
@@ -450,7 +444,7 @@ function(d, i) {
       @param {String|HTMLElement} [*selector*]
   */
   select(_) {
-    return arguments.length ? (this._select = d3.select(_), this) : this._select;
+    return arguments.length ? (this._select = select(_), this) : this._select;
   }
 
   /**
