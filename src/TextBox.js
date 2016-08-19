@@ -20,7 +20,7 @@ export default class TextBox extends BaseClass {
 
     this._delay = 0;
     this._duration = 0;
-    this._ellipsis = _ => `${_}...`;
+    this._ellipsis = _ => `${_.replace(/\.|,$/g, "")}...`;
     this._fontColor = constant("black");
     this._fontFamily = constant("Verdana");
     this._fontMax = constant(50);
