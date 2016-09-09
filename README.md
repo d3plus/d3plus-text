@@ -64,6 +64,9 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 <dt><a href="#stringify">stringify(value)</a></dt>
 <dd><p>Coerces value into a String.</p>
 </dd>
+<dt><a href="#strip">strip(value)</a></dt>
+<dd><p>Removes all non ASCII characters from a string.</p>
+</dd>
 <dt><a href="#TextBox">TextBox()</a> ⇐ <code>BaseClass</code></dt>
 <dd><p>Creates a wrapped text box for each point in an array of data. See <a href="https://d3plus.org/examples/d3plus-text/getting-started/">this example</a> for help getting started using the textBox function.</p>
 </dd>
@@ -82,6 +85,17 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 
 ### stringify(value)
 Coerces value into a String.
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| value | <code>String</code> | 
+
+<a name="strip"></a>
+
+### strip(value)
+Removes all non ASCII characters from a string.
 
 **Kind**: global function  
 
@@ -560,4 +574,4 @@ If *value* is specified, sets width limit to the specified value and returns thi
 
 
 
-###### <sub>Documentation generated on Fri, 19 Aug 2016 01:36:59 GMT</sub>
+###### <sub>Documentation generated on Fri, 09 Sep 2016 22:46:18 GMT</sub>
