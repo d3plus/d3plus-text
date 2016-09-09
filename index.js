@@ -1,4 +1,5 @@
 export {default as stringify} from "./src/stringify";
+export {default as strip} from "./src/strip";
 export {default as TextBox} from "./src/TextBox";
 export {default as textSplit} from "./src/textSplit";
 export {default as textWidth} from "./src/textWidth";
