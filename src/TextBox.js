@@ -122,7 +122,7 @@ export default class TextBox extends BaseClass {
           }
           else if (line === 2 && !lineData[line - 2].length) lineData = [];
           else {
-            lineData[line - 2] = that._ellipsis(lineData[line - 2]);
+            lineData[line - 2] = that._ellipsis(lineData[line - 2] || "");
             lineData = lineData.slice(0, line - 1);
           }
 
