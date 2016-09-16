@@ -110,7 +110,7 @@ export default class TextBox extends BaseClass {
         }
 
         const wrapResults = wrapper(t);
-        lineData = wrapResults.lines;
+        lineData = wrapResults.lines.filter(l => l !== "");
         line = lineData.length;
 
         if (wrapResults.truncated) {
@@ -120,11 +120,8 @@ export default class TextBox extends BaseClass {
             if (fS < fMin) lineData = [];
             else checkSize();
           }
-          else if (line === 2 && !lineData[line - 2].length) lineData = [];
-          else {
-            lineData[line - 2] = that._ellipsis(lineData[line - 2] || "");
-            lineData = lineData.slice(0, line - 1);
-          }
+          else if (line < 1) lineData = [that._ellipsis("")];
+          else lineData[line - 1] = that._ellipsis(lineData[line - 1]);
 
         }
 
