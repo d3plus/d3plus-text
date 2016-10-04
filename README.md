@@ -46,16 +46,14 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 *Please note the `()` at the end of the chain of commands. This is what tells the [textBox](https://github.com/d3plus/d3plus-text#textBox) to finally render to the page, and allows setting multiple properties of the [textBox](https://github.com/d3plus/d3plus-text#textBox) without it trying to render after each one is set.*
 
 
-[Click here](https://d3plus.org/examples/d3plus-text/getting-started/) to view this example live on the web.
+[<kbd><img src="/example/getting-started.png" width="700px" /></kbd>](https://d3plus.org/examples/d3plus-text/getting-started/)
 
-[![Getting Started](/example/getting-started.png)](https://d3plus.org/examples/d3plus-text/getting-started/)
+[Click here](https://d3plus.org/examples/d3plus-text/getting-started/) to view this example live on the web.
 
 
 ### More Examples
 
-
  * [Automatic Font Resizing to Fit Container](http://d3plus.org/examples/d3plus-text/resizing-text/)
-
 
 ## API Reference
 ### Functions
@@ -78,6 +76,9 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 </dd>
 <dt><a href="#textWrap">textWrap()</a></dt>
 <dd><p>Based on the defined styles and dimensions, breaks a string into an array of strings for each line of text.</p>
+</dd>
+<dt><a href="#titleCase">titleCase(str, [opts])</a></dt>
+<dd><p>Capitalizes the first letter of each word in a phrase/sentence.</p>
 </dd>
 </dl>
 
@@ -572,6 +573,19 @@ If *value* is specified, sets width limit to the specified value and returns thi
 | --- | --- | --- |
 | [*value*] | <code>Number</code> | <code>200</code> | 
 
+<a name="titleCase"></a>
+
+### titleCase(str, [opts])
+Capitalizes the first letter of each word in a phrase/sentence.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | The string to apply the title case logic. |
+| [opts] | <code>Object</code> | Optional parameters to apply. |
+| [opts.lng] | <code>String</code> | The locale to use when looking up all lowercase or uppecase words. |
 
 
-###### <sub>Documentation generated on Fri, 09 Sep 2016 22:49:21 GMT</sub>
+
+###### <sub>Documentation generated on Tue, 04 Oct 2016 18:24:22 GMT</sub>
