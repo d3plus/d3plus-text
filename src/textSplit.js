@@ -41,7 +41,7 @@ const laoRange = "\u0E81-\u0EAE\u0EB0-\u0EC4\u0EC8-\u0ECB\u0ECD-\u0EDD";
 
 const noSpaceRange = burmeseRange + chineseRange + laoRange;
 
-const splitWords = new RegExp(`[^\\s|\\${splitChars.join("|\\")}]+(\\${splitChars.join("|\\")})*`, "g");
+const splitWords = new RegExp(`(\\${splitChars.join("|\\")})*[^\\s|\\${splitChars.join("|\\")}]+(\\${splitChars.join("|\\")})*`, "g");
 const japaneseChars = new RegExp(`[${japaneseRange}]`);
 const noSpaceLanguage = new RegExp(`[${noSpaceRange}]`);
 const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange}](\\${suffixChars.join("|\\")}|\\${combiningMarks.join("|\\")})*|[a-z0-9]+`, "gi");

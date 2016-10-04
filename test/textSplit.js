@@ -12,6 +12,8 @@ test("textSplit", assert => {
     assert.true(arr[0] === first && arr[1] === "test", `using "${char}"`);
   }
 
+  assert.equal(textSplit("-4")[0], "-4", "string starting with split character");
+
   const chinese = textSplit("里句。");
   assert.true(chinese[0] === "里" && chinese[1] === "句。", "simplified chinese");
 
