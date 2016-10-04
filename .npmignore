@@ -1,3 +1,6 @@
 build/*.zip
-example/*.html
+example/
 test/
+.eslintrc
+.gitignore
+.travis.yml
