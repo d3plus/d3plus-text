@@ -127,7 +127,6 @@ Creates a wrapped text box for each point in an array of data. See [this example
     * [.height([*value*])](#TextBox.height)
     * [.id([*value*])](#TextBox.id)
     * [.lineHeight([*value*])](#TextBox.lineHeight)
-    * [.on([*typenames*], [*listener*])](#TextBox.on)
     * [.overflow([*value*])](#TextBox.overflow)
     * [.rotate([*value*])](#TextBox.rotate)
     * [.select([*selector*])](#TextBox.select)
@@ -310,18 +309,6 @@ If *value* is specified, sets the line height accessor to the specified function
 | Param | Type |
 | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | 
-
-<a name="TextBox.on"></a>
-
-#### TextBox.on([*typenames*], [*listener*])
-Adds or removes a *listener* to each box for the specified event *typenames*. If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename*. Mirrors the core [d3-selection](https://github.com/d3/d3-selection#selection_on) behavior.
-
-**Kind**: static method of <code>[TextBox](#TextBox)</code>  
-
-| Param | Type |
-| --- | --- |
-| [*typenames*] | <code>String</code> | 
-| [*listener*] | <code>function</code> | 
 
 <a name="TextBox.overflow"></a>
 
@@ -588,4 +575,4 @@ Capitalizes the first letter of each word in a phrase/sentence.
 
 
 
-###### <sub>Documentation generated on Tue, 04 Oct 2016 18:24:22 GMT</sub>
+###### <sub>Documentation generated on Tue, 25 Oct 2016 20:31:12 GMT</sub>
