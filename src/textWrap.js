@@ -8,7 +8,7 @@ import {default as stringify} from "./stringify";
 */
 export default function() {
 
-  let fontFamily = "sans-serif",
+  let fontFamily = "Verdana",
       fontSize = 10,
       height = 200,
       lineHeight,
