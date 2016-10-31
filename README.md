@@ -575,4 +575,4 @@ Capitalizes the first letter of each word in a phrase/sentence.
 
 
 
-###### <sub>Documentation generated on Tue, 25 Oct 2016 20:31:12 GMT</sub>
+###### <sub>Documentation generated on Mon, 31 Oct 2016 20:29:50 GMT</sub>
