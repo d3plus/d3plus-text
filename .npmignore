@@ -4,3 +4,4 @@ test/
 .eslintrc
 .gitignore
 .travis.yml
+npm-debug.log

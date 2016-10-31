@@ -2,5 +2,6 @@
 build/
 example/*.html
 node_modules
+npm-debug.log
 test/*.html
 test/*.png
