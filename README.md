@@ -124,6 +124,7 @@ Creates a wrapped text box for each point in an array of data. See [this example
     * [.fontMin([*value*])](#TextBox.fontMin)
     * [.fontResize([*value*])](#TextBox.fontResize)
     * [.fontSize([*value*])](#TextBox.fontSize)
+    * [.fontWeight([*value*])](#TextBox.fontWeight)
     * [.height([*value*])](#TextBox.height)
     * [.id([*value*])](#TextBox.id)
     * [.lineHeight([*value*])](#TextBox.lineHeight)
@@ -264,6 +265,17 @@ If *value* is specified, sets the font size accessor to the specified function o
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Number</code> | <code>10</code> | 
+
+<a name="TextBox.fontWeight"></a>
+
+#### TextBox.fontWeight([*value*])
+If *value* is specified, sets the font weight accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font weight accessor, which is inferred from the [container element](#textBox.select) by default.
+
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>Number</code> &#124; <code>String</code> | <code>400</code> | 
 
 <a name="TextBox.height"></a>
 
@@ -477,6 +489,7 @@ Based on the defined styles and dimensions, breaks a string into an array of str
 * [textWrap()](#textWrap)
     * [.fontFamily([*value*])](#textWrap.fontFamily)
     * [.fontSize([*value*])](#textWrap.fontSize)
+    * [.fontWeight([*value*])](#textWrap.fontWeight)
     * [.height([*value*])](#textWrap.height)
     * [.lineHeight([*value*])](#textWrap.lineHeight)
     * [.overflow([*value*])](#textWrap.overflow)
@@ -490,9 +503,9 @@ If *value* is specified, sets the font family accessor to the specified function
 
 **Kind**: static method of <code>[textWrap](#textWrap)</code>  
 
-| Param | Type |
-| --- | --- |
-| [*value*] | <code>function</code> &#124; <code>String</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;Verdana&quot;</code> | 
 
 <a name="textWrap.fontSize"></a>
 
@@ -501,9 +514,20 @@ If *value* is specified, sets the font size accessor to the specified function o
 
 **Kind**: static method of <code>[textWrap](#textWrap)</code>  
 
-| Param | Type |
-| --- | --- |
-| [*value*] | <code>function</code> &#124; <code>Number</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>Number</code> | <code>10</code> | 
+
+<a name="textWrap.fontWeight"></a>
+
+#### textWrap.fontWeight([*value*])
+If *value* is specified, sets the font weight accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font weight.
+
+**Kind**: static method of <code>[textWrap](#textWrap)</code>  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>Number</code> &#124; <code>String</code> | <code>400</code> | 
 
 <a name="textWrap.height"></a>
 
@@ -575,4 +599,4 @@ Capitalizes the first letter of each word in a phrase/sentence.
 
 
 
-###### <sub>Documentation generated on Mon, 31 Oct 2016 20:29:50 GMT</sub>
+###### <sub>Documentation generated on Sun, 20 Nov 2016 04:23:34 GMT</sub>
