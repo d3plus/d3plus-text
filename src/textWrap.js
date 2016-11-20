@@ -10,6 +10,7 @@ export default function() {
 
   let fontFamily = "Verdana",
       fontSize = 10,
+      fontWeight = 400,
       height = 200,
       lineHeight,
       overflow = false,
@@ -31,6 +32,7 @@ export default function() {
     const style = {
       "font-family": fontFamily,
       "font-size": fontSize,
+      "font-weight": fontWeight,
       "line-height": lineHeight
     };
 
@@ -79,7 +81,7 @@ export default function() {
   /**
       @memberof textWrap
       @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family.
-      @param {Function|String} [*value*]
+      @param {Function|String} [*value* = "Verdana"]
   */
   textWrap.fontFamily = function(_) {
     return arguments.length ? (fontFamily = _, textWrap) : fontFamily;
@@ -88,10 +90,19 @@ export default function() {
   /**
       @memberof textWrap
       @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size.
-      @param {Function|Number} [*value*]
+      @param {Function|Number} [*value* = 10]
   */
   textWrap.fontSize = function(_) {
     return arguments.length ? (fontSize = _, textWrap) : fontSize;
+  };
+
+  /**
+      @memberof textWrap
+      @desc If *value* is specified, sets the font weight accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font weight.
+      @param {Function|Number|String} [*value* = 400]
+  */
+  textWrap.fontWeight = function(_) {
+    return arguments.length ? (fontWeight = _, textWrap) : fontWeight;
   };
 
   /**

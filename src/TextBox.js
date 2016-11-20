@@ -27,6 +27,7 @@ export default class TextBox extends BaseClass {
     this._fontMin = constant(8);
     this._fontResize = constant(false);
     this._fontSize = constant(10);
+    this._fontWeight = constant(400);
     this._height = accessor("height", 200);
     this._id = (d, i) => d.id || `${i}`;
     this._on = {};
@@ -69,6 +70,7 @@ export default class TextBox extends BaseClass {
       const style = {
         "font-family": this._fontFamily(d, i),
         "font-size": fS,
+        "font-weight": this._fontWeight(d, i),
         "line-height": lH
       };
 
@@ -78,6 +80,7 @@ export default class TextBox extends BaseClass {
       const wrapper = wrap()
         .fontFamily(style["font-family"])
         .fontSize(fS)
+        .fontWeight(style["font-weight"])
         .lineHeight(lH)
         .height(h)
         .overflow(this._overflow(d, i))
@@ -166,6 +169,7 @@ export default class TextBox extends BaseClass {
           lines: lineData,
           fC: this._fontColor(d, i),
           fF: style["font-family"],
+          fW: style["font-weight"],
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
           fS, lH, w, x: this._x(d, i), y: this._y(d, i) + yP
@@ -211,6 +215,8 @@ export default class TextBox extends BaseClass {
       .style("font-family", d => d.fF)
       .attr("font-size", d => `${d.fS}px`)
       .style("font-size", d => `${d.fS}px`)
+      .attr("font-weight", d => d.fW)
+      .style("font-weight", d => d.fW)
       .each(function(d) {
 
         const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
@@ -370,6 +376,15 @@ function(d) {
   */
   fontSize(_) {
     return arguments.length ? (this._fontSize = typeof _ === "function" ? _ : constant(_), this) : this._fontSize;
+  }
+
+  /**
+      @memberof TextBox
+      @desc If *value* is specified, sets the font weight accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font weight accessor, which is inferred from the [container element](#textBox.select) by default.
+      @param {Function|Number|String} [*value* = 400]
+  */
+  fontWeight(_) {
+    return arguments.length ? (this._fontWeight = typeof _ === "function" ? _ : constant(_), this) : this._fontWeight;
   }
 
   /**
