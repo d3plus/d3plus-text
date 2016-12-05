@@ -129,6 +129,7 @@ Creates a wrapped text box for each point in an array of data. See [this example
     * [.id([*value*])](#TextBox.id)
     * [.lineHeight([*value*])](#TextBox.lineHeight)
     * [.overflow([*value*])](#TextBox.overflow)
+    * [.pointerEvents([*value*])](#TextBox.pointerEvents)
     * [.rotate([*value*])](#TextBox.rotate)
     * [.select([*selector*])](#TextBox.select)
     * [.split([*value*])](#TextBox.split)
@@ -332,6 +333,17 @@ If *value* is specified, sets the overflow accessor to the specified function or
 | Param | Type | Default |
 | --- | --- | --- |
 | [*value*] | <code>function</code> &#124; <code>Boolean</code> | <code>false</code> | 
+
+<a name="TextBox.pointerEvents"></a>
+
+#### TextBox.pointerEvents([*value*])
+If *value* is specified, sets the pointer-events accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current pointer-events accessor.
+
+**Kind**: static method of <code>[TextBox](#TextBox)</code>  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| [*value*] | <code>function</code> &#124; <code>String</code> | <code>&quot;auto&quot;</code> | 
 
 <a name="TextBox.rotate"></a>
 
@@ -599,4 +611,4 @@ Capitalizes the first letter of each word in a phrase/sentence.
 
 
 
-###### <sub>Documentation generated on Sun, 20 Nov 2016 04:23:34 GMT</sub>
+###### <sub>Documentation generated on Mon, 05 Dec 2016 02:26:32 GMT</sub>
