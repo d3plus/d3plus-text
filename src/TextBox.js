@@ -14,6 +14,11 @@ import {default as wrap} from "./textWrap";
 */
 export default class TextBox extends BaseClass {
 
+  /**
+      @memberof TextBox
+      @desc Invoked when creating a new class instance, and sets any default parameters.
+      @private
+  */
   constructor() {
 
     super();
