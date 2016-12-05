@@ -32,6 +32,7 @@ export default class TextBox extends BaseClass {
     this._id = (d, i) => d.id || `${i}`;
     this._on = {};
     this._overflow = constant(false);
+    this._pointerEvents = constant("auto");
     this._rotate = constant(0);
     this._split = textSplit;
     this._text = accessor("text");
@@ -166,6 +167,7 @@ export default class TextBox extends BaseClass {
 
         arr.push({
           data: d,
+          i,
           lines: lineData,
           fC: this._fontColor(d, i),
           fF: style["font-family"],
@@ -217,6 +219,7 @@ export default class TextBox extends BaseClass {
       .style("font-size", d => `${d.fS}px`)
       .attr("font-weight", d => d.fW)
       .style("font-weight", d => d.fW)
+      .style("pointer-events", d => this._pointerEvents(d.data, d.i))
       .each(function(d) {
 
         const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
@@ -429,6 +432,15 @@ function(d, i) {
   */
   overflow(_) {
     return arguments.length ? (this._overflow = typeof _ === "function" ? _ : constant(_), this) : this._overflow;
+  }
+
+  /**
+      @memberof TextBox
+      @desc If *value* is specified, sets the pointer-events accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current pointer-events accessor.
+      @param {Function|String} [*value* = "auto"]
+  */
+  pointerEvents(_) {
+    return arguments.length ? (this._pointerEvents = typeof _ === "function" ? _ : constant(_), this) : this._pointerEvents;
   }
 
   /**
