@@ -267,11 +267,12 @@ export default class TextBox extends BaseClass {
             .attr("opacity", 0).remove();
 
           tspans.enter().append("tspan")
-            .attr("dominant-baseline", "alphabetic")
-            .style("baseline-shift", "0%")
-            .attr("opacity", 0)
-            .call(tspanStyle)
-            .transition(t).delay(that._delay)
+              .attr("dominant-baseline", "alphabetic")
+              .style("baseline-shift", "0%")
+              .attr("opacity", 0)
+              .call(tspanStyle)
+            .merge(tspans).transition(t).delay(that._delay)
+              .call(tspanStyle)
               .attr("opacity", 1);
 
         }
