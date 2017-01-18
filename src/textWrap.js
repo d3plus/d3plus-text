@@ -47,9 +47,8 @@ export default function() {
 
     for (let i = 0; i < words.length; i++) {
       let word = words[i];
-      const nextChar = sentence.charAt(textProg.length + word.length),
-            wordWidth = sizes[words.indexOf(word)];
-      if (nextChar === " ") word += nextChar;
+      const wordWidth = sizes[words.indexOf(word)];
+      word = sentence.match(`^${textProg + word} *`, "g")[0].slice(textProg.length);
       if (widthProg + wordWidth > width) {
         if (!i && !overflow) {
           truncated = true;
@@ -68,7 +67,7 @@ export default function() {
       else lineData[line - 1] += word;
       textProg += word;
       widthProg += wordWidth;
-      if (nextChar === " ") widthProg += space;
+      widthProg += word.match(/[\s]*$/g)[0].length * space;
     }
 
     return {
