@@ -59,6 +59,9 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 ### Functions
 
 <dl>
+<dt><a href="#fontExists">fontExists(font)</a> ⇒ <code>String</code> | <code>Boolean</code></dt>
+<dd><p>Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or <code>false</code> if none are installed on the user&#39;s machine.</p>
+</dd>
 <dt><a href="#stringify">stringify(value)</a></dt>
 <dd><p>Coerces value into a String.</p>
 </dd>
@@ -81,6 +84,18 @@ While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some h
 <dd><p>Capitalizes the first letter of each word in a phrase/sentence.</p>
 </dd>
 </dl>
+
+<a name="fontExists"></a>
+
+### fontExists(font) ⇒ <code>String</code> &#124; <code>Boolean</code>
+Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
+
+**Kind**: global function  
+**Returns**: <code>String</code> &#124; <code>Boolean</code> - Either the name of the first font that can be rendered, or `false` if none are installed on the user's machine.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| font | <code>String</code> &#124; <code>Array</code> | Can be either a valid CSS font-family string (single or comma-separated names) or an Array of string names. |
 
 <a name="stringify"></a>
 
@@ -611,4 +626,4 @@ Capitalizes the first letter of each word in a phrase/sentence.
 
 
 
-###### <sub>Documentation generated on Thu, 26 Jan 2017 15:24:43 GMT</sub>
+###### <sub>Documentation generated on Sat, 28 Jan 2017 16:42:10 GMT</sub>
