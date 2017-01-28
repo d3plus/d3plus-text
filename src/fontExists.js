@@ -2,11 +2,12 @@ import {default as textWidth} from "./textWidth";
 
 const alpha = "abcdefghiABCDEFGHI_!@#$%^&*()_+1234567890",
       checked = {},
-      height = 32,
+      height = 32;
+
+const dejavu = textWidth(alpha, {"font-family": "DejaVuSans", "font-size": height}),
       macos = textWidth(alpha, {"font-family": "-apple-system", "font-size": height}),
       monospace = textWidth(alpha, {"font-family": "monospace", "font-size": height}),
-      proportional = textWidth(alpha, {"font-family": "sans-serif", "font-size": height}),
-      ubuntu = textWidth(alpha, {"font-family": "Ubuntu", "font-size": height});
+      proportional = textWidth(alpha, {"font-family": "sans-serif", "font-size": height});
 
 /**
     @function fontExists
@@ -21,13 +22,13 @@ const fontExists = font => {
 
   for (let i = 0; i < font.length; i++) {
     const fam = font[i];
-    if (checked[fam] || ["-apple-system", "monospace", "sans-serif", "Ubuntu"].includes(fam)) return fam;
+    if (checked[fam] || ["-apple-system", "monospace", "sans-serif", "DejaVuSans"].includes(fam)) return fam;
     else if (checked[fam] === false) continue;
     const width = textWidth(alpha, {"font-family": fam, "font-size": height});
     checked[fam] = width !== monospace;
     if (checked[fam]) checked[fam] = width !== proportional;
     if (macos && checked[fam]) checked[fam] = width !== macos;
-    if (ubuntu && checked[fam]) checked[fam] = width !== ubuntu;
+    if (dejavu && checked[fam]) checked[fam] = width !== dejavu;
     if (checked[fam]) return fam;
   }
 

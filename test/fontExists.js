@@ -3,7 +3,7 @@ import {default as fontExists} from "../src/fontExists.js";
 
 test("fontExists", assert => {
 
-  const missing = "Missing", valid = "Verdana";
+  const missing = "Missing", valid = "DejaVuSans";
 
   assert.equal(valid, fontExists(valid), "single - exists");
   assert.equal(false, fontExists(missing), "single - missing");
