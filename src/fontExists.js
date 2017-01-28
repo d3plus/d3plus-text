@@ -4,10 +4,7 @@ const alpha = "abcdefghiABCDEFGHI_!@#$%^&*()_+1234567890",
       checked = {},
       height = 32;
 
-const dejavu = textWidth(alpha, {"font-family": "DejaVuSans", "font-size": height}),
-      macos = textWidth(alpha, {"font-family": "-apple-system", "font-size": height}),
-      monospace = textWidth(alpha, {"font-family": "monospace", "font-size": height}),
-      proportional = textWidth(alpha, {"font-family": "sans-serif", "font-size": height});
+let dejavu, macos, monospace, proportional;
 
 /**
     @function fontExists
@@ -16,6 +13,13 @@ const dejavu = textWidth(alpha, {"font-family": "DejaVuSans", "font-size": heigh
     @return {String|Boolean} Either the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
 */
 const fontExists = font => {
+
+  if (!dejavu) {
+    dejavu = textWidth(alpha, {"font-family": "DejaVuSans", "font-size": height});
+    macos = textWidth(alpha, {"font-family": "-apple-system", "font-size": height});
+    monospace = textWidth(alpha, {"font-family": "monospace", "font-size": height});
+    proportional = textWidth(alpha, {"font-family": "sans-serif", "font-size": height});
+  }
 
   if (!(font instanceof Array)) font = font.split(",");
   font = font.map(f => f.trim());
