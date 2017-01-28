@@ -1,3 +1,4 @@
+export {default as fontExists} from "./src/fontExists";
 export {default as stringify} from "./src/stringify";
 export {default as strip} from "./src/strip";
 export {default as TextBox} from "./src/TextBox";
