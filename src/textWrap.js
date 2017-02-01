@@ -48,7 +48,7 @@ export default function() {
     for (let i = 0; i < words.length; i++) {
       let word = words[i];
       const wordWidth = sizes[words.indexOf(word)];
-      word = sentence.match(`^${textProg + word} *`, "g")[0].slice(textProg.length);
+      word += sentence.slice(textProg.length + word.length).match("^ *", "g")[0];
       if (widthProg + wordWidth > width) {
         if (!i && !overflow) {
           truncated = true;
