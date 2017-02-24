@@ -13,6 +13,7 @@ test("textSplit", assert => {
   }
 
   assert.equal(textSplit("-4")[0], "-4", "string starting with split character");
+  assert.equal(textSplit("This & That")[1], "&", "solo split character");
 
   const chinese = textSplit("里句。");
   assert.true(chinese[0] === "里" && chinese[1] === "句。", "simplified chinese");
