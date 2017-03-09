@@ -36,12 +36,7 @@ const suffixChars = ["'",  ">",  ")",  "}",  "]",  ".",  "!",  "?",
 ].concat(splitChars);
 
 const burmeseRange = "\u1000-\u102A\u103F-\u1049\u1050-\u1055";
-const japaneseRange = `\u3040-\u309f
-                       \u30a0-\u30ff
-                       \uff00-\uff0b
-                       \uff0d-\uff5d
-                       \uff5f-\uff9f
-                       \u3400-\u4dbf`;
+const japaneseRange = "\u3040-\u309f\u30a0-\u30ff\uff00-\uff0b\uff0d-\uff5d\uff5f-\uff9f\u3400-\u4dbf";
 const chineseRange = "\u3400-\u9FBF";
 const laoRange = "\u0E81-\u0EAE\u0EB0-\u0EC4\u0EC8-\u0ECB\u0ECD-\u0EDD";
 
