@@ -1,71 +1,68 @@
-import {test} from "tape";
+import zora from "zora";
 import {default as TextBox} from "../src/TextBox.js";
 
-test("TextBox", assert => {
+export default zora()
+  .test("TextBox", function *(assert) {
 
-  assert.end();
+    assert.end();
 
-  const data = {text: "Hello D3plus, please wrap this sentence for me."},
-        height = 200,
-        width = 200,
-        x = 100,
-        y = 100;
+    const data = {text: "Hello D3plus, please wrap this sentence for me."},
+          height = 200,
+          width = 200,
+          x = 100,
+          y = 100;
 
-  const testBox = new TextBox()
-    .data([data])
-    .fontSize(14)
-    .height(height)
-    .width(width)
-    .x(x)
-    .y(y)
-    .render();
+    let testBox;
 
-  assert.equal(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
-  assert.equal(document.getElementsByTagName("text").length, 1, "created <text> container element");
-  assert.equal(document.getElementsByTagName("tspan").length, 2, "created 2 <tspan> elements");
+    yield cb => {
+      testBox = new TextBox()
+        .data([data])
+        .fontSize(14)
+        .height(height)
+        .width(width)
+        .x(x)
+        .y(y)
+        .render(cb);
+    };
 
-  let tspans = document.getElementsByTagName("tspan");
-  assert.true(tspans[0].textContent === "Hello D3plus, please wrap" &&
-              tspans[1].textContent === "this sentence for me.", "wrapped text");
+    assert.equal(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
+    assert.equal(document.getElementsByTagName("text").length, 1, "created <text> container element");
+    assert.equal(document.getElementsByTagName("tspan").length, 2, "created 2 <tspan> elements");
 
-  const elem = document.getElementById("d3plus-textBox-0");
-  let bbox = elem.getBBox();
-  assert.true(bbox.width <= width, "fit within width");
-  assert.true(bbox.height <= height, "fit within height");
-  assert.equal(Math.round(bbox.x), x, "x positioned correctly");
+    let tspans = document.getElementsByTagName("tspan");
+    assert.ok(tspans[0].textContent === "Hello D3plus, please wrap" &&
+                tspans[1].textContent === "this sentence for me.", "wrapped text");
 
-  const yP = 1;
-  let y2 = y;
-  assert.true(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (top)");
+    const elem = document.getElementById("d3plus-textBox-0");
+    let bbox = elem.getBBox();
+    assert.ok(bbox.width <= width, "fit within width");
+    assert.ok(bbox.height <= height, "fit within height");
+    assert.equal(Math.round(bbox.x), x, "x positioned correctly");
 
-  testBox.verticalAlign("middle").render(() => {
+    const yP = 1;
+    let y2 = y;
+    assert.ok(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (top)");
+
+    yield cb => testBox.verticalAlign("middle").render(cb);
 
     bbox = elem.getBBox();
     y2 = y + height / 2 - bbox.height / 2;
-    assert.true(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (middle)");
+    assert.ok(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (middle)");
 
-    testBox.verticalAlign("bottom").render(() => {
+    yield cb => testBox.verticalAlign("bottom").render(cb);
 
-      bbox = elem.getBBox();
-      y2 = y + height - bbox.height;
-      assert.true(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (bottom)");
+    bbox = elem.getBBox();
+    y2 = y + height - bbox.height;
+    assert.ok(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (bottom)");
 
-      testBox.fontResize(true).verticalAlign("top").render(() => {
+    yield cb => testBox.fontResize(true).verticalAlign("top").render(cb);
 
-        tspans = document.getElementsByTagName("tspan");
-        assert.true(tspans[0].textContent === "Hello" &&
-                    tspans[1].textContent === "D3plus," &&
-                    tspans[2].textContent === "please" &&
-                    tspans[3].textContent === "wrap this" &&
-                    tspans[4].textContent === "sentence" &&
-                    tspans[5].textContent === "for me.", "font resizing");
-
-        assert.end();
-
-      });
-
-    });
+    tspans = document.getElementsByTagName("tspan");
+    assert.ok(tspans[0].textContent === "Hello" &&
+                tspans[1].textContent === "D3plus," &&
+                tspans[2].textContent === "please" &&
+                tspans[3].textContent === "wrap this" &&
+                tspans[4].textContent === "sentence" &&
+                tspans[5].textContent === "for me.", "font resizing");
 
   });
-
-});
