@@ -8,7 +8,7 @@ import {default as measure} from "./textWidth";
 import {default as wrap} from "./textWrap";
 
 /**
-    @function TextBox
+    @class TextBox
     @extends BaseClass
     @desc Creates a wrapped text box for each point in an array of data. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
 */
