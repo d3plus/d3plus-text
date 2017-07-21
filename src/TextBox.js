@@ -6,6 +6,7 @@ import {accessor, BaseClass, constant} from "d3plus-common";
 import {default as textSplit} from "./textSplit";
 import {default as measure} from "./textWidth";
 import {default as wrap} from "./textWrap";
+import {trimRight} from "./trim";
 
 /**
     @class TextBox
@@ -239,7 +240,7 @@ export default class TextBox extends BaseClass {
         */
         function tspanStyle(tspan) {
           tspan
-            .text(t => t.trimRight())
+            .text(t => trimRight(t))
             .attr("x", `${d.x}px`)
             .attr("dx", `${dx}px`)
             .attr("dy", `${d.lH}px`);

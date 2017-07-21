@@ -1,4 +1,5 @@
 import {default as textWidth} from "./textWidth";
+import {trim} from "./trim";
 
 const alpha = "abcdefghiABCDEFGHI_!@#$%^&*()_+1234567890",
       checked = {},
@@ -22,7 +23,7 @@ const fontExists = font => {
   }
 
   if (!(font instanceof Array)) font = font.split(",");
-  font = font.map(f => f.trim());
+  font = font.map(f => trim(f));
 
   for (let i = 0; i < font.length; i++) {
     const fam = font[i];

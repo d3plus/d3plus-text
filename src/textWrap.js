@@ -1,6 +1,7 @@
 import {default as measure} from "./textWidth";
 import {default as defaultSplit} from "./textSplit";
 import {default as stringify} from "./stringify";
+import {trimRight} from "./trim";
 
 /**
     @function textWrap
@@ -54,7 +55,7 @@ export default function() {
           truncated = true;
           break;
         }
-        lineData[line - 1] = lineData[line - 1].trimRight();
+        lineData[line - 1] = trimRight(lineData[line - 1]);
         line++;
         if (lineHeight * line > height || wordWidth > width && !overflow) {
           truncated = true;

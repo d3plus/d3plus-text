@@ -6,3 +6,4 @@ export {default as textSplit} from "./src/textSplit";
 export {default as textWidth} from "./src/textWidth";
 export {default as textWrap} from "./src/textWrap";
 export {default as titleCase} from "./src/titleCase";
+export {trim, trimLeft, trimRight} from "./src/trim";
