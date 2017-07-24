@@ -1,9 +1,9 @@
 [width]: 450
 [height]: 100
 
-# Automatic Font Resizing to Fit Container
+# Text Wrapping Dynamic Font Resizing to Fit Container
 
-A useful method when using text to label variable sized shapes (like in a [tree map](https://github.com/d3plus/d3plus-treemap)) is the [fontResize](https://github.com/d3plus/d3plus-text#textBox.fontResize) function. When set to `true`, the [textBox](https://github.com/d3plus/d3plus-text#textBox) will attempt to scale up or down the [fontSize](https://github.com/d3plus/d3plus-text#textBox.fontSize) value to best fit the containing shape.
+A useful method when using text to label shapes (like in a [tree map](http://d3plus.org/examples/d3plus-hierarchy/getting-started/)) is the [fontResize](http://d3plus.org/docs/#TextBox.fontResize) method of the [textBox](http://d3plus.org/docs/#TextBox) class. When set to `true`, the text will attempt to scale up or down it's font-size to best fit the containing shape.
 
 ```js
 var data = [
@@ -12,7 +12,7 @@ var data = [
 ];
 ```
 
-Here, we can compare the output of using [fontResize](https://github.com/d3plus/d3plus-text#textBox.fontResize) against the normal output, given a 200 x 100 rectangle boundary.
+Here, we can compare the output of using the [fontResize](http://d3plus.org/docs/#TextBox.fontResize) method against the normal output, given a 200 x 100 rectangle boundary.
 
 ```js
 new d3plus.TextBox()
@@ -24,4 +24,4 @@ new d3plus.TextBox()
   .render();
 ```
 
-The [fontSize](https://github.com/d3plus/d3plus-text#textBox.fontSize) calculated by this method is constrained by the [fontMin](https://github.com/d3plus/d3plus-text#textBox.fontMin) and [fontMax](https://github.com/d3plus/d3plus-text#textBox.fontMax) values, which default to `8` and `50` respectively.
+The font-size calculated by this method is constrained by the [fontMin](http://d3plus.org/docs/#TextBox.fontMin) and [fontMax](http://d3plus.org/docs/#TextBox.fontMax) methods, which default to `8` and `50` respectively.

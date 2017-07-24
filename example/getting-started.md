@@ -1,9 +1,9 @@
 [width]: 700
 [height]: 75
 
-# Getting Started
+# Wrapping SVG Text with TextBox
 
-Without a doubt, the most commonly used aspect of this module is [textBox](https://github.com/d3plus/d3plus-text#textBox), which is used for intelligently wrapping SVG text. At it's core, you can simply pass along data points with "text" values and the generator will add them to the page using a set of defaults. Here is a data array containing 3 different sentences to be wrapped:
+Without a doubt, the most commonly requested part of the [d3plus-text](https://github.com/d3plus/d3plus-text) module is [textBox](http://d3plus.org/docs/#TextBox), which is used for intelligently wrapping SVG text. At it's core, it accepts an array of data points containing `"text"` keys and adds them to the page using a set of defaults. Here is a data array containing 3 different sentences to be wrapped:
 
 ```js
 var data = [
@@ -13,7 +13,7 @@ var data = [
 ];
 ```
 
-And finally, this is how that data array would be passed to the [textBox](https://github.com/d3plus/d3plus-text#textBox) generator.
+And finally, this is how that data array would be passed to the [textBox](http://d3plus.org/docs/#TextBox):
 
 ```js
 new d3plus.TextBox()
@@ -24,6 +24,4 @@ new d3plus.TextBox()
   .render();
 ```
 
-While [textBox](https://github.com/d3plus/d3plus-text#textBox) comes with some handy defaults, this example shows how any of the methods can be overridden with static values or accessor functions. For more information on how the [textSplit](#textSplit) function splits strings, specifically in languages that don't use spaces, check out [this blog post](https://blog.datawheel.us/english-is-not-chinese-69b43959bb47).
-
-*Please note the `()` at the end of the chain of commands. This is what tells the [textBox](https://github.com/d3plus/d3plus-text#textBox) to finally render to the page, and allows setting multiple properties of the [textBox](https://github.com/d3plus/d3plus-text#textBox) without it trying to render after each one is set.*
+While [textBox](http://d3plus.org/docs/#TextBox) comes with some helpful defaults, this example shows how any of the methods can be overridden with static values or accessor functions. For more information on how the [textSplit](#textSplit) function splits strings, specifically in languages that don't use spaces, check out [this blog post](https://blog.datawheel.us/english-is-not-chinese-69b43959bb47).
