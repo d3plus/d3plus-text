@@ -1,3 +1,8 @@
+/**
+    @external BaseClass
+    @see https://github.com/d3plus/d3plus-common#BaseClass
+*/
+
 import {select} from "d3-selection";
 import {transition} from "d3-transition";
 import {max, min, sum} from "d3-array";
@@ -10,8 +15,8 @@ import {trimRight} from "./trim";
 
 /**
     @class TextBox
-    @extends BaseClass
-    @desc Creates a wrapped text box for each point in an array of data. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the textBox function.
+    @extends external:BaseClass
+    @desc Creates a wrapped text box for each point in an array of data. See [this example](https://d3plus.org/examples/d3plus-text/getting-started/) for help getting started using the TextBox class.
 */
 export default class TextBox extends BaseClass {
 
@@ -296,7 +301,7 @@ export default class TextBox extends BaseClass {
 
   /**
       @memberof TextBox
-      @desc If *data* is specified, sets the data array to the specified array and returns this generator. If *data* is not specified, returns the current data array. A text box will be drawn for each object in the array.
+      @desc Sets the data array to the specified array. A text box will be drawn for each object in the array.
       @param {Array} [*data* = []]
   */
   data(_) {
@@ -305,7 +310,7 @@ export default class TextBox extends BaseClass {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the animation delay to the specified number and returns this generator. If *value* is not specified, returns the current animation delay.
+      @desc Sets the animation delay to the specified number in milliseconds.
       @param {Number} [*value* = 0]
   */
   delay(_) {
@@ -314,7 +319,7 @@ export default class TextBox extends BaseClass {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the animation duration to the specified number and returns this generator. If *value* is not specified, returns the current animation duration.
+      @desc Sets the animation duration to the specified number in milliseconds.
       @param {Number} [*value* = 0]
   */
   duration(_) {
@@ -323,7 +328,7 @@ export default class TextBox extends BaseClass {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the ellipsis method to the specified function or string and returns this generator. If *value* is not specified, returns the current ellipsis method, which simply adds an ellipsis to the string by default.
+      @desc Sets the ellipsis method to the specified function or string, which simply adds an ellipsis to the string by default.
       @param {Function|String} [*value*]
       @example <caption>default accessor</caption>
 function(d) {
@@ -336,7 +341,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the font color accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font color accessor, which is inferred from the [container element](#textBox.select) by default.
+      @desc Sets the font color to the specified accessor function or static string, which is inferred from the [DOM selection](#textBox.select) by default.
       @param {Function|String} [*value* = "black"]
   */
   fontColor(_) {
@@ -345,7 +350,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family accessor, which is inferred from the [container element](#textBox.select) by default.
+      @desc Sets the font family to the specified accessor function or static string, which is inferred from the [DOM selection](#textBox.select) by default.
       @param {Function|String} [*value* = "Verdana"]
   */
   fontFamily(_) {
@@ -354,7 +359,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the maximum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current maximum font size accessor. The maximum font size is used when [resizing fonts](#textBox.fontResize) dynamically.
+      @desc Sets the maximum font size to the specified accessor function or static number, which is used when [dynamically resizing fonts](#textBox.fontResize).
       @param {Function|Number} [*value* = 50]
   */
   fontMax(_) {
@@ -363,7 +368,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the minimum font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current minimum font size accessor. The minimum font size is used when [resizing fonts](#textBox.fontResize) dynamically.
+      @desc Sets the minimum font size to the specified accessor function or static number, which is used when [dynamically resizing fonts](#textBox.fontResize).
       @param {Function|Number} [*value* = 8]
   */
   fontMin(_) {
@@ -372,7 +377,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the font resizing accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current font resizing accessor.
+      @desc Toggles font resizing, which can either be defined as a static boolean for all data points, or an accessor function that returns a boolean. See [this example](http://d3plus.org/examples/d3plus-text/resizing-text/) for a side-by-side comparison.
       @param {Function|Boolean} [*value* = false]
   */
   fontResize(_) {
@@ -381,7 +386,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the font size accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font size accessor, which is inferred from the [container element](#textBox.select) by default.
+      @desc Sets the font size to the specified accessor function or static number, which is inferred from the [DOM selection](#textBox.select) by default.
       @param {Function|Number} [*value* = 10]
   */
   fontSize(_) {
@@ -390,7 +395,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the font weight accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current font weight accessor, which is inferred from the [container element](#textBox.select) by default.
+      @desc Sets the font weight to the specified accessor function or static number, which is inferred from the [DOM selection](#textBox.select) by default.
       @param {Function|Number|String} [*value* = 400]
   */
   fontWeight(_) {
@@ -399,7 +404,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current height accessor.
+      @desc Sets the height for each box to the specified accessor function or static number.
       @param {Function|Number} [*value*]
       @example <caption>default accessor</caption>
 function(d) {
@@ -412,7 +417,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the id accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current id accessor.
+      @desc Defines the unique id for each box to the specified accessor function or static number.
       @param {Function|Number} [*value*]
       @example <caption>default accessor</caption>
 function(d, i) {
@@ -425,7 +430,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the line height accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current line height accessor, which is 1.1 times the [font size](#textBox.fontSize) by default.
+      @desc Sets the line height to the specified accessor function or static number, which is 1.1 times the [font size](#textBox.fontSize) by default.
       @param {Function|Number} [*value*]
   */
   lineHeight(_) {
@@ -434,7 +439,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the overflow accessor to the specified function or boolean and returns this generator. If *value* is not specified, returns the current overflow accessor.
+      @desc Sets the text overflow to the specified accessor function or static boolean.
       @param {Function|Boolean} [*value* = false]
   */
   overflow(_) {
@@ -443,7 +448,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the pointer-events accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current pointer-events accessor.
+      @desc Sets the pointer-events to the specified accessor function or static string.
       @param {Function|String} [*value* = "auto"]
   */
   pointerEvents(_) {
@@ -452,7 +457,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the rotate accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current rotate accessor.
+      @desc Sets the rotate percentage for each box to the specified accessor function or static string.
       @param {Function|Number} [*value* = 0]
   */
   rotate(_) {
@@ -461,7 +466,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *selector* is specified, sets the SVG container element to the specified d3 selector or DOM element and returns this generator. If *selector* is not specified, returns the current SVG container element, which adds an SVG element to the page by default.
+      @desc Sets the SVG container element to the specified d3 selector or DOM element. If not explicitly specified, an SVG element will be added to the page for use.
       @param {String|HTMLElement} [*selector*]
   */
   select(_) {
@@ -470,8 +475,8 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the word split function to the specified function and returns this generator. If *value* is not specified, returns the current word split function.
-      @param {Function} [*value*] A function that, when passed a string, is expected to return that string split into an array of words to wrap. The default split function splits strings on the following characters: `-`, `/`, `;`, `:`, `&`
+      @desc Sets the word split behavior to the specified function, which when passed a string is expected to return that string split into an array of words.
+      @param {Function} [*value*]
   */
   split(_) {
     return arguments.length ? (this._split = _, this) : this._split;
@@ -479,7 +484,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the text accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current text accessor.
+      @desc Sets the text for each box to the specified accessor function or static string.
       @param {Function|String} [*value*]
       @example <caption>default accessor</caption>
 function(d) {
@@ -492,8 +497,8 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the horizontal text anchor accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current horizontal text anchor accessor.
-      @param {Function|String} [*value* = "start"] Analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property.
+      @desc Sets the horizontal text anchor to the specified accessor function or static string, whose values are analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property.
+      @param {Function|String} [*value* = "start"]
   */
   textAnchor(_) {
     return arguments.length ? (this._textAnchor = typeof _ === "function" ? _ : constant(_), this) : this._textAnchor;
@@ -501,8 +506,8 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the vertical alignment accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current vertical alignment accessor.
-      @param {Function|String} [*value* = "top"] Accepts `"top"`, `"middle"`, and `"bottom"`.
+      @desc Sets the vertical alignment to the specified accessor function or static string. Accepts `"top"`, `"middle"`, and `"bottom"`.
+      @param {Function|String} [*value* = "top"]
   */
   verticalAlign(_) {
     return arguments.length ? (this._verticalAlign = typeof _ === "function" ? _ : constant(_), this) : this._verticalAlign;
@@ -510,7 +515,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the width accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current width accessor.
+      @desc Sets the width for each box to the specified accessor function or static number.
       @param {Function|Number} [*value*]
       @example <caption>default accessor</caption>
 function(d) {
@@ -523,7 +528,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the x accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current x accessor. The number returned should correspond to the left position of the textBox.
+      @desc Sets the x position for each box to the specified accessor function or static number. The number given should correspond to the left side of the textBox.
       @param {Function|Number} [*value*]
       @example <caption>default accessor</caption>
 function(d) {
@@ -536,7 +541,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc If *value* is specified, sets the y accessor to the specified function or number and returns this generator. If *value* is not specified, returns the current y accessor. The number returned should correspond to the top position of the textBox.
+      @desc Sets the y position for each box to the specified accessor function or static number. The number given should correspond to the top side of the textBox.
       @param {Function|Number} [*value*]
       @example <caption>default accessor</caption>
 function(d) {
