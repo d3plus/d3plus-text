@@ -44,8 +44,7 @@ export default function() {
 
     const lineData = [],
           sizes = measure(words, style),
-          space = measure(" ", style),
-          widthData = [];
+          space = measure(" ", style);
 
     for (let i = 0; i < words.length; i++) {
       let word = words[i];
@@ -62,7 +61,6 @@ export default function() {
           truncated = true;
           break;
         }
-        widthData.push(widthProg);
         widthProg = 0;
         lineData.push(word);
       }
@@ -72,12 +70,11 @@ export default function() {
       widthProg += wordWidth;
       widthProg += word.match(/[\s]*$/g)[0].length * space;
     }
-    widthData.push(widthProg);
 
     return {
       lines: lineData,
       sentence, truncated,
-      widths: widthData,
+      widths: measure(lineData, style),
       words
     };
 
