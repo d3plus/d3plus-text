@@ -189,7 +189,7 @@ export default class TextBox extends BaseClass {
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
           widths: wrapResults.widths,
-          fS, lH, w, x: this._x(d, i), y: this._y(d, i) + yP
+          fS, lH, w, h, x: this._x(d, i), y: this._y(d, i) + yP
         });
 
       }
@@ -209,85 +209,76 @@ export default class TextBox extends BaseClass {
 
       boxes.exit().transition().delay(this._duration).remove();
 
-      boxes.exit().selectAll("tspan").transition(t)
+      boxes.exit().selectAll("text").transition(t)
         .attr("opacity", 0);
 
     }
 
     function rotate(text) {
-      text.attr("transform", (d, i) => `rotate(${that._rotate(d, i)} ${d.x + d.w / 2} ${d.y + d.lH / 4 + d.lH * d.lines.length / 2})`);
+      text.attr("transform", (d, i) => `rotate(${that._rotate(d, i)}, ${d.x + d.w / 2}, ${d.y + d.h / 2})translate(${d.x}, ${d.y})`);
     }
 
-    const update = boxes.enter().append("text")
+    const update = boxes.enter().append("g")
         .attr("class", "d3plus-textBox")
         .attr("id", d => `d3plus-textBox-${d.id}`)
-        .attr("y", d => `${d.y}px`)
         .call(rotate)
       .merge(boxes);
 
     const rtl = select("html").attr("dir") === "rtl";
 
     update
-      .attr("direction", "ltr")
-      .attr("fill", d => d.fC)
-      .attr("text-anchor", "start")
-      .attr("font-family", d => d.fF)
-      .style("font-family", d => d.fF)
-      .attr("font-size", d => `${d.fS}px`)
-      .style("font-size", d => `${d.fS}px`)
-      .attr("font-weight", d => d.fW)
-      .style("font-weight", d => d.fW)
       .style("pointer-events", d => this._pointerEvents(d.data, d.i))
       .each(function(d) {
 
-        const align = rtl ? d.tA === "start" ? "end" : d.tA === "end" ? "start" : d.tA : d.tA;
-
-        const tB = select(this);
-
-        if (that._duration === 0) tB.attr("y", d => `${d.y}px`);
-        else tB.transition(t).attr("y", d => `${d.y}px`);
-
         /**
-            Styles to apply to each <tspan> element.
+            Styles to apply to each <text> element.
             @private
         */
-        function tspanStyle(tspan) {
-          tspan
+        function textStyle(text) {
+          text
             .text(t => trimRight(t))
-            .attr("unicode-bidi", "isolate")
-            .attr("x", `${d.x}px`)
-            .attr("dx", (l, i) => `${align === "end" ? d.w - d.widths[i] : align === "middle" ? (d.w - d.widths[i]) / 2 : 0}px`)
-            .attr("dy", `${d.lH}px`);
+            .attr("dir", rtl ? "rtl" : "ltr")
+            .attr("fill", d.fC)
+            .attr("text-anchor", d.tA)
+            .attr("font-family", d.fF)
+            .style("font-family", d.fF)
+            .attr("font-size", `${d.fS}px`)
+            .style("font-size", `${d.fS}px`)
+            .attr("font-weight", d.fW)
+            .style("font-weight", d.fW)
+            .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 0}px`)
+            .attr("y", (t, i) => `${(i + 1) * d.lH}px`);
         }
 
-        const tspans = tB.selectAll("tspan").data(d.lines);
+        const texts = select(this).selectAll("text").data(d.lines);
 
         if (that._duration === 0) {
 
-          tspans.call(tspanStyle);
+          texts.call(textStyle);
 
-          tspans.exit().remove();
+          texts.exit().remove();
 
-          tspans.enter().append("tspan")
+          texts.enter().append("text")
             .attr("dominant-baseline", "alphabetic")
             .style("baseline-shift", "0%")
-            .call(tspanStyle);
+            .attr("unicode-bidi", "bidi-override")
+            .call(textStyle);
 
         }
         else {
 
-          tspans.transition(t).call(tspanStyle);
+          texts.transition(t).call(textStyle);
 
-          tspans.exit().transition(t)
+          texts.exit().transition(t)
             .attr("opacity", 0).remove();
 
-          tspans.enter().append("tspan")
+          texts.enter().append("text")
               .attr("dominant-baseline", "alphabetic")
               .style("baseline-shift", "0%")
               .attr("opacity", 0)
-              .call(tspanStyle)
-            .merge(tspans).transition(t).delay(that._delay)
-              .call(tspanStyle)
+              .call(textStyle)
+            .merge(texts).transition(t).delay(that._delay)
+              .call(textStyle)
               .attr("opacity", 1);
 
         }
