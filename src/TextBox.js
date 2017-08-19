@@ -35,7 +35,7 @@ export default class TextBox extends BaseClass {
     this._duration = 0;
     this._ellipsis = _ => `${_.replace(/\.|,$/g, "")}...`;
     this._fontColor = constant("black");
-    this._fontFamily = constant("Verdana");
+    this._fontFamily = constant(["Roboto", "Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"]);
     this._fontMax = constant(50);
     this._fontMin = constant(8);
     this._fontResize = constant(false);
@@ -353,7 +353,7 @@ function(d) {
   /**
       @memberof TextBox
       @desc Defines the font-family to be used. The value passed can be either a *String* name of a font, a comma-separated list of font-family fallbacks, an *Array* of fallbacks, or a *Function* that returns either a *String* or an *Array*. If supplying multiple fallback fonts, the [fontExists](#fontExists) function will be used to determine the first available font on the client's machine.
-      @param {Array|Function|String} [*value* = "Verdana"]
+      @param {Array|Function|String} [*value* = ["Roboto", "Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"]]
   */
   fontFamily(_) {
     return arguments.length ? (this._fontFamily = typeof _ === "function" ? _ : constant(_), this) : this._fontFamily;
