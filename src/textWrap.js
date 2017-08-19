@@ -1,6 +1,6 @@
-import {default as measure} from "./textWidth";
-import {default as defaultSplit} from "./textSplit";
-import {default as stringify} from "./stringify";
+import measure from "./textWidth";
+import defaultSplit from "./textSplit";
+import stringify from "./stringify";
 import {trimRight} from "./trim";
 
 /**
@@ -26,7 +26,7 @@ export default function() {
 
     sentence = stringify(sentence);
 
-    if (lineHeight === void 0) lineHeight = Math.ceil(fontSize * 1.1);
+    if (lineHeight === void 0) lineHeight = Math.ceil(fontSize * 1.4);
 
     const words = split(sentence);
 

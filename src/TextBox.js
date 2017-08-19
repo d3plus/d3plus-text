@@ -8,9 +8,9 @@ import {transition} from "d3-transition";
 import {max, min, sum} from "d3-array";
 
 import {accessor, BaseClass, constant} from "d3plus-common";
-import {default as textSplit} from "./textSplit";
-import {default as measure} from "./textWidth";
-import {default as wrap} from "./textWrap";
+import textSplit from "./textSplit";
+import measure from "./textWidth";
+import wrap from "./textWrap";
 import {trimRight} from "./trim";
 
 /**
@@ -63,7 +63,7 @@ export default class TextBox extends BaseClass {
   render(callback) {
 
     if (this._select === void 0) this.select(select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
-    if (this._lineHeight === void 0) this._lineHeight = (d, i) => this._fontSize(d, i) * 1.1;
+    if (this._lineHeight === void 0) this._lineHeight = (d, i) => this._fontSize(d, i) * 1.4;
     const that = this;
 
     const boxes = this._select.selectAll(".d3plus-textBox").data(this._data.reduce((arr, d, i) => {
@@ -74,7 +74,7 @@ export default class TextBox extends BaseClass {
       const resize = this._fontResize(d, i);
 
       let fS = resize ? this._fontMax(d, i) : this._fontSize(d, i),
-          lH = resize ? fS * 1.1 : this._lineHeight(d, i),
+          lH = resize ? fS * 1.4 : this._lineHeight(d, i),
           line = 1,
           lineData = [],
           sizes;
@@ -116,7 +116,7 @@ export default class TextBox extends BaseClass {
         else if (fS > fMax) fS = fMax;
 
         if (resize) {
-          lH = fS * 1.1;
+          lH = fS * 1.4;
           wrapper
             .fontSize(fS)
             .lineHeight(lH);
@@ -143,7 +143,7 @@ export default class TextBox extends BaseClass {
 
       }
 
-      if (w > fMin && (h > lH || resize && h > fMin * 1.1)) {
+      if (w > fMin && (h > lH || resize && h > fMin * 1.4)) {
 
         if (resize) {
 
@@ -430,7 +430,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc Sets the line height to the specified accessor function or static number, which is 1.1 times the [font size](#textBox.fontSize) by default.
+      @desc Sets the line height to the specified accessor function or static number, which is 1.4 times the [font size](#textBox.fontSize) by default.
       @param {Function|Number} [*value*]
   */
   lineHeight(_) {
