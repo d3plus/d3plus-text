@@ -79,7 +79,8 @@ export default class TextBox extends BaseClass {
           lH = resize ? fS * 1.4 : this._lineHeight(d, i),
           line = 1,
           lineData = [],
-          sizes;
+          sizes,
+          wrapResults;
 
       const style = {
         "font-family": fontExists(this._fontFamily(d, i)),
@@ -126,7 +127,7 @@ export default class TextBox extends BaseClass {
           style["line-height"] = lH;
         }
 
-        const wrapResults = wrapper(t);
+        wrapResults = wrapper(t);
         lineData = wrapResults.lines.filter(l => l !== "");
         line = lineData.length;
 
@@ -187,6 +188,7 @@ export default class TextBox extends BaseClass {
           fW: style["font-weight"],
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
+          widths: wrapResults.widths,
           fS, lH, w, x: this._x(d, i), y: this._y(d, i) + yP
         });
 
@@ -223,9 +225,12 @@ export default class TextBox extends BaseClass {
         .call(rotate)
       .merge(boxes);
 
+    const rtl = select("html").attr("dir") === "rtl";
+
     update
+      .attr("direction", "ltr")
       .attr("fill", d => d.fC)
-      .attr("text-anchor", d => d.tA)
+      .attr("text-anchor", "start")
       .attr("font-family", d => d.fF)
       .style("font-family", d => d.fF)
       .attr("font-size", d => `${d.fS}px`)
@@ -235,8 +240,9 @@ export default class TextBox extends BaseClass {
       .style("pointer-events", d => this._pointerEvents(d.data, d.i))
       .each(function(d) {
 
-        const dx = d.tA === "start" ? 0 : d.tA === "end" ? d.w : d.w / 2,
-              tB = select(this);
+        const align = rtl ? d.tA === "start" ? "end" : d.tA === "end" ? "start" : d.tA : d.tA;
+
+        const tB = select(this);
 
         if (that._duration === 0) tB.attr("y", d => `${d.y}px`);
         else tB.transition(t).attr("y", d => `${d.y}px`);
@@ -248,8 +254,9 @@ export default class TextBox extends BaseClass {
         function tspanStyle(tspan) {
           tspan
             .text(t => trimRight(t))
+            .attr("unicode-bidi", "bidi-override")
             .attr("x", `${d.x}px`)
-            .attr("dx", `${dx}px`)
+            .attr("dx", (l, i) => `${align === "end" ? d.w - d.widths[i] : align === "middle" ? (d.w - d.widths[i]) / 2 : 0}px`)
             .attr("dy", `${d.lH}px`);
         }
 
