@@ -247,7 +247,7 @@ export default class TextBox extends BaseClass {
             .attr("font-weight", d.fW)
             .style("font-weight", d.fW)
             .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 0}px`)
-            .attr("y", (t, i) => `${(i + 1) * d.lH}px`);
+            .attr("y", (t, i) => `${(i + 1) * d.lH - (d.lH - d.fS)}px`);
         }
 
         const texts = select(this).selectAll("text").data(d.lines);
