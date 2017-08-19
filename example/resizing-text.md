@@ -1,7 +1,7 @@
 [width]: 450
 [height]: 100
 
-# Text Wrapping Dynamic Font Resizing to Fit Container
+# Resizing Text to Fill Container
 
 A useful method when using text to label shapes (like in a [tree map](http://d3plus.org/examples/d3plus-hierarchy/getting-started/)) is the [fontResize](http://d3plus.org/docs/#TextBox.fontResize) method of the [textBox](http://d3plus.org/docs/#TextBox) class. When set to `true`, the text will attempt to scale up or down it's font-size to best fit the containing shape.
 
