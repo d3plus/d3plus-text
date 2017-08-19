@@ -254,7 +254,7 @@ export default class TextBox extends BaseClass {
         function tspanStyle(tspan) {
           tspan
             .text(t => trimRight(t))
-            .attr("unicode-bidi", "bidi-override")
+            .attr("unicode-bidi", "isolate")
             .attr("x", `${d.x}px`)
             .attr("dx", (l, i) => `${align === "end" ? d.w - d.widths[i] : align === "middle" ? (d.w - d.widths[i]) / 2 : 0}px`)
             .attr("dy", `${d.lH}px`);
