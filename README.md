@@ -57,6 +57,7 @@ While [textBox](http://d3plus.org/docs/#TextBox) comes with some helpful default
 
 ##### Functions
 * [fontExists](#fontExists) - Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
+* [rtl](#rtl) - Returns `true` if the HTML or body element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl".
 * [stringify](#stringify) - Coerces value into a String.
 * [strip](#strip) - Removes all non ASCII characters from a string.
 * [textSplit](#textSplit) - Splits a given sentence into an array of words.
@@ -70,7 +71,7 @@ While [textBox](http://d3plus.org/docs/#TextBox) comes with some helpful default
 ---
 
 <a name="TextBox"></a>
-#### **TextBox** [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L18)
+#### **TextBox** [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L19)
 
 
 This is a global class, and extends all of the methods and functionality of [<code>BaseClass</code>](https://github.com/d3plus/d3plus-common#BaseClass).
@@ -114,7 +115,7 @@ Creates a wrapped text box for each point in an array of data. See [this example
 
 
 
-<a name="TextBox.render" href="#TextBox.render">#</a> TextBox.**render**([*callback*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L65)
+<a name="TextBox.render" href="#TextBox.render">#</a> TextBox.**render**([*callback*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L66)
 
 Renders the text boxes. If a *callback* is specified, it will be called once the shapes are done drawing.
 
@@ -122,7 +123,7 @@ Renders the text boxes. If a *callback* is specified, it will be called once the
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.data" href="#TextBox.data">#</a> TextBox.**data**([*data*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L307)
+<a name="TextBox.data" href="#TextBox.data">#</a> TextBox.**data**([*data*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L308)
 
 Sets the data array to the specified array. A text box will be drawn for each object in the array.
 
@@ -130,7 +131,7 @@ Sets the data array to the specified array. A text box will be drawn for each ob
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.delay" href="#TextBox.delay">#</a> TextBox.**delay**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L316)
+<a name="TextBox.delay" href="#TextBox.delay">#</a> TextBox.**delay**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L317)
 
 Sets the animation delay to the specified number in milliseconds.
 
@@ -138,7 +139,7 @@ Sets the animation delay to the specified number in milliseconds.
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.duration" href="#TextBox.duration">#</a> TextBox.**duration**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L325)
+<a name="TextBox.duration" href="#TextBox.duration">#</a> TextBox.**duration**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L326)
 
 Sets the animation duration to the specified number in milliseconds.
 
@@ -146,7 +147,7 @@ Sets the animation duration to the specified number in milliseconds.
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.ellipsis" href="#TextBox.ellipsis">#</a> TextBox.**ellipsis**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L338)
+<a name="TextBox.ellipsis" href="#TextBox.ellipsis">#</a> TextBox.**ellipsis**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L339)
 
 Sets the ellipsis method to the specified function or string, which simply adds an ellipsis to the string by default.
 
@@ -161,7 +162,7 @@ function(d) {
 ```
 
 
-<a name="TextBox.fontColor" href="#TextBox.fontColor">#</a> TextBox.**fontColor**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L347)
+<a name="TextBox.fontColor" href="#TextBox.fontColor">#</a> TextBox.**fontColor**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L348)
 
 Sets the font color to the specified accessor function or static string, which is inferred from the [DOM selection](#textBox.select) by default.
 
@@ -169,7 +170,7 @@ Sets the font color to the specified accessor function or static string, which i
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.fontFamily" href="#TextBox.fontFamily">#</a> TextBox.**fontFamily**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L356)
+<a name="TextBox.fontFamily" href="#TextBox.fontFamily">#</a> TextBox.**fontFamily**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L357)
 
 Defines the font-family to be used. The value passed can be either a *String* name of a font, a comma-separated list of font-family fallbacks, an *Array* of fallbacks, or a *Function* that returns either a *String* or an *Array*. If supplying multiple fallback fonts, the [fontExists](#fontExists) function will be used to determine the first available font on the client's machine.
 
@@ -177,7 +178,7 @@ Defines the font-family to be used. The value passed can be either a *String* na
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.fontMax" href="#TextBox.fontMax">#</a> TextBox.**fontMax**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L365)
+<a name="TextBox.fontMax" href="#TextBox.fontMax">#</a> TextBox.**fontMax**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L366)
 
 Sets the maximum font size to the specified accessor function or static number, which is used when [dynamically resizing fonts](#textBox.fontResize).
 
@@ -185,7 +186,7 @@ Sets the maximum font size to the specified accessor function or static number, 
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.fontMin" href="#TextBox.fontMin">#</a> TextBox.**fontMin**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L374)
+<a name="TextBox.fontMin" href="#TextBox.fontMin">#</a> TextBox.**fontMin**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L375)
 
 Sets the minimum font size to the specified accessor function or static number, which is used when [dynamically resizing fonts](#textBox.fontResize).
 
@@ -193,7 +194,7 @@ Sets the minimum font size to the specified accessor function or static number, 
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.fontResize" href="#TextBox.fontResize">#</a> TextBox.**fontResize**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L383)
+<a name="TextBox.fontResize" href="#TextBox.fontResize">#</a> TextBox.**fontResize**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L384)
 
 Toggles font resizing, which can either be defined as a static boolean for all data points, or an accessor function that returns a boolean. See [this example](http://d3plus.org/examples/d3plus-text/resizing-text/) for a side-by-side comparison.
 
@@ -201,7 +202,7 @@ Toggles font resizing, which can either be defined as a static boolean for all d
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.fontSize" href="#TextBox.fontSize">#</a> TextBox.**fontSize**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L392)
+<a name="TextBox.fontSize" href="#TextBox.fontSize">#</a> TextBox.**fontSize**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L393)
 
 Sets the font size to the specified accessor function or static number, which is inferred from the [DOM selection](#textBox.select) by default.
 
@@ -209,7 +210,7 @@ Sets the font size to the specified accessor function or static number, which is
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.fontWeight" href="#TextBox.fontWeight">#</a> TextBox.**fontWeight**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L401)
+<a name="TextBox.fontWeight" href="#TextBox.fontWeight">#</a> TextBox.**fontWeight**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L402)
 
 Sets the font weight to the specified accessor function or static number, which is inferred from the [DOM selection](#textBox.select) by default.
 
@@ -217,7 +218,7 @@ Sets the font weight to the specified accessor function or static number, which 
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.height" href="#TextBox.height">#</a> TextBox.**height**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L414)
+<a name="TextBox.height" href="#TextBox.height">#</a> TextBox.**height**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L415)
 
 Sets the height for each box to the specified accessor function or static number.
 
@@ -232,7 +233,7 @@ function(d) {
 ```
 
 
-<a name="TextBox.id" href="#TextBox.id">#</a> TextBox.**id**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L427)
+<a name="TextBox.id" href="#TextBox.id">#</a> TextBox.**id**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L428)
 
 Defines the unique id for each box to the specified accessor function or static number.
 
@@ -247,7 +248,7 @@ function(d, i) {
 ```
 
 
-<a name="TextBox.lineHeight" href="#TextBox.lineHeight">#</a> TextBox.**lineHeight**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L436)
+<a name="TextBox.lineHeight" href="#TextBox.lineHeight">#</a> TextBox.**lineHeight**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L437)
 
 Sets the line height to the specified accessor function or static number, which is 1.4 times the [font size](#textBox.fontSize) by default.
 
@@ -255,7 +256,7 @@ Sets the line height to the specified accessor function or static number, which 
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.overflow" href="#TextBox.overflow">#</a> TextBox.**overflow**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L445)
+<a name="TextBox.overflow" href="#TextBox.overflow">#</a> TextBox.**overflow**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L446)
 
 Sets the text overflow to the specified accessor function or static boolean.
 
@@ -263,7 +264,7 @@ Sets the text overflow to the specified accessor function or static boolean.
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.pointerEvents" href="#TextBox.pointerEvents">#</a> TextBox.**pointerEvents**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L454)
+<a name="TextBox.pointerEvents" href="#TextBox.pointerEvents">#</a> TextBox.**pointerEvents**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L455)
 
 Sets the pointer-events to the specified accessor function or static string.
 
@@ -271,7 +272,7 @@ Sets the pointer-events to the specified accessor function or static string.
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.rotate" href="#TextBox.rotate">#</a> TextBox.**rotate**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L463)
+<a name="TextBox.rotate" href="#TextBox.rotate">#</a> TextBox.**rotate**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L464)
 
 Sets the rotate percentage for each box to the specified accessor function or static string.
 
@@ -279,7 +280,7 @@ Sets the rotate percentage for each box to the specified accessor function or st
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.select" href="#TextBox.select">#</a> TextBox.**select**([*selector*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L472)
+<a name="TextBox.select" href="#TextBox.select">#</a> TextBox.**select**([*selector*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L473)
 
 Sets the SVG container element to the specified d3 selector or DOM element. If not explicitly specified, an SVG element will be added to the page for use.
 
@@ -287,7 +288,7 @@ Sets the SVG container element to the specified d3 selector or DOM element. If n
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.split" href="#TextBox.split">#</a> TextBox.**split**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L481)
+<a name="TextBox.split" href="#TextBox.split">#</a> TextBox.**split**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L482)
 
 Sets the word split behavior to the specified function, which when passed a string is expected to return that string split into an array of words.
 
@@ -295,7 +296,7 @@ Sets the word split behavior to the specified function, which when passed a stri
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.text" href="#TextBox.text">#</a> TextBox.**text**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L494)
+<a name="TextBox.text" href="#TextBox.text">#</a> TextBox.**text**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L495)
 
 Sets the text for each box to the specified accessor function or static string.
 
@@ -310,7 +311,7 @@ function(d) {
 ```
 
 
-<a name="TextBox.textAnchor" href="#TextBox.textAnchor">#</a> TextBox.**textAnchor**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L503)
+<a name="TextBox.textAnchor" href="#TextBox.textAnchor">#</a> TextBox.**textAnchor**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L504)
 
 Sets the horizontal text anchor to the specified accessor function or static string, whose values are analagous to the SVG [text-anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor) property.
 
@@ -318,7 +319,7 @@ Sets the horizontal text anchor to the specified accessor function or static str
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.verticalAlign" href="#TextBox.verticalAlign">#</a> TextBox.**verticalAlign**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L512)
+<a name="TextBox.verticalAlign" href="#TextBox.verticalAlign">#</a> TextBox.**verticalAlign**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L513)
 
 Sets the vertical alignment to the specified accessor function or static string. Accepts `"top"`, `"middle"`, and `"bottom"`.
 
@@ -326,7 +327,7 @@ Sets the vertical alignment to the specified accessor function or static string.
 This is a static method of [<code>TextBox</code>](#TextBox).
 
 
-<a name="TextBox.width" href="#TextBox.width">#</a> TextBox.**width**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L525)
+<a name="TextBox.width" href="#TextBox.width">#</a> TextBox.**width**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L526)
 
 Sets the width for each box to the specified accessor function or static number.
 
@@ -341,7 +342,7 @@ function(d) {
 ```
 
 
-<a name="TextBox.x" href="#TextBox.x">#</a> TextBox.**x**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L538)
+<a name="TextBox.x" href="#TextBox.x">#</a> TextBox.**x**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L539)
 
 Sets the x position for each box to the specified accessor function or static number. The number given should correspond to the left side of the textBox.
 
@@ -356,7 +357,7 @@ function(d) {
 ```
 
 
-<a name="TextBox.y" href="#TextBox.y">#</a> TextBox.**y**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L551)
+<a name="TextBox.y" href="#TextBox.y">#</a> TextBox.**y**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L552)
 
 Sets the y position for each box to the specified accessor function or static number. The number given should correspond to the top side of the textBox.
 
@@ -376,6 +377,16 @@ function(d) {
 #### d3plus.**fontExists**(font) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/fontExists.js#L10)
 
 Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
+
+
+This is a global function.
+
+---
+
+<a name="rtl"></a>
+#### d3plus.**rtl**() [<>](https://github.com/d3plus/d3plus-text/blob/master/src/rtl.js#L3)
+
+Returns `true` if the HTML or body element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl".
 
 
 This is a global function.
@@ -562,4 +573,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Sat, 19 Aug 2017 22:51:46 GMT</sub>
+###### <sub>Documentation generated on Tue, 22 Aug 2017 02:33:45 GMT</sub>
