@@ -9,7 +9,7 @@ import {trimRight} from "./trim";
 */
 export default function() {
 
-  let fontFamily = "Verdana",
+  let fontFamily = "sans-serif",
       fontSize = 10,
       fontWeight = 400,
       height = 200,
@@ -83,7 +83,7 @@ export default function() {
   /**
       @memberof textWrap
       @desc If *value* is specified, sets the font family accessor to the specified function or string and returns this generator. If *value* is not specified, returns the current font family.
-      @param {Function|String} [*value* = "Verdana"]
+      @param {Function|String} [*value* = "sans-serif"]
   */
   textWrap.fontFamily = function(_) {
     return arguments.length ? (fontFamily = _, textWrap) : fontFamily;
