@@ -29,6 +29,7 @@
     "d3plus-common": "^0.6.22"
   },
   "scripts": {
+    "build": "d3plus-build",
     "dev": "d3plus-dev",
     "docs": "d3plus-docs",
     "env": "d3plus-env",
