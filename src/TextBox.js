@@ -10,6 +10,7 @@ import {max, min, sum} from "d3-array";
 import {accessor, BaseClass, constant} from "d3plus-common";
 
 import fontExists from "./fontExists";
+import {default as detectRTL} from "./rtl";
 import textSplit from "./textSplit";
 import measure from "./textWidth";
 import wrap from "./textWrap";
@@ -224,7 +225,7 @@ export default class TextBox extends BaseClass {
         .call(rotate)
       .merge(boxes);
 
-    const rtl = select("html").attr("dir") === "rtl";
+    const rtl = detectRTL();
 
     update
       .style("pointer-events", d => this._pointerEvents(d.data, d.i))
