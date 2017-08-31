@@ -11,6 +11,7 @@ import {accessor, BaseClass, constant} from "d3plus-common";
 
 import fontExists from "./fontExists";
 import {default as detectRTL} from "./rtl";
+import strip from "./strip";
 import textSplit from "./textSplit";
 import measure from "./textWidth";
 import wrap from "./textWrap";
@@ -221,7 +222,7 @@ export default class TextBox extends BaseClass {
 
     const update = boxes.enter().append("g")
         .attr("class", "d3plus-textBox")
-        .attr("id", d => `d3plus-textBox-${d.id}`)
+        .attr("id", d => `d3plus-textBox-${strip(d.id)}`)
         .call(rotate)
       .merge(boxes);
 
