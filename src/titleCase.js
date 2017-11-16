@@ -1,27 +1,20 @@
-import {locale} from "d3plus-common";
-
 import {suffixChars, default as textSplit} from "./textSplit";
+
+const lowercase = ["a", "an", "and", "as", "at", "but", "by", "for", "from", "if", "in", "into", "near", "nor", "of", "on", "onto", "or", "per", "that", "the", "to", "with", "via", "vs", "vs."];
+const uppercase = ["CEO", "CFO", "CNC", "COO", "CPU", "GDP", "HVAC", "ID", "IT", "R&D", "TV", "UI"];
 
 /**
     @function titleCase
     @desc Capitalizes the first letter of each word in a phrase/sentence.
     @param {String} str The string to apply the title case logic.
-    @param {Object} [opts] Optional parameters to apply.
-    @param {String} [opts.lng] The locale to use when looking up all lowercase or uppecase words.
 */
-export default function(str, opts) {
+export default function(str) {
 
   if (str === void 0) return "";
 
-  opts = Object.assign({
-    lng: "en-US"
-  }, opts);
+  const smalls = lowercase.map(s =>  s.toLowerCase());
 
-  const {lng} = opts;
-
-  const smalls = locale.t("array.lowercase", {lng, returnObjects: true}).map(s =>  s.toLowerCase());
-
-  let bigs = locale.t("array.uppercase", {lng, returnObjects: true});
+  let bigs = uppercase.slice();
   bigs = bigs.concat(bigs.map(b => `${b}s`));
   const biglow = bigs.map(b => b.toLowerCase());
 
