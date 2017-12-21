@@ -52,10 +52,10 @@ While [textBox](http://d3plus.org/docs/#TextBox) comes with some helpful default
 
 ## API Reference
 
-##### Classes
+##### 
 * [TextBox](#TextBox)
 
-##### Functions
+##### 
 * [fontExists](#fontExists) - Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
 * [rtl](#rtl) - Returns `true` if the HTML or body element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl".
 * [stringify](#stringify) - Coerces value into a String.
@@ -566,4 +566,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Thu, 16 Nov 2017 02:11:02 GMT</sub>
+###### <sub>Documentation generated on Thu, 21 Dec 2017 20:42:07 GMT</sub>
