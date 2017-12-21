@@ -26,7 +26,7 @@
     "d3-array": "^1.2.0",
     "d3-selection": "^1.1.0",
     "d3-transition": "^1.1.0",
-    "d3plus-common": "^0.6.24"
+    "d3plus-common": "^0.6.29"
   },
   "scripts": {
     "build": "d3plus-build",
@@ -38,7 +38,14 @@
     "test": "d3plus-test"
   },
   "devDependencies": {
-    "d3plus-dev": "^0.5.1"
+    "d3plus-dev": "^0.5.3"
   },
-  "module": "es/index"
+  "module": "es/index",
+  "files": [
+    "bin",
+    "build/d3plus-text.js",
+    "build/d3plus-text.js.map",
+    "build/d3plus-text.min.js",
+    "es"
+  ]
 }
