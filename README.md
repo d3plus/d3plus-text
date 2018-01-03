@@ -149,15 +149,15 @@ This is a static method of [<code>TextBox</code>](#TextBox).
 
 <a name="TextBox.ellipsis" href="#TextBox.ellipsis">#</a> TextBox.**ellipsis**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L340)
 
-Sets the ellipsis method to the specified function or string, which simply adds an ellipsis to the string by default.
+Sets the function that handles what to do when a line is truncated. It should return the new value for the line, and is passed 2 arguments: the String of text for the line in question, and the number of the line. By default, an ellipsis is added to the end of any line except if it is the first word that cannot fit (in that case, an empty string is returned).
 
 
 This is a static method of [<code>TextBox</code>](#TextBox).
 default accessor
 
 ```js
-function(d) {
-  return d + "...";
+function(text, line) {
+  return line ? text.replace(/\.|,$/g, "") + "..." : "";
 }
 ```
 
@@ -566,4 +566,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Thu, 21 Dec 2017 20:42:07 GMT</sub>
+###### <sub>Documentation generated on Wed, 03 Jan 2018 14:51:23 GMT</sub>
