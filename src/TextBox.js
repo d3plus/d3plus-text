@@ -35,7 +35,7 @@ export default class TextBox extends BaseClass {
 
     this._delay = 0;
     this._duration = 0;
-    this._ellipsis = _ => `${_.replace(/\.|,$/g, "")}...`;
+    this._ellipsis = (text, line) => line ? `${text.replace(/\.|,$/g, "")}...` : "";
     this._fontColor = constant("black");
     this._fontFamily = constant(["Roboto", "Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"]);
     this._fontMax = constant(50);
@@ -140,8 +140,8 @@ export default class TextBox extends BaseClass {
             if (fS < fMin) lineData = [];
             else checkSize();
           }
-          else if (line < 1) lineData = [that._ellipsis("")];
-          else lineData[line - 1] = that._ellipsis(lineData[line - 1]);
+          else if (line < 1) lineData = [that._ellipsis("", line)];
+          else lineData[line - 1] = that._ellipsis(lineData[line - 1], line);
 
         }
 
@@ -330,11 +330,11 @@ export default class TextBox extends BaseClass {
 
   /**
       @memberof TextBox
-      @desc Sets the ellipsis method to the specified function or string, which simply adds an ellipsis to the string by default.
+      @desc Sets the function that handles what to do when a line is truncated. It should return the new value for the line, and is passed 2 arguments: the String of text for the line in question, and the number of the line. By default, an ellipsis is added to the end of any line except if it is the first word that cannot fit (in that case, an empty string is returned).
       @param {Function|String} [*value*]
       @example <caption>default accessor</caption>
-function(d) {
-  return d + "...";
+function(text, line) {
+  return line ? text.replace(/\.|,$/g, "") + "..." : "";
 }
   */
   ellipsis(_) {
