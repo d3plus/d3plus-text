@@ -38,7 +38,7 @@
     "test": "d3plus-test"
   },
   "devDependencies": {
-    "d3plus-dev": "^0.5.3"
+    "d3plus-dev": "^0.6.0"
   },
   "module": "es/index",
   "files": [
