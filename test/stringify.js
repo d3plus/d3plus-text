@@ -1,14 +1,15 @@
-import zora from "zora";
+import test from "zora";
 import {default as stringify} from "../src/stringify.js";
 
-export default zora()
-  .test("stringify", assert => {
+test("stringify", assert => {
 
-    assert.equal(stringify(true), "true");
-    assert.equal(stringify(false), "false");
-    assert.equal(stringify(undefined), "undefined");
-    assert.equal(stringify(42), "42", "integer");
-    assert.equal(stringify(3.14159265), "3.14159265", "float");
-    assert.equal(stringify("string"), "string");
+  assert.equal(stringify(true), "true");
+  assert.equal(stringify(false), "false");
+  assert.equal(stringify(undefined), "undefined");
+  assert.equal(stringify(42), "42", "integer");
+  assert.equal(stringify(3.14159265), "3.14159265", "float");
+  assert.equal(stringify("string"), "string");
 
-  });
+});
+
+export default test;
