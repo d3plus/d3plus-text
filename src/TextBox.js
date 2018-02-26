@@ -47,6 +47,7 @@ export default class TextBox extends BaseClass {
     this._id = (d, i) => d.id || `${i}`;
     this._on = {};
     this._overflow = constant(false);
+    this._padding = constant(0);
     this._pointerEvents = constant("auto");
     this._rotate = constant(0);
     this._split = textSplit;
@@ -91,8 +92,8 @@ export default class TextBox extends BaseClass {
         "line-height": lH
       };
 
-      const h = this._height(d, i),
-            w = this._width(d, i);
+      const h = this._height(d, i) - (this._padding() * 2),
+            w = this._width(d, i) - (this._padding() * 2);
 
       const wrapper = wrap()
         .fontFamily(style["font-family"])
@@ -191,7 +192,7 @@ export default class TextBox extends BaseClass {
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
           widths: wrapResults.widths,
-          fS, lH, w, h, x: this._x(d, i), y: this._y(d, i) + yP
+          fS, lH, w, h, x: this._x(d, i) + this._padding(), y: this._y(d, i) + yP + this._padding()
         });
 
       }
@@ -446,6 +447,15 @@ function(d, i) {
   */
   overflow(_) {
     return arguments.length ? (this._overflow = typeof _ === "function" ? _ : constant(_), this) : this._overflow;
+  }
+
+  /**
+  @memberof TextBox
+  @desc Sets the padding to the specified accessor function or static number, which is 0 by default.
+  @param {Function|Number} [*value*]
+  */
+  padding(_) {
+    return arguments.length ? (this._padding = typeof _ === "function" ? _ : constant(_), this) : this._padding;
   }
 
   /**
