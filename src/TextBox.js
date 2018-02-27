@@ -7,7 +7,7 @@ import {select} from "d3-selection";
 import {transition} from "d3-transition";
 import {max, min, sum} from "d3-array";
 
-import {accessor, BaseClass, constant} from "d3plus-common";
+import {accessor, BaseClass, constant, parseSides} from "d3plus-common";
 
 import fontExists from "./fontExists";
 import {default as detectRTL} from "./rtl";
@@ -92,8 +92,10 @@ export default class TextBox extends BaseClass {
         "line-height": lH
       };
 
-      const h = this._height(d, i) - (this._padding() * 2),
-            w = this._width(d, i) - (this._padding() * 2);
+      const padding = parseSides(this._padding(d, i));
+
+      const h = this._height(d, i) - (padding.top + padding.bottom),
+            w = this._width(d, i) - (padding.left + padding.right);
 
       const wrapper = wrap()
         .fontFamily(style["font-family"])
@@ -192,7 +194,9 @@ export default class TextBox extends BaseClass {
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
           widths: wrapResults.widths,
-          fS, lH, w, h, x: this._x(d, i) + this._padding(), y: this._y(d, i) + yP + this._padding()
+          fS, lH, w, h,
+          x: this._x(d, i) + padding.left,
+          y: this._y(d, i) + yP + padding.top
         });
 
       }
@@ -450,9 +454,9 @@ function(d, i) {
   }
 
   /**
-  @memberof TextBox
-  @desc Sets the padding to the specified accessor function or static number, which is 0 by default.
-  @param {Function|Number} [*value*]
+      @memberof TextBox
+      @desc Sets the padding to the specified accessor function, CSS shorthand string, or static number, which is 0 by default.
+      @param {Function|Number|String} [*value*]
   */
   padding(_) {
     return arguments.length ? (this._padding = typeof _ === "function" ? _ : constant(_), this) : this._padding;
