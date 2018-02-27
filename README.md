@@ -1,6 +1,6 @@
 # d3plus-text
 
-[![NPM Release](http://img.shields.io/npm/v/d3plus-text.svg?style=flat)](https://www.npmjs.org/package/d3plus-text) [![Build Status](https://travis-ci.org/d3plus/d3plus-text.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-text) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-text.svg?style=flat)](https://david-dm.org/d3plus/d3plus-text) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/) [![1.0 progress](https://img.shields.io/badge/1.0_progress--Infinity%25-red.svg?style=flat)](https://github.com/d3plus/d3plus-text/projects/2)
+[![NPM Release](http://img.shields.io/npm/v/d3plus-text.svg?style=flat)](https://www.npmjs.org/package/d3plus-text) [![Build Status](https://travis-ci.org/d3plus/d3plus-text.svg?branch=master)](https://travis-ci.org/d3plus/d3plus-text) [![Dependency Status](http://img.shields.io/david/d3plus/d3plus-text.svg?style=flat)](https://david-dm.org/d3plus/d3plus-text) [![Gitter](https://img.shields.io/badge/-chat_on_gitter-brightgreen.svg?style=flat&logo=gitter-white)](https://gitter.im/d3plus/) [![1.0 progress](https://img.shields.io/badge/1.0_progress-0%25-red.svg?style=flat)](https://github.com/d3plus/d3plus-text/projects/2)
 
 A smart SVG text box with line wrapping and automatic font size scaling.
 
@@ -566,4 +566,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Tue, 27 Feb 2018 14:38:57 GMT</sub>
+###### <sub>Documentation generated on Tue, 27 Feb 2018 15:09:05 GMT</sub>
