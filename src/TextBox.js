@@ -366,7 +366,7 @@ function(text, line) {
 
   /**
       @memberof TextBox
-      @desc Sets the maximum font size to the specified accessor function or static number, which is used when [dynamically resizing fonts](#textBox.fontResize).
+      @desc Sets the maximum font size to the specified accessor function or static number (which corresponds to pixel units), which is used when [dynamically resizing fonts](#textBox.fontResize).
       @param {Function|Number} [*value* = 50]
   */
   fontMax(_) {
@@ -375,7 +375,7 @@ function(text, line) {
 
   /**
       @memberof TextBox
-      @desc Sets the minimum font size to the specified accessor function or static number, which is used when [dynamically resizing fonts](#textBox.fontResize).
+      @desc Sets the minimum font size to the specified accessor function or static number (which corresponds to pixel units), which is used when [dynamically resizing fonts](#textBox.fontResize).
       @param {Function|Number} [*value* = 8]
   */
   fontMin(_) {
@@ -393,7 +393,7 @@ function(text, line) {
 
   /**
       @memberof TextBox
-      @desc Sets the font size to the specified accessor function or static number, which is inferred from the [DOM selection](#textBox.select) by default.
+      @desc Sets the font size to the specified accessor function or static number (which corresponds to pixel units), which is inferred from the [DOM selection](#textBox.select) by default.
       @param {Function|Number} [*value* = 10]
   */
   fontSize(_) {
