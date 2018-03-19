@@ -40,6 +40,7 @@ export default class TextBox extends BaseClass {
     this._fontFamily = constant(["Roboto", "Helvetica Neue", "HelveticaNeue", "Helvetica", "Arial", "sans-serif"]);
     this._fontMax = constant(50);
     this._fontMin = constant(8);
+    this._fontOpacity = constant(1);
     this._fontResize = constant(false);
     this._fontSize = constant(10);
     this._fontWeight = constant(400);
@@ -190,6 +191,7 @@ export default class TextBox extends BaseClass {
           lines: lineData,
           fC: this._fontColor(d, i),
           fF: style["font-family"],
+          fO: this._fontOpacity(d, i),
           fW: style["font-weight"],
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
@@ -253,6 +255,8 @@ export default class TextBox extends BaseClass {
             .style("font-size", `${d.fS}px`)
             .attr("font-weight", d.fW)
             .style("font-weight", d.fW)
+            .attr("opacity", d.fO)
+            .style("opacity", d.fO)
             .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 0}px`)
             .attr("y", (t, i) => `${(i + 1) * d.lH - (d.lH - d.fS)}px`);
         }
@@ -380,6 +384,15 @@ function(text, line) {
   */
   fontMin(_) {
     return arguments.length ? (this._fontMin = typeof _ === "function" ? _ : constant(_), this) : this._fontMin;
+  }
+
+  /**
+       @memberof TextBox
+       @desc Sets the font opacity to the specified accessor function or static number between 0 and 1.
+       @param {Function|Number} [*value* = 1]
+   */
+  fontOpacity(_) {
+    return arguments.length ? (this._fontOpacity = typeof _ === "function" ? _ : constant(_), this) : this._fontOpacity;
   }
 
   /**
