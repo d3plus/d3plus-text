@@ -19,7 +19,6 @@ And finally, this is how that data array would be passed to the [textBox](http:/
 new d3plus.TextBox()
   .data(data)
   .fontSize(16)
-  .padding("10 20")
   .width(200)
   .x(function(d, i) { return i * 250; })
   .render();
