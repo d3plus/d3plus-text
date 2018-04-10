@@ -78,9 +78,10 @@ export default class TextBox extends BaseClass {
       if (t === void 0) return arr;
 
       const resize = this._fontResize(d, i);
+      const lHRatio = this._lineHeight(d, i) / this._fontSize(d, i);
 
       let fS = resize ? this._fontMax(d, i) : this._fontSize(d, i),
-          lH = resize ? fS * 1.4 : this._lineHeight(d, i),
+          lH = resize ? fS * lHRatio : this._lineHeight(d, i),
           line = 1,
           lineData = [],
           sizes,
@@ -125,7 +126,7 @@ export default class TextBox extends BaseClass {
         else if (fS > fMax) fS = fMax;
 
         if (resize) {
-          lH = fS * 1.4;
+          lH = fS * lHRatio;
           wrapper
             .fontSize(fS)
             .lineHeight(lH);
