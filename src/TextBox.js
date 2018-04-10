@@ -46,6 +46,7 @@ export default class TextBox extends BaseClass {
     this._fontWeight = constant(400);
     this._height = accessor("height", 200);
     this._id = (d, i) => d.id || `${i}`;
+    this._lineHeight = (d, i) => this._fontSize(d, i) * 1.2;
     this._on = {};
     this._overflow = constant(false);
     this._padding = constant(0);
@@ -69,7 +70,7 @@ export default class TextBox extends BaseClass {
   render(callback) {
 
     if (this._select === void 0) this.select(select("body").append("svg").style("width", `${window.innerWidth}px`).style("height", `${window.innerHeight}px`).node());
-    if (this._lineHeight === void 0) this._lineHeight = (d, i) => this._fontSize(d, i) * 1.4;
+
     const that = this;
 
     const boxes = this._select.selectAll(".d3plus-textBox").data(this._data.reduce((arr, d, i) => {
@@ -153,7 +154,7 @@ export default class TextBox extends BaseClass {
 
       }
 
-      if (w > fMin && (h > lH || resize && h > fMin * 1.4)) {
+      if (w > fMin && (h > lH || resize && h > fMin * lHRatio)) {
 
         if (resize) {
 
@@ -451,7 +452,7 @@ function(d, i) {
 
   /**
       @memberof TextBox
-      @desc Sets the line height to the specified accessor function or static number, which is 1.4 times the [font size](#textBox.fontSize) by default.
+      @desc Sets the line height to the specified accessor function or static number, which is 1.2 times the [font size](#textBox.fontSize) by default.
       @param {Function|Number} [*value*]
   */
   lineHeight(_) {
