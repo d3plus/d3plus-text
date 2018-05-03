@@ -226,7 +226,12 @@ export default class TextBox extends BaseClass {
     }
 
     function rotate(text) {
-      text.attr("transform", (d, i) => `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${that._rotateAnchor && that._rotateAnchor(d, i) ? that._rotateAnchor(d, i)[0] : d.w / 2}, ${that._rotateAnchor && that._rotateAnchor(d, i) ? that._rotateAnchor(d, i)[1] : d.h / 2})`);
+      text.attr("transform", (d, i) => {
+        const rotateAnchor = that._rotateAnchor && that._rotateAnchor(d, i);
+        const anchorX = rotateAnchor ? rotateAnchor[0] : d.w / 2;
+        const anchorY = rotateAnchor ? rotateAnchor[1] : d.h / 2;
+        return `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${anchorX}, ${anchorY})`;
+      });
     }
 
     const update = boxes.enter().append("g")
