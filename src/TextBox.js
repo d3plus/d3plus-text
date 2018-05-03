@@ -226,7 +226,7 @@ export default class TextBox extends BaseClass {
     }
 
     function rotate(text) {
-      text.attr("transform", (d, i) => `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${that._rotationAnchor && that._rotationAnchor(d, i) ? that._rotationAnchor(d, i)[0] : d.w / 2}, ${that._rotationAnchor && that._rotationAnchor(d, i) ? that._rotationAnchor(d, i)[1] : d.h / 2})`);
+      text.attr("transform", (d, i) => `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${that._rotateAnchor && that._rotateAnchor(d, i) ? that._rotateAnchor(d, i)[0] : d.w / 2}, ${that._rotateAnchor && that._rotateAnchor(d, i) ? that._rotateAnchor(d, i)[1] : d.h / 2})`);
     }
 
     const update = boxes.enter().append("g")
@@ -500,8 +500,8 @@ function(d, i) {
       @desc Sets the anchor point around which to rotate the text box.
       @param {Function|[Number, Number]}
    */
-  rotationAnchor(_) {
-    return arguments.length ? (this._rotationAnchor = typeof _ === "function" ? _ : constant(_), this) : this._rotationAnchor;
+  rotateAnchor(_) {
+    return arguments.length ? (this._rotateAnchor = typeof _ === "function" ? _ : constant(_), this) : this._rotateAnchor;
   }
 
   /**
