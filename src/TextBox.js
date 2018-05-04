@@ -52,6 +52,7 @@ export default class TextBox extends BaseClass {
     this._padding = constant(0);
     this._pointerEvents = constant("auto");
     this._rotate = constant(0);
+    this._rotateAnchor = d => [d.w / 2, d.h / 2];
     this._split = textSplit;
     this._text = accessor("text");
     this._textAnchor = constant("start");
@@ -227,10 +228,8 @@ export default class TextBox extends BaseClass {
 
     function rotate(text) {
       text.attr("transform", (d, i) => {
-        const rotateAnchor = that._rotateAnchor && that._rotateAnchor(d, i);
-        const anchorX = rotateAnchor ? rotateAnchor[0] : d.w / 2;
-        const anchorY = rotateAnchor ? rotateAnchor[1] : d.h / 2;
-        return `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${anchorX}, ${anchorY})`;
+        const rotateAnchor = that._rotateAnchor(d, i);
+        return `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${rotateAnchor[0]}, ${rotateAnchor[1]})`;
       });
     }
 
