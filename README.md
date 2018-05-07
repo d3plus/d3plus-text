@@ -593,4 +593,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Mon, 07 May 2018 16:00:17 GMT</sub>
+###### <sub>Documentation generated on Mon, 07 May 2018 16:01:44 GMT</sub>
