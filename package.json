@@ -26,7 +26,7 @@
     "d3-array": "^1.2.0",
     "d3-selection": "^1.3.0",
     "d3-transition": "^1.1.0",
-    "d3plus-common": "^0.6.33"
+    "d3plus-common": "^0.6.35"
   },
   "scripts": {
     "build": "d3plus-build",
