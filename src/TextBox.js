@@ -502,7 +502,7 @@ function(d, i) {
   /**
       @memberof TextBox
       @desc Sets the anchor point around which to rotate the text box.
-      @param {Function|[Number, Number]}
+      @param {Function|Number[]}
    */
   rotateAnchor(_) {
     return arguments.length ? (this._rotateAnchor = typeof _ === "function" ? _ : constant(_), this) : this._rotateAnchor;
