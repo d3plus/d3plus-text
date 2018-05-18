@@ -197,6 +197,7 @@ export default class TextBox extends BaseClass {
           fO: this._fontOpacity(d, i),
           fW: style["font-weight"],
           id: this._id(d, i),
+          r: this._rotate(d, i),
           tA: this._textAnchor(d, i),
           widths: wrapResults.widths,
           fS, lH, w, h,
@@ -229,7 +230,7 @@ export default class TextBox extends BaseClass {
     function rotate(text) {
       text.attr("transform", (d, i) => {
         const rotateAnchor = that._rotateAnchor(d, i);
-        return `translate(${d.x}, ${d.y}) rotate(${that._rotate(d, i)}, ${rotateAnchor[0]}, ${rotateAnchor[1]})`;
+        return `translate(${d.x}, ${d.y}) rotate(${d.r}, ${rotateAnchor[0]}, ${rotateAnchor[1]})`;
       });
     }
 
