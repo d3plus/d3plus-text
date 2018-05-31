@@ -129,8 +129,8 @@ export default class TextBox extends BaseClass {
         };
 
         // Constraint the font size
-        fS = Math.max(fS, fMin);
-        fS = Math.min(fS, fMax);
+        fS = max([fS, fMin]);
+        fS = min([fS, fMax]);
 
         if (resize) {
           lH = fS * lHRatio;
