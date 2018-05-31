@@ -15,6 +15,7 @@ import strip from "./strip";
 import textSplit from "./textSplit";
 import measure from "./textWidth";
 import wrap from "./textWrap";
+import truncateWord from "./textTruncate";
 import {trimRight} from "./trim";
 
 /**
@@ -120,12 +121,14 @@ export default class TextBox extends BaseClass {
           @private
       */
       function checkSize() {
+        const truncate = () => {
+          if (line < 1) lineData = [truncateWord(wrapResults.words[0], that._ellipsis("", line), w, style)];
+          else lineData[line - 1] = that._ellipsis(lineData[line - 1], line);
+        };
 
-        if (fS < fMin) {
-          lineData = [];
-          return;
-        }
-        else if (fS > fMax) fS = fMax;
+        // Constraint the font size
+        fS = Math.max(fS, fMin);
+        fS = Math.min(fS, fMax);
 
         if (resize) {
           lH = fS * lHRatio;
@@ -141,18 +144,17 @@ export default class TextBox extends BaseClass {
         line = lineData.length;
 
         if (wrapResults.truncated) {
-
           if (resize) {
             fS--;
-            if (fS < fMin) lineData = [];
+            if (fS < fMin) {
+              fS = fMin;
+              truncate();
+              return;
+            }
             else checkSize();
           }
-          else if (line < 1) lineData = [that._ellipsis("", line)];
-          else lineData[line - 1] = that._ellipsis(lineData[line - 1], line);
-
+          else truncate();
         }
-
-
       }
 
       if (w > fMin && (h > lH || resize && h > fMin * lHRatio)) {
