@@ -128,7 +128,7 @@ export default function() {
 
   /**
       @memberof textWrap
-      @desc If *value* is specified, sets the maximum number of lines allowed when wrapping
+      @desc If *value* is specified, sets the maximum number of lines allowed when wrapping.
       @param {Function|Number} [*value*]
   */
   textWrap.maxLines = function(_) {
