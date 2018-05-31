@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <style>
+            body { background: #CCC; }
+        </style>
+    </head>
+    <body>
+        <svg width="1000" height="1000"></svg>
+    </body>
+</html>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="../build/d3plus-text.full.js"></script>
+<script type="text/javascript">
+const radius = 150;
+
+// Use the d3Plus TextBox class
+const d3PlusWrap = (gs, data) => {
+    gs.each(function(d, i, elements) {
+        console.log(d, i, elements);
+        new d3plus
+            .TextBox()
+            .data([d])
+            .select(this)
+            .fontResize(true)
+            .height(radius)
+            .width(radius)
+            .text(d => d.name)
+            .x(d => -radius / 2)
+            .y(d => -radius / 2)
+            .ellipsis(text => {
+                // return text.splice()
+                // console.log(text);
+                return text.replace(/\.|,$/g, "") + "...";
+            })
+            .verticalAlign("middle")
+            .textAnchor("middle")
+            .render();
+    });
+};
+
+const circles = [
+    { x: 500, y: 150, name: "ABCDEFGHIJKLMNOPQRSTUVWXYZ12" },
+    { x: 500, y: 500, name: "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789" },
+];
+
+const join = d3
+    .select("svg")
+    .selectAll("g")
+    .data(circles);
+
+const g = join.enter()
+    .append("g")
+    .attr("transform", d => `translate(${d.x}, ${d.y})`);
+
+g.append("circle")
+ .attr("r", radius)
+ .style("fill", "#009600");
+
+d3PlusWrap(g, circles);
+
+</script>
