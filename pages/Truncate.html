@@ -14,30 +14,34 @@
 const radius = 150;
 
 // Use the d3Plus TextBox class
-const d3PlusWrap = (gs, data) => {
-    gs.each(function(d, i, elements) {
-        console.log(d, i, elements);
-        new d3plus
-            .TextBox()
-            .data([d])
-            .select(this)
-            .fontResize(d.resize)
-            .height(radius)
-            .width(radius)
-            .text(d => d.name)
-            .x(d => -radius / 2)
-            .y(d => -radius / 2)
-            .ellipsis((text, line) => text.replace(/\.|,$/g, "") + "...")
-            .verticalAlign("middle")
-            .textAnchor("middle")
-            .render();
-    });
+const d3PlusWrap = (gs) => {
+  gs.each(function(d) {
+    new d3plus
+    .TextBox()
+    .data([d])
+    .select(this)
+    .fontMin(8)
+    .fontMax(30)
+    .fontSize(15)
+    .fontResize(d.resize)
+    .height(radius)
+    .width(radius)
+    .maxLines(5)
+    .text(d => d.name)
+    .x(() => -radius / 2)
+    .y(() => -radius / 2)
+    .ellipsis(text => `${text.replace(/\.|,$/g, "")}...`)
+    .verticalAlign("middle")
+    .textAnchor("middle")
+    .render();
+  });
 };
 
 const circles = [
-    { x: 150, y: 150, resize: true, name: "ABCDEFGHIJKLMNOPQRSTUVWXYZ12" },
-    { x: 500, y: 150, resize: true, name: "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789" },
-    { x: 150, y: 500, resize: true, name: "Bacon ipsum dolor amet venison ball tip meatloaf, shank sirloin pig filet mignon pastrami pork belly pork chop. Strip steak ham spare ribs sausage. Fatback venison burgdoggen bacon pancetta kevin shoulder porchetta spare ribs. Venison tongue short loin, pork belly pork loin jowl ham hock t-bone sausage doner. Rump bacon beef ribs short loin brisket buffalo turducken beef. Cupim swine burgdoggen kevin. Boudin tongue tri-tip sirloin, biltong short ribs pancetta pork loin. Boudin short loin brisket, shoulder porchetta biltong short ribs drumstick ground round jerky kevin andouille. Ham ribeye swine pork loin pork chop tenderloin, shoulder pork salami sausage ham hock pancetta. Tail andouille ham strip steak meatball ribeye. Bresaola pork chop tongue tri-tip. Pig tail ground round pork belly beef ribs meatball turducken kevin ball tip capicola salami pork chop hamburger brisket. Beef ribs venison turducken doner shankle landjaeger salami biltong cupim beef. Short loin kevin chicken andouille capicola tongue. Porchetta shank pastrami sirloin, fatback venison tri-tip." },
+  {x: 150, y: 150, resize: true, name: "ABCDEFGHIJKLMNOPQRSTUVWXYZ12"},
+  {x: 500, y: 150, resize: true, name: "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"},
+  {x: 150, y: 500, resize: false, name: "Bacon ipsum dolor amet venison shank sirloin  pig filet mignon pastrami pork belly pork chop Strip steak ham spare ribs sausage"},
+  {x: 500, y: 500, resize: true, name: "Bacon ipsum dolor amet venison ball tip meatloaf, shank sirloin pig filet mignon pastrami pork belly pork chop. Strip steak ham spare ribs sausage. Fatback venison burgdoggen bacon pancetta kevin shoulder porchetta spare ribs. Venison tongue short loin, pork belly pork loin jowl ham hock t-bone sausage doner. Rump bacon beef ribs short loin brisket buffalo turducken beef. Cupim swine burgdoggen kevin. Boudin tongue tri-tip sirloin, biltong short ribs pancetta pork loin. Boudin short loin brisket, shoulder porchetta biltong short ribs drumstick ground round jerky kevin andouille. Ham ribeye swine pork loin pork chop tenderloin, shoulder pork salami sausage ham hock pancetta. Tail andouille ham strip steak meatball ribeye. Bresaola pork chop tongue tri-tip. Pig tail ground round pork belly beef ribs meatball turducken kevin ball tip capicola salami pork chop hamburger brisket. Beef ribs venison turducken doner shankle landjaeger salami biltong cupim beef. Short loin kevin chicken andouille capicola tongue. Porchetta shank pastrami sirloin, fatback venison tri-tip."},
 ];
 
 const join = d3
