@@ -48,6 +48,7 @@ export default class TextBox extends BaseClass {
     this._height = accessor("height", 200);
     this._id = (d, i) => d.id || `${i}`;
     this._lineHeight = (d, i) => this._fontSize(d, i) * 1.2;
+    this._maxLines = constant(null);
     this._on = {};
     this._overflow = constant(false);
     this._padding = constant(0);
@@ -107,6 +108,7 @@ export default class TextBox extends BaseClass {
         .fontSize(fS)
         .fontWeight(style["font-weight"])
         .lineHeight(lH)
+        .maxLines(this._maxLines(d, i))
         .height(h)
         .overflow(this._overflow(d, i))
         .width(w);
@@ -464,6 +466,15 @@ function(d, i) {
   */
   lineHeight(_) {
     return arguments.length ? (this._lineHeight = typeof _ === "function" ? _ : constant(_), this) : this._lineHeight;
+  }
+
+  /**
+      @memberof TextBox
+      @desc Restricts the maximum number of lines to wrap onto, which is null (unlimited) by default.
+      @param {Function|Number} [*value*]
+  */
+  maxLines(_) {
+    return arguments.length ? (this._maxLines = typeof _ === "function" ? _ : constant(_), this) : this._maxLines;
   }
 
   /**
