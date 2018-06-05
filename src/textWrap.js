@@ -58,7 +58,7 @@ export default function() {
         }
         lineData[line - 1] = trimRight(lineData[line - 1]);
         line++;
-        if (lineHeight * line > height || wordWidth > width && !overflow || (maxLines && line > maxLines)) {
+        if (lineHeight * line > height || wordWidth > width && !overflow || maxLines && line > maxLines) {
           truncated = true;
           break;
         }
