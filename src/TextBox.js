@@ -213,7 +213,7 @@ export default class TextBox extends BaseClass {
 
       return arr;
 
-    }, []), this._id);
+    }, []), d => this._id(d.data, d.i));
 
     const t = transition().duration(this._duration);
 
@@ -227,7 +227,8 @@ export default class TextBox extends BaseClass {
       boxes.exit().transition().delay(this._duration).remove();
 
       boxes.exit().selectAll("text").transition(t)
-        .attr("opacity", 0);
+        .attr("opacity", 0)
+        .style("opacity", 0);
 
     }
 
@@ -266,8 +267,6 @@ export default class TextBox extends BaseClass {
             .style("font-size", `${d.fS}px`)
             .attr("font-weight", d.fW)
             .style("font-weight", d.fW)
-            .attr("opacity", d.fO)
-            .style("opacity", d.fO)
             .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 0}px`)
             .attr("y", (t, i) => `${(i + 1) * d.lH - (d.lH - d.fS)}px`);
         }
@@ -284,7 +283,9 @@ export default class TextBox extends BaseClass {
             .attr("dominant-baseline", "alphabetic")
             .style("baseline-shift", "0%")
             .attr("unicode-bidi", "bidi-override")
-            .call(textStyle);
+            .call(textStyle)
+            .attr("opacity", d.fO)
+            .style("opacity", d.fO);
 
         }
         else {
@@ -298,10 +299,12 @@ export default class TextBox extends BaseClass {
               .attr("dominant-baseline", "alphabetic")
               .style("baseline-shift", "0%")
               .attr("opacity", 0)
+              .style("opacity", 0)
               .call(textStyle)
             .merge(texts).transition(t).delay(that._delay)
               .call(textStyle)
-              .attr("opacity", 1);
+              .attr("opacity", d.fO)
+              .style("opacity", d.fO);
 
         }
 
