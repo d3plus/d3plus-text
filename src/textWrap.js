@@ -14,6 +14,7 @@ export default function() {
       fontWeight = 400,
       height = 200,
       lineHeight,
+      maxLines = null,
       overflow = false,
       split = defaultSplit,
       width = 200;
@@ -57,7 +58,7 @@ export default function() {
         }
         lineData[line - 1] = trimRight(lineData[line - 1]);
         line++;
-        if (lineHeight * line > height || wordWidth > width && !overflow) {
+        if (lineHeight * line > height || wordWidth > width && !overflow || (maxLines && line > maxLines)) {
           truncated = true;
           break;
         }
@@ -123,6 +124,15 @@ export default function() {
   */
   textWrap.lineHeight = function(_) {
     return arguments.length ? (lineHeight = _, textWrap) : lineHeight;
+  };
+
+  /**
+      @memberof textWrap
+      @desc If *value* is specified, sets the maximum number of lines allowed when wrapping.
+      @param {Function|Number} [*value*]
+  */
+  textWrap.maxLines = function(_) {
+    return arguments.length ? (maxLines = _, textWrap) : maxLines;
   };
 
   /**
