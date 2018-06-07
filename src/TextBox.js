@@ -15,7 +15,6 @@ import strip from "./strip";
 import textSplit from "./textSplit";
 import measure from "./textWidth";
 import wrap from "./textWrap";
-import truncateWord from "./textTruncate";
 import {trimRight} from "./trim";
 
 /**
@@ -124,7 +123,7 @@ export default class TextBox extends BaseClass {
       */
       function checkSize() {
         const truncate = () => {
-          if (line < 1) lineData = [truncateWord(wrapResults.words[0], that._ellipsis("", line), w, style)];
+          if (line < 1) lineData = [that._ellipsis("", line)];
           else lineData[line - 1] = that._ellipsis(lineData[line - 1], line);
         };
 
