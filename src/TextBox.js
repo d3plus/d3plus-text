@@ -33,7 +33,7 @@ export default class TextBox extends BaseClass {
 
     super();
 
-    this._ariaHidden = "false";
+    this._ariaHidden = constant("false");
     this._delay = 0;
     this._duration = 0;
     this._ellipsis = (text, line) => line ? `${text.replace(/\.|,$/g, "")}...` : "";
@@ -193,7 +193,7 @@ export default class TextBox extends BaseClass {
         yP -= lH * 0.1;
 
         arr.push({
-          aH: this._ariaHidden,
+          aH: this._ariaHidden(d, i),
           data: d,
           i,
           lines: lineData,
