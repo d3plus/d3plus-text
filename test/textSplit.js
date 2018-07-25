@@ -21,6 +21,9 @@ test("textSplit", assert => {
   const burmese = textSplit("ကြောယ်။");
   assert.ok(burmese[0] === "ကြော" && burmese[1] === "ယ်။", "burmese");
 
+  const japanese = textSplit("暑い。");
+  assert.ok(japanese[0] === "暑" && japanese[1] === "い。", "japanese");
+
   const lao = textSplit("ຕໍ່ດ້.");
   assert.ok(lao[0] === "ຕໍ່" && lao[1] === "ດ້.", "lao");
 
