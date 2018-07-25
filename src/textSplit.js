@@ -40,10 +40,9 @@ const japaneseRange = "\u3040-\u309f\u30a0-\u30ff\uff00-\uff0b\uff0d-\uff5d\uff5
 const chineseRange = "\u3400-\u9FBF";
 const laoRange = "\u0E81-\u0EAE\u0EB0-\u0EC4\u0EC8-\u0ECB\u0ECD-\u0EDD";
 
-const noSpaceRange = burmeseRange + chineseRange + laoRange;
+const noSpaceRange = burmeseRange + chineseRange + japaneseRange + laoRange;
 
 const splitWords = new RegExp(`(\\${splitChars.join("|\\")})*[^\\s|\\${splitChars.join("|\\")}]*(\\${splitChars.join("|\\")})*`, "g");
-const japaneseChars = new RegExp(`[${japaneseRange}]`);
 const noSpaceLanguage = new RegExp(`[${noSpaceRange}]`);
 const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange}](\\${suffixChars.join("|\\")}|\\${combiningMarks.join("|\\")})*|[a-z0-9]+`, "gi");
 
@@ -55,7 +54,7 @@ const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange
 export default function(sentence) {
   if (!noSpaceLanguage.test(sentence)) return stringify(sentence).match(splitWords).filter(w => w.length);
   return merge(stringify(sentence).match(splitWords).map(d => {
-    if (!japaneseChars.test(d) && noSpaceLanguage.test(d)) return d.match(splitAllChars);
+    if (noSpaceLanguage.test(d)) return d.match(splitAllChars);
     return [d];
   }));
 }
