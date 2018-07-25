@@ -3,7 +3,7 @@ import {default as textWrap} from "../src/textWrap.js";
 
 test("textWrap", assert => {
 
-  const font = "DejaVuSans";
+  const font = "Verdana";
 
   const sentence = "Hello D3plus, please wrap this sentence for me.",
         testWrap = textWrap().fontFamily(font).fontSize(14)(sentence);

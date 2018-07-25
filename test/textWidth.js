@@ -3,7 +3,7 @@ import {default as textWidth} from "../src/textWidth.js";
 
 test("textWidth", assert => {
 
-  const font = "DejaVuSans";
+  const font = "Verdana";
 
   const base = textWidth("Test", {"font-family": font, "font-size": 14}),
         bigger = textWidth("Test", {"font-family": font, "font-size": 28}),
