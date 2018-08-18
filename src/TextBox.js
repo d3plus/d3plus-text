@@ -276,9 +276,6 @@ export default class TextBox extends BaseClass {
               vA === "middle" ? `${(d.h + d.fS) / 2 + (d.fS - d.lH)}px` : `${d.h - 2 * (d.lH - d.fS)}px`);
         }
 
-
-        //.attr("y", (t, i) => d.r === 0 ? (i + 1) * d.lH - (d.lH - d.fS) : (vA = this$1._verticalAlign(t, i), vA === "middle" ? d.h / 2 + d.fS / 2 : vA === "start" ? d.h : d.lH - (d.lH - d.fS)) );
-
         const texts = select(this).selectAll("text").data(d.lines);
 
         if (that._duration === 0) {
