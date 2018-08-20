@@ -271,7 +271,7 @@ export default class TextBox extends BaseClass {
             .style("font-size", `${d.fS}px`)
             .attr("font-weight", d.fW)
             .style("font-weight", d.fW)
-            .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 0}px`)
+            .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 2 * Math.sin(Math.PI * d.r / 180)}px`)
             .attr("y", (t, i) => d.r === 0 || d.vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px` : 
               d.vA === "middle" ? `${d.h / 2 + d.fS / 2 - (d.lH - d.fS)}px` : `${d.h - 2 * (d.lH - d.fS) - (d.lines.length - (i + 1)) * d.lH}px`);
 //i * d.lH + (d.h + d.fS) / 2 + (d.fS - d.lH)
