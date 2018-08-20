@@ -274,7 +274,7 @@ export default class TextBox extends BaseClass {
             .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 2 * Math.sin(Math.PI * d.r / 180)}px`)
             .attr("y", (t, i) => d.r === 0 || d.vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px` : 
               d.vA === "middle" ? 
-                `${(d.h + d.fS) / 2 - (d.lH - d.fS) - (i - d.lines.length / 2 + 0.5) * d.lH}px` : 
+                `${(d.h + d.fS) / 2 - (d.lH - d.fS) + (i - d.lines.length / 2 + 0.5) * d.lH}px` : 
                 `${d.h - 2 * (d.lH - d.fS) - (d.lines.length - (i + 1)) * d.lH + 2 * Math.cos(Math.PI * d.r / 180)}px`);
 
         }
