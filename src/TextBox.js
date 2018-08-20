@@ -275,7 +275,6 @@ export default class TextBox extends BaseClass {
             .attr("y", (t, i) => d.r === 0 || d.vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px` : 
               d.vA === "middle" ? `${(d.h + d.fS) / 2 + (d.fS - d.lH)}px` : `${d.h - 2 * (d.lH - d.fS)}px`);
 
-          console.log((d.h + d.fS) / 2 + (d.fS - d.lH))
         }
 
         const texts = select(this).selectAll("text").data(d.lines);
