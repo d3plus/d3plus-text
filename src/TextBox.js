@@ -204,6 +204,7 @@ export default class TextBox extends BaseClass {
           fW: style["font-weight"],
           id: this._id(d, i),
           tA: this._textAnchor(d, i),
+          vA: this._verticalAlign(d, i),
           widths: wrapResults.widths,
           fS, lH, w, h, r,
           x: this._x(d, i) + padding.left,
@@ -250,14 +251,13 @@ export default class TextBox extends BaseClass {
 
     update
       .style("pointer-events", d => this._pointerEvents(d.data, d.i))
-      .each(function(d, i) {
+      .each(function(d) {
 
         /**
             Styles to apply to each <text> element.
             @private
         */
         function textStyle(text) {
-          const vA = this._verticalAlign(d, i);
 
           text
             .text(t => trimRight(t))
@@ -272,8 +272,10 @@ export default class TextBox extends BaseClass {
             .attr("font-weight", d.fW)
             .style("font-weight", d.fW)
             .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 0}px`)
-            .attr("y", (t, i) => d.r === 0 || vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px` : 
-              vA === "middle" ? `${(d.h + d.fS) / 2 + (d.fS - d.lH)}px` : `${d.h - 2 * (d.lH - d.fS)}px`);
+            .attr("y", (t, i) => d.r === 0 || d.vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px` : 
+              d.vA === "middle" ? `${(d.h + d.fS) / 2 + (d.fS - d.lH)}px` : `${d.h - 2 * (d.lH - d.fS)}px`);
+
+          console.log((d.h + d.fS) / 2 + (d.fS - d.lH))
         }
 
         const texts = select(this).selectAll("text").data(d.lines);
