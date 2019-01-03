@@ -41,6 +41,7 @@
     "d3plus-dev": "^0.6.7"
   },
   "module": "es/index",
+  "sideEffects": false,
   "files": [
     "bin",
     "build/d3plus-text.js",
