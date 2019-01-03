@@ -620,4 +620,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Tue, 21 Aug 2018 18:56:31 GMT</sub>
+###### <sub>Documentation generated on Thu, 03 Jan 2019 22:48:45 GMT</sub>
