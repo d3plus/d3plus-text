@@ -5,8 +5,7 @@ test("TextBox", function *(assert) {
 
   assert.end();
 
-  const data = {text: "Hello D3plus, please wrap this sentence for me."},
-        height = 200,
+  const height = 200,
         width = 200,
         x = 100,
         y = 100;
@@ -15,7 +14,7 @@ test("TextBox", function *(assert) {
 
   yield cb => {
     testBox = new TextBox()
-      .data([data])
+      .data([{text: "Hello D3plus, please wrap this sentence for me."}])
       .fontSize(14)
       .height(height)
       .width(width)
@@ -42,7 +41,15 @@ test("TextBox", function *(assert) {
   let y2 = y;
   assert.ok(y2 - yP <= bbox.y <= y + yP, "y positioned correctly (top)");
 
-  yield cb => testBox.verticalAlign("middle").render(cb);
+
+
+  yield cb => testBox.data([{text: "Hello <b>D3plus</b>, please <em>wrap this</em> sentence for me."}]).render(cb);
+
+  tspans = document.getElementsByTagName("tspan");
+  assert.ok(tspans[0].innerHTML === "Hello <tspan style=\"font-weight: bold;\">D3plus</tspan>, please <tspan style=\"font-style: italic;\">wrap</tspan>" &&
+              tspans[1].innerHTML === "<tspan style=\"font-style: italic;\">this</tspan> sentence for me.", "HTML tag rendering");
+
+  yield cb => testBox.data([{text: "Hello D3plus, please wrap this sentence for me."}]).verticalAlign("middle").render(cb);
 
   bbox = elem.getBBox();
   y2 = y + height / 2 - bbox.height / 2;

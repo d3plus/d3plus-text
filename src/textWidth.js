@@ -28,7 +28,7 @@ export default function(text, style) {
 
   context.font = font.join(" ");
 
-  if (text instanceof Array) return text.map(t => context.measureText(t).width);
-  return context.measureText(text).width;
+  if (text instanceof Array) return text.map(t => context.measureText(t.replace(/<[^>]+>/g, "")).width);
+  return context.measureText(text.replace(/<[^>]+>/g, "")).width;
 
 }

@@ -17,6 +17,13 @@ import measure from "./textWidth";
 import wrap from "./textWrap";
 import {trimRight} from "./trim";
 
+const tagLookup = {
+  i: "font-style: italic;",
+  em: "font-style: italic;",
+  b: "font-weight: bold;",
+  strong: "font-weight: bold;"
+};
+
 /**
     @class TextBox
     @extends external:BaseClass
@@ -46,6 +53,7 @@ export default class TextBox extends BaseClass {
     this._fontSize = constant(10);
     this._fontWeight = constant(400);
     this._height = accessor("height", 200);
+    this._html = true;
     this._id = (d, i) => d.id || `${i}`;
     this._lineHeight = (d, i) => this._fontSize(d, i) * 1.2;
     this._maxLines = constant(null);
@@ -260,7 +268,14 @@ export default class TextBox extends BaseClass {
         function textStyle(text) {
 
           text
-            .text(t => trimRight(t))
+            [that._html ? "html" : "text"](t => trimRight(t)
+              .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`)
+              .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`)
+              .replace(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g, (str, a, b) => {
+                const tag = tagLookup[a] ? `<tspan style="${tagLookup[a]}">` : "";
+                return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
+              })
+            )
             .attr("aria-hidden", d.aH)
             .attr("dir", rtl ? "rtl" : "ltr")
             .attr("fill", d.fC)
@@ -272,9 +287,9 @@ export default class TextBox extends BaseClass {
             .attr("font-weight", d.fW)
             .style("font-weight", d.fW)
             .attr("x", `${d.tA === "middle" ? d.w / 2 : rtl ? d.tA === "start" ? d.w : 0 : d.tA === "end" ? d.w : 2 * Math.sin(Math.PI * d.r / 180)}px`)
-            .attr("y", (t, i) => d.r === 0 || d.vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px` 
-            : d.vA === "middle" 
-              ? `${(d.h + d.fS) / 2 - (d.lH - d.fS) + (i - d.lines.length / 2 + 0.5) * d.lH}px` 
+            .attr("y", (t, i) => d.r === 0 || d.vA === "top" ? `${(i + 1) * d.lH - (d.lH - d.fS)}px`
+            : d.vA === "middle"
+              ? `${(d.h + d.fS) / 2 - (d.lH - d.fS) + (i - d.lines.length / 2 + 0.5) * d.lH}px`
               : `${d.h - 2 * (d.lH - d.fS) - (d.lines.length - (i + 1)) * d.lH + 2 * Math.cos(Math.PI * d.r / 180)}px`);
 
         }
@@ -338,8 +353,8 @@ export default class TextBox extends BaseClass {
       @chainable
   */
   ariaHidden(_) {
-    return _ !== undefined 
-      ? (this._ariaHidden = typeof _ === "function" ? _ : constant(_), this) 
+    return _ !== undefined
+      ? (this._ariaHidden = typeof _ === "function" ? _ : constant(_), this)
       : this._ariaHidden;
   }
 
@@ -479,6 +494,16 @@ function(d) {
   */
   height(_) {
     return arguments.length ? (this._height = typeof _ === "function" ? _ : constant(_), this) : this._height;
+  }
+
+  /**
+      @memberof TextBox
+      @desc Toggles the ability to render simple HTML tags (like <b> and <i>).
+      @param {Boolean} [*value* = true]
+      @chainable
+  */
+  html(_) {
+    return arguments.length ? (this._html = _, this) : this._html;
   }
 
   /**
