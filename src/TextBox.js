@@ -262,10 +262,10 @@ export default class TextBox extends BaseClass {
       .each(function(d) {
 
         /**
-            Styles to apply to each <text> element.
+            Sets the inner text content of each <text> element.
             @private
         */
-        function textStyle(text) {
+        function textContent(text) {
 
           text
             [that._html ? "html" : "text"](t => trimRight(t)
@@ -275,7 +275,17 @@ export default class TextBox extends BaseClass {
                 const tag = tagLookup[a] ? `<tspan style="${tagLookup[a]}">` : "";
                 return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
               })
-            )
+            );
+
+        }
+
+        /**
+            Styles to apply to each <text> element.
+            @private
+        */
+        function textStyle(text) {
+
+          text
             .attr("aria-hidden", d.aH)
             .attr("dir", rtl ? "rtl" : "ltr")
             .attr("fill", d.fC)
@@ -313,7 +323,7 @@ export default class TextBox extends BaseClass {
         }
         else {
 
-          texts.transition(t).call(textStyle);
+          texts.call(textContent).transition(t).call(textStyle);
 
           texts.exit().transition(t)
             .attr("opacity", 0).remove();
@@ -323,6 +333,7 @@ export default class TextBox extends BaseClass {
               .style("baseline-shift", "0%")
               .attr("opacity", 0)
               .style("opacity", 0)
+              .call(textContent)
               .call(textStyle)
             .merge(texts).transition(t).delay(that._delay)
               .call(textStyle)
