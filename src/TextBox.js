@@ -308,7 +308,9 @@ export default class TextBox extends BaseClass {
 
         if (that._duration === 0) {
 
-          texts.call(textStyle);
+          texts
+            .call(textContent)
+            .call(textStyle);
 
           texts.exit().remove();
 
@@ -316,6 +318,7 @@ export default class TextBox extends BaseClass {
             .attr("dominant-baseline", "alphabetic")
             .style("baseline-shift", "0%")
             .attr("unicode-bidi", "bidi-override")
+            .call(textContent)
             .call(textStyle)
             .attr("opacity", d.fO)
             .style("opacity", d.fO);
