@@ -512,7 +512,7 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc Toggles the ability to render simple HTML tags (like <b> and <i>).
+      @desc Toggles the ability to render simple HTML tags. Currently supports `<b>`, `<strong>`, `<i>`, and `<em>`.
       @param {Boolean} [*value* = true]
       @chainable
   */
