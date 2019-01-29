@@ -257,7 +257,7 @@ function(d) {
 
 <a name="TextBox.html" href="#TextBox.html">#</a> TextBox.**html**([*value*]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/TextBox.js#L519)
 
-Toggles the ability to render simple HTML tags (like <b> and <i>).
+Toggles the ability to render simple HTML tags. Currently supports `<b>`, `<strong>`, `<i>`, and `<em>`.
 
 
 This is a static method of [<code>TextBox</code>](#TextBox), and is chainable with other methods of this Class.
@@ -629,4 +629,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Tue, 22 Jan 2019 14:34:38 GMT</sub>
+###### <sub>Documentation generated on Tue, 29 Jan 2019 17:19:49 GMT</sub>
