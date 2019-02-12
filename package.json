@@ -23,9 +23,9 @@
     "url": "http://www.dave-landry.com"
   },
   "dependencies": {
-    "d3-array": "^1.2.0",
-    "d3-selection": "^1.3.2",
-    "d3-transition": "^1.1.3",
+    "d3-array": "^1.2.4",
+    "d3-selection": "^1.4.0",
+    "d3-transition": "^1.2.0",
     "d3plus-common": "^0.6.45"
   },
   "scripts": {
