@@ -629,4 +629,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Tue, 29 Jan 2019 17:19:49 GMT</sub>
+###### <sub>Documentation generated on Tue, 12 Feb 2019 19:11:28 GMT</sub>
