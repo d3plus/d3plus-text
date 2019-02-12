@@ -269,13 +269,13 @@ export default class TextBox extends BaseClass {
 
           text
             [that._html ? "html" : "text"](t => trimRight(t)
-              .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`)
-              .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`)
+              .replace(/<([^A-z^/]+)/g, (str, a) => `&lt;${a}`).replace(/<$/g, "&lt;") // replaces all non-HTML left angle brackets with escaped entity
+              .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
+              .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`) // ands start tag to lines after mid-HTML break
               .replace(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g, (str, a, b) => {
                 const tag = tagLookup[a] ? `<tspan style="${tagLookup[a]}">` : "";
                 return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
-              })
-            );
+              }));
 
         }
 
