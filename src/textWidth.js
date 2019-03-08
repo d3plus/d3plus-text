@@ -1,4 +1,14 @@
 /**
+ * Strips HTML and "un-escapes" escape characters.
+ * @param {String} input
+ */
+function htmlDecode(input) {
+  const doc = new DOMParser().parseFromString(input.replace(/<[^>]+>/g, ""), "text/html");
+  return doc.documentElement.textContent;
+}
+
+
+/**
     @function textWidth
     @desc Given a text string, returns the predicted pixel width of the string when placed into DOM.
     @param {String|Array} text Can be either a single string or an array of strings to analyze.
@@ -28,7 +38,7 @@ export default function(text, style) {
 
   context.font = font.join(" ");
 
-  if (text instanceof Array) return text.map(t => context.measureText(t.replace(/<[^>]+>/g, "")).width);
-  return context.measureText(text.replace(/<[^>]+>/g, "")).width;
+  if (text instanceof Array) return text.map(t => context.measureText(htmlDecode(t)).width);
+  return context.measureText(htmlDecode(text)).width;
 
 }
