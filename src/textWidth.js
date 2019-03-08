@@ -3,6 +3,7 @@
  * @param {String} input
  */
 function htmlDecode(input) {
+  if (input === " ") return input;
   const doc = new DOMParser().parseFromString(input.replace(/<[^>]+>/g, ""), "text/html");
   return doc.documentElement.textContent;
 }
