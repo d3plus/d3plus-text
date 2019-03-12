@@ -640,4 +640,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Tue, 12 Mar 2019 20:19:20 GMT</sub>
+###### <sub>Documentation generated on Tue, 12 Mar 2019 20:27:24 GMT</sub>
