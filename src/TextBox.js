@@ -242,6 +242,11 @@ export default class TextBox extends BaseClass {
 
     }
 
+    /**
+     * Applies translate and rotate to a text element.
+     * @param {D3Selection} text
+     * @private
+     */
     function rotate(text) {
       text.attr("transform", (d, i) => {
         const rotateAnchor = that._rotateAnchor(d, i);
