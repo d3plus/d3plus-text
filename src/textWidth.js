@@ -32,9 +32,6 @@ export default function(text, style) {
   font.push(style["font-variant"]);
   font.push(style["font-weight"]);
   font.push(typeof style["font-size"] === "string" ? style["font-size"] : `${style["font-size"]}px`);
-  // let s = `${style["font-size"]}px`;
-  // if ("line-height" in style) s += `/${style["line-height"]}px`;
-  // font.push(s);
   font.push(style["font-family"]);
 
   context.font = font.join(" ");
