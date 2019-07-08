@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as titleCase} from "../src/titleCase.js";
 
 test("titleCase", assert => {

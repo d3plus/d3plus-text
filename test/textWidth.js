@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as textWidth} from "../src/textWidth.js";
 
 test("textWidth", assert => {

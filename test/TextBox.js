@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as TextBox} from "../src/TextBox.js";
 
 test("TextBox", function *(assert) {

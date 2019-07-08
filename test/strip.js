@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as strip} from "../src/strip.js";
 
 test("strip", assert => {

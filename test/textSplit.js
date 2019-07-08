@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as textSplit, splitChars} from "../src/textSplit.js";
 
 test("textSplit", assert => {

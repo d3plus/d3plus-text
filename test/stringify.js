@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as stringify} from "../src/stringify.js";
 
 test("stringify", assert => {

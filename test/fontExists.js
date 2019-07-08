@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as fontExists} from "../src/fontExists.js";
 
 test("fontExists", assert => {

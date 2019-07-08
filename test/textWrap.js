@@ -1,4 +1,4 @@
-import test from "zora";
+import {test} from "zora";
 import {default as textWrap} from "../src/textWrap.js";
 
 test("textWrap", assert => {
