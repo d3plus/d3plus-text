@@ -19,7 +19,7 @@ And that's it! Now your environment should be all set up and ready to go.
 
 ## Writing Code
 
-With the introduction of modules in D3plus 2.0, all code is transpiled using [buble](http://buble.surge.sh/), which allows usage of most of the good bits from ES6. If you are unfamiliar with ES6, then normal vanilla javascript works fine as well (but we may suggest PR revisions to include more succinct ES6). All source code lives in the `./src` directory.
+With the introduction of modules in D3plus 2.0, all code is transpiled using [babel](https://babeljs.io/), which allows usage of most of the good bits from ES6. If you are unfamiliar with ES6, then normal vanilla javascript works fine as well (but we may suggest PR revisions to include more succinct ES6). All source code lives in the `./src` directory.
 
 ## Code Style
 
@@ -67,6 +67,28 @@ npm test
 ```
 > This command will also lint all files according to the provided `.eslintc` file.
 
+D3plus uses [zora](https://github.com/lorenzofox3/zora) for running tests, and [tape-run](https://github.com/juliangruber/tape-run) for outputting the results. Here is an example of what a test file could look like:
+
+```js
+import {test} from "zora";
+
+test("testing booleans", assert => {
+
+  assert.equal(true, true, "testing true");
+  assert.equal(false, false, "testing false");
+
+});
+
+test("testing numbers", assert => {
+
+  assert.equal(1, 1, "testing 1");
+  assert.equal(2, 2, "testing 2");
+
+});
+
+export default test;
+```
+
 ## Examples
 
 All D3plus 2.0 examples seen on [d3plus.org](https://d3plus.org) are created from within their respective repositories. The examples are parsed from any markdown files placed in the `./example` directory, with the following behaviors:
@@ -105,6 +127,39 @@ A screenshot of each example is generated from the rendered HTML. By default, ea
 [width]: 100
 [height]: 100
 ```
+
+Adding all that together, here is a sample of what a full example could look like:
+
+`````md
+[width]: 100
+[height]: 100
+
+# A Cool Red Square
+
+In this example, we show you how to add a red square to a webpage!
+
+```html
+<div id="container"></div>
+```
+
+Wow, look at that container element. Such beauty.
+
+```css
+#container > div {
+  background-color: red;
+  height: 100px;
+  width: 100px;
+}
+```
+
+CSS. Amazing. Now let's finish this off with some JavaScript!
+
+```js
+var box = document.createElement("div");
+document.getElementById("container").appendChild(box);
+```
+
+`````
 
 ## Submitting a Pull Request
 
