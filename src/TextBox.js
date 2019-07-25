@@ -15,7 +15,7 @@ import strip from "./strip";
 import textSplit from "./textSplit";
 import measure from "./textWidth";
 import wrap from "./textWrap";
-import {trimRight} from "./trim";
+import {trim, trimRight} from "./trim";
 
 const tagLookup = {
   i: "font-style: italic;",
@@ -86,8 +86,9 @@ export default class TextBox extends BaseClass {
 
     const boxes = this._select.selectAll(".d3plus-textBox").data(this._data.reduce((arr, d, i) => {
 
-      const t = this._text(d, i);
+      let t = this._text(d, i);
       if (t === void 0) return arr;
+      t = trim(t);
 
       const resize = this._fontResize(d, i);
       const lHRatio = this._lineHeight(d, i) / this._fontSize(d, i);
