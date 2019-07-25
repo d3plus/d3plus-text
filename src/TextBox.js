@@ -119,7 +119,8 @@ export default class TextBox extends BaseClass {
         .maxLines(this._maxLines(d, i))
         .height(h)
         .overflow(this._overflow(d, i))
-        .width(w);
+        .width(w)
+        .split(this._split);
 
       const fMax = this._fontMax(d, i),
             fMin = this._fontMin(d, i),
