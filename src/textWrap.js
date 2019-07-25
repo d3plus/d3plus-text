@@ -56,7 +56,7 @@ export default function() {
           truncated = true;
           break;
         }
-        lineData[line - 1] = trimRight(lineData[line - 1]);
+        if (lineData.length) lineData[line - 1] = trimRight(lineData[line - 1]);
         line++;
         if (lineHeight * line > height || wordWidth > width && !overflow || maxLines && line > maxLines) {
           truncated = true;
