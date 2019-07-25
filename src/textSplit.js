@@ -2,7 +2,7 @@ import {default as stringify} from "./stringify";
 import {default as combiningMarks} from "./combiningMarks";
 import {merge} from "d3-array";
 
-const splitChars = ["-", ";", ":", "&",
+const splitChars = ["-", ";", ":", "&", "|",
   "u0E2F", // thai character pairannoi
   "u0EAF", // lao ellipsis
   "u0EC6", // lao ko la (word repetition)
