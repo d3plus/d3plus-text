@@ -17,13 +17,6 @@ import measure from "./textWidth";
 import wrap from "./textWrap";
 import {trim, trimRight} from "./trim";
 
-const tagLookup = {
-  i: "font-style: italic;",
-  em: "font-style: italic;",
-  b: "font-weight: bold;",
-  strong: "font-weight: bold;"
-};
-
 /**
     @class TextBox
     @extends external:BaseClass
@@ -70,7 +63,12 @@ export default class TextBox extends BaseClass {
     this._width = accessor("width", 200);
     this._x = accessor("x", 0);
     this._y = accessor("y", 0);
-
+    this._tagLookup = {
+      i: "font-style: italic;",
+      em: "font-style: italic;",
+      b: "font-weight: bold;",
+      strong: "font-weight: bold;"
+    };
   }
 
   /**
@@ -281,7 +279,7 @@ export default class TextBox extends BaseClass {
               .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
               .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`) // ands start tag to lines after mid-HTML break
               .replace(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g, (str, a, b) => {
-                const tag = tagLookup[a] ? `<tspan style="${tagLookup[a]}">` : "";
+                const tag = that._tagLookup[a] ? `<tspan style="${that._tagLookup[a]}">` : "";
                 return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
               }));
 
@@ -520,12 +518,27 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc Toggles the ability to render simple HTML tags. Currently supports `<b>`, `<strong>`, `<i>`, and `<em>`.
+      @desc Toggles the ability to render simple HTML tags. Defaults to supporting `<b>`, `<strong>`, `<i>`, and `<em>`.
       @param {Boolean} [*value* = true]
       @chainable
   */
   html(_) {
     return arguments.length ? (this._html = _, this) : this._html;
+  }
+
+  /**
+      @memberof TextBox
+      @desc Provides the replacment style for html tags. Defaults to  `<b>`, `<strong>`, `<i>`, and `<em>`.
+      @param {Dictionary} [*value* =  {
+                i: 'font-style: italic;',
+                em: 'font-style: italic;',
+                b: 'font-weight: bold;',
+                strong: 'font-weight: bold;'
+            }]
+      @chainable
+*/
+  tagStyling(_) {
+    return arguments.length ? (this._tagLookup = _, this) : this._html;
   }
 
   /**
