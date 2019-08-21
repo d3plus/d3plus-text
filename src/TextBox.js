@@ -17,6 +17,13 @@ import measure from "./textWidth";
 import wrap from "./textWrap";
 import {trim, trimRight} from "./trim";
 
+const defaultHtmlLookup = {
+  i: "font-style: italic;",
+  em: "font-style: italic;",
+  b: "font-weight: bold;",
+  strong: "font-weight: bold;"
+};
+
 /**
     @class TextBox
     @extends external:BaseClass
@@ -46,7 +53,7 @@ export default class TextBox extends BaseClass {
     this._fontSize = constant(10);
     this._fontWeight = constant(400);
     this._height = accessor("height", 200);
-    this._html = true;
+    this._html = defaultHtmlLookup;
     this._id = (d, i) => d.id || `${i}`;
     this._lineHeight = (d, i) => this._fontSize(d, i) * 1.2;
     this._maxLines = constant(null);
@@ -63,12 +70,6 @@ export default class TextBox extends BaseClass {
     this._width = accessor("width", 200);
     this._x = accessor("x", 0);
     this._y = accessor("y", 0);
-    this._htmlLookup = {
-      i: "font-style: italic;",
-      em: "font-style: italic;",
-      b: "font-weight: bold;",
-      strong: "font-weight: bold;"
-    };
   }
 
   /**
@@ -279,7 +280,7 @@ export default class TextBox extends BaseClass {
               .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
               .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`) // ands start tag to lines after mid-HTML break
               .replace(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g, (str, a, b) => {
-                const tag = that._htmlLookup[a] ? `<tspan style="${that._htmlLookup[a]}">` : "";
+                const tag = that._html[a] ? `<tspan style="${that._html[a]}">` : "";
                 return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
               }));
 
@@ -518,28 +519,19 @@ function(d) {
 
   /**
       @memberof TextBox
-      @desc Toggles the ability to render simple HTML tags. Defaults to supporting `<b>`, `<strong>`, `<i>`, and `<em>`.
-      @param {Boolean} [*value* = true]
-      @chainable
-  */
-  html(_) {
-    return arguments.length ? (this._html = _, this) : this._html;
-  }
-
-  /**
-      @memberof TextBox
-      @desc Provides the replacment style for html tags. Defaults to  `<b>`, `<strong>`, `<i>`, and `<em>`.
-      @param {Object} [*value* =  {
+      @desc Configures the ability to render simple HTML tags. Defaults to supporting `<b>`, `<strong>`, `<i>`, and `<em>`, set to false to disable or provide a mapping of tags to svg styles
+      @param {Object|Boolean} [*value* = {
                 i: 'font-style: italic;',
                 em: 'font-style: italic;',
                 b: 'font-weight: bold;',
                 strong: 'font-weight: bold;'
             }]
       @chainable
-*/
-  htmlStyling(_) {
-    return arguments.length ? (this._htmlLookup = _, this) : this._htmlLookup;
+  */
+  html(_) {
+    return arguments.length ? (this._html = typeof _ === "boolean" ? _ ? defaultHtmlLookup : false : _, this) : this._html;
   }
+
 
   /**
       @memberof TextBox
