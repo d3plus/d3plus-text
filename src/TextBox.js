@@ -63,7 +63,7 @@ export default class TextBox extends BaseClass {
     this._width = accessor("width", 200);
     this._x = accessor("x", 0);
     this._y = accessor("y", 0);
-    this._tagLookup = {
+    this._htmlLookup = {
       i: "font-style: italic;",
       em: "font-style: italic;",
       b: "font-weight: bold;",
@@ -279,7 +279,7 @@ export default class TextBox extends BaseClass {
               .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
               .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`) // ands start tag to lines after mid-HTML break
               .replace(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g, (str, a, b) => {
-                const tag = that._tagLookup[a] ? `<tspan style="${that._tagLookup[a]}">` : "";
+                const tag = that._htmlLookup[a] ? `<tspan style="${that._htmlLookup[a]}">` : "";
                 return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
               }));
 
@@ -529,7 +529,7 @@ function(d) {
   /**
       @memberof TextBox
       @desc Provides the replacment style for html tags. Defaults to  `<b>`, `<strong>`, `<i>`, and `<em>`.
-      @param {Dictionary} [*value* =  {
+      @param {Object} [*value* =  {
                 i: 'font-style: italic;',
                 em: 'font-style: italic;',
                 b: 'font-weight: bold;',
@@ -537,8 +537,8 @@ function(d) {
             }]
       @chainable
 */
-  tagStyling(_) {
-    return arguments.length ? (this._tagLookup = _, this) : this._html;
+  htmlStyling(_) {
+    return arguments.length ? (this._htmlLookup = _, this) : this._htmlLookup;
   }
 
   /**
