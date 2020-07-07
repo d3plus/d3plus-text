@@ -51,6 +51,8 @@ export default class TextBox extends BaseClass {
     this._fontOpacity = constant(1);
     this._fontResize = constant(false);
     this._fontSize = constant(10);
+    this._fontStroke = constant("transparent");
+    this._fontStrokeWidth = constant(0);
     this._fontWeight = constant(400);
     this._height = accessor("height", 200);
     this._html = defaultHtmlLookup;
@@ -208,6 +210,8 @@ export default class TextBox extends BaseClass {
           i,
           lines: lineData,
           fC: this._fontColor(d, i),
+          fStroke: this._fontStroke(d, i),
+          fSW: this._fontStrokeWidth(d, i),
           fF: style["font-family"],
           fO: this._fontOpacity(d, i),
           fW: style["font-weight"],
@@ -296,6 +300,8 @@ export default class TextBox extends BaseClass {
             .attr("aria-hidden", d.aH)
             .attr("dir", rtl ? "rtl" : "ltr")
             .attr("fill", d.fC)
+            .attr("stroke", d.fStroke)
+            .attr("stroke-width", d.fSW)
             .attr("text-anchor", d.tA)
             .attr("font-family", d.fF)
             .style("font-family", d.fF)
@@ -491,6 +497,26 @@ function(text, line) {
   */
   fontSize(_) {
     return arguments.length ? (this._fontSize = typeof _ === "function" ? _ : constant(_), this) : this._fontSize;
+  }
+
+  /**
+      @memberof TextBox
+      @desc Sets the font stroke color for the rendered text.
+      @param {Function|String} [*value* = "transparent"]
+      @chainable
+  */
+  fontStroke(_) {
+    return arguments.length ? (this._fontStroke = typeof _ === "function" ? _ : constant(_), this) : this._fontStroke;
+  }
+
+  /**
+      @memberof TextBox
+      @desc Sets the font stroke width for the rendered text.
+      @param {Function|Number} [*value* = 0]
+      @chainable
+  */
+  fontStrokeWidth(_) {
+    return arguments.length ? (this._fontStrokeWidth = typeof _ === "function" ? _ : constant(_), this) : this._fontStrokeWidth;
   }
 
   /**
