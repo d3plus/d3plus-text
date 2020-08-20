@@ -268,6 +268,7 @@ export default class TextBox extends BaseClass {
     const rtl = detectRTL();
 
     update
+      .order()
       .style("pointer-events", d => this._pointerEvents(d.data, d.i))
       .each(function(d) {
 
