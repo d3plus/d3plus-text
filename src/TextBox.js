@@ -278,16 +278,37 @@ export default class TextBox extends BaseClass {
         */
         function textContent(text) {
 
+          let tag = false;
+
           text
-            [that._html ? "html" : "text"](t => trimRight(t)
+          [that._html ? "html" : "text"](t => {
+
+            let cleaned = trimRight(t)
               .replace(/&([^\;&]*)/g, (str, a) => a === "amp" ? str : `&amp;${a}`) // replaces all non-HTML ampersands with escaped entity
               .replace(/<([^A-z^/]+)/g, (str, a) => `&lt;${a}`).replace(/<$/g, "&lt;") // replaces all non-HTML left angle brackets with escaped entity
               .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
-              .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`) // ands start tag to lines after mid-HTML break
-              .replace(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g, (str, a, b) => {
-                const tag = that._html[a] ? `<tspan style="${that._html[a]}">` : "";
-                return `${tag.length ? tag : ""}${b}${tag.length ? "</tspan>" : ""}`;
-              }));
+              .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`); // ands start tag to lines after mid-HTML break
+
+            const tagRegex = new RegExp(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g);
+            if (cleaned.match(tagRegex)) {
+              cleaned = cleaned
+                .replace(tagRegex, (str, a, b) => {
+                  tag = that._html[a] ? a : false;
+                  if (tag) {
+                    const style = that._html[tag];
+                    if (t.includes(`</${tag}>`)) tag = false;
+                    return `<tspan style="${style}">${b}</tspan>`;
+                  }
+                  return b;
+                });
+            }
+            else if (tag.length) {
+              cleaned = `<tspan style="${that._html[tag]}">${cleaned}</tspan>`;
+            }
+
+            return cleaned;
+
+          });
 
         }
 
