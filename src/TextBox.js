@@ -230,7 +230,7 @@ export default class TextBox extends BaseClass {
 
     }, []), d => this._id(d.data, d.i));
 
-    const t = transition().duration(this._duration);
+    const t = this._select.transition().duration(this._duration);
 
     if (this._duration === 0) {
 
