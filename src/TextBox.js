@@ -4,7 +4,10 @@
 */
 
 import {select} from "d3-selection";
+
+// eslint-disable-next-line no-unused-vars
 import {transition} from "d3-transition";
+
 import {max, min, sum} from "d3-array";
 
 import {accessor, BaseClass, constant, parseSides} from "d3plus-common";
