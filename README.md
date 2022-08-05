@@ -22,7 +22,7 @@ If you use NPM, `npm install d3plus-text`. Otherwise, download the [latest relea
 
 ##### 
 * [fontExists](#fontExists) - Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
-* [rtl](#rtl) - Returns `true` if the HTML or body element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl".
+* [rtl](#rtl) - Returns `true` if the HTML or body element has either the "dir" [HTML attribute](https://www.scaler.com/topics/attributes-in-html/) or the "direction" CSS property set to "rtl".
 * [stringify](#stringify) - Coerces value into a String.
 * [strip](#strip) - Removes all non ASCII characters from a string.
 * [textSplit](#textSplit) - Splits a given sentence into an array of words.
