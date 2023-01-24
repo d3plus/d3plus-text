@@ -1,7 +1,7 @@
-import measure from "./textWidth";
-import defaultSplit from "./textSplit";
-import stringify from "./stringify";
-import {trimRight} from "./trim";
+import measure from "./textWidth.js";
+import defaultSplit from "./textSplit.js";
+import stringify from "./stringify.js";
+import {trimRight} from "./trim.js";
 
 /**
     @function textWrap

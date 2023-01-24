@@ -1,4 +1,4 @@
-import {suffixChars, default as textSplit} from "./textSplit";
+import {suffixChars, default as textSplit} from "./textSplit.js";
 
 const lowercase = ["a", "an", "and", "as", "at", "but", "by", "for", "from", "if", "in", "into", "near", "nor", "of", "on", "onto", "or", "per", "that", "the", "to", "with", "via", "vs", "vs."];
 const uppercase = ["CEO", "CFO", "CNC", "COO", "CPU", "GDP", "HVAC", "ID", "IT", "R&D", "TV", "UI"];

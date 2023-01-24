@@ -4,21 +4,18 @@
 */
 
 import {select} from "d3-selection";
-
 // eslint-disable-next-line no-unused-vars
 import {transition} from "d3-transition";
-
 import {max, min, sum} from "d3-array";
-
 import {accessor, BaseClass, constant, parseSides} from "d3plus-common";
 
-import fontExists from "./fontExists";
-import {default as detectRTL} from "./rtl";
-import strip from "./strip";
-import textSplit from "./textSplit";
-import measure from "./textWidth";
-import wrap from "./textWrap";
-import {trim, trimRight} from "./trim";
+import fontExists from "./fontExists.js";
+import {default as detectRTL} from "./rtl.js";
+import strip from "./strip.js";
+import textSplit from "./textSplit.js";
+import measure from "./textWidth.js";
+import wrap from "./textWrap.js";
+import {trim, trimRight} from "./trim.js";
 
 const defaultHtmlLookup = {
   i: "font-style: italic;",
@@ -283,13 +280,12 @@ export default class TextBox extends BaseClass {
 
           let tag = false;
 
-          text
-          [that._html ? "html" : "text"](t => {
+          text[that._html ? "html" : "text"](t => {
 
             let cleaned = trimRight(t)
-              .replace(/&([^\;&]*)/g, (str, a) => a === "amp" ? str : `&amp;${a}`) // replaces all non-HTML ampersands with escaped entity
+              .replace(/&([^;&]*)/g, (str, a) => a === "amp" ? str : `&amp;${a}`) // replaces all non-HTML ampersands with escaped entity
               .replace(/<([^A-z^/]+)/g, (str, a) => `&lt;${a}`).replace(/<$/g, "&lt;") // replaces all non-HTML left angle brackets with escaped entity
-              .replace(/(<[^>^\/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
+              .replace(/(<[^>^/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
               .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`); // ands start tag to lines after mid-HTML break
 
             const tagRegex = new RegExp(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g);

@@ -1,7 +1,7 @@
-import {test} from "zora";
+import assert from "assert";
 import {default as TextBox} from "../src/TextBox.js";
 
-test("TextBox", function *(assert) {
+it("TextBox", function *() {
 
   assert.end();
 
@@ -23,9 +23,9 @@ test("TextBox", function *(assert) {
       .render(cb);
   };
 
-  assert.equal(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
-  assert.equal(document.getElementsByTagName("text").length, 1, "created <text> container element");
-  assert.equal(document.getElementsByTagName("tspan").length, 2, "created 2 <tspan> elements");
+  assert.strictEqual(document.getElementsByTagName("svg").length, 1, "automatically added <svg> element to page");
+  assert.strictEqual(document.getElementsByTagName("text").length, 1, "created <text> container element");
+  assert.strictEqual(document.getElementsByTagName("tspan").length, 2, "created 2 <tspan> elements");
 
   let tspans = document.getElementsByTagName("tspan");
   assert.ok(tspans[0].textContent === "Hello D3plus, please wrap" &&
@@ -35,7 +35,7 @@ test("TextBox", function *(assert) {
   let bbox = elem.getBBox();
   assert.ok(bbox.width <= width, "fit within width");
   assert.ok(bbox.height <= height, "fit within height");
-  assert.equal(Math.round(bbox.x), x, "x positioned correctly");
+  assert.strictEqual(Math.round(bbox.x), x, "x positioned correctly");
 
   const yP = 1;
   let y2 = y;
@@ -72,5 +72,3 @@ test("TextBox", function *(assert) {
               tspans[5].textContent === "for me.", "font resizing");
 
 });
-
-export default test;

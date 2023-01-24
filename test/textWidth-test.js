@@ -1,7 +1,8 @@
-import {test} from "zora";
+import assert from "assert";
 import {default as textWidth} from "../src/textWidth.js";
+import it from "./jsdom.js";
 
-test("textWidth", assert => {
+it("textWidth", () => {
 
   const font = "Verdana";
 
@@ -15,5 +16,3 @@ test("textWidth", assert => {
   assert.ok(base < bolder, "font-weight");
 
 });
-
-export default test;

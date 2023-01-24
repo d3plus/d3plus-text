@@ -1,7 +1,7 @@
-import {test} from "zora";
+import assert from "assert";
 import {default as textSplit, splitChars} from "../src/textSplit.js";
 
-test("textSplit", assert => {
+it("textSplit", () => {
 
   for (let i = 0; i < splitChars.length; i++) {
     let char = splitChars[i];
@@ -12,8 +12,8 @@ test("textSplit", assert => {
     assert.ok(arr[0] === first && arr[1] === "test", `using "${char}"`);
   }
 
-  assert.equal(textSplit("-4")[0], "-4", "string starting with split character");
-  assert.equal(textSplit("This & That")[1], "&", "solo split character");
+  assert.strictEqual(textSplit("-4")[0], "-4", "string starting with split character");
+  assert.strictEqual(textSplit("This & That")[1], "&", "solo split character");
 
   const chinese = textSplit("里句。");
   assert.ok(chinese[0] === "里" && chinese[1] === "句。", "simplified chinese");
@@ -28,5 +28,3 @@ test("textSplit", assert => {
   assert.ok(lao[0] === "ຕໍ່" && lao[1] === "ດ້.", "lao");
 
 });
-
-export default test;

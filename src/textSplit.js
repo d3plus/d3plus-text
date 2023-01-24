@@ -1,6 +1,6 @@
-import {default as stringify} from "./stringify";
-import {default as combiningMarks} from "./combiningMarks";
 import {merge} from "d3-array";
+import {default as stringify} from "./stringify.js";
+import {default as combiningMarks} from "./combiningMarks.js";
 
 const splitChars = ["-", ";", ":", "&", "|",
   "u0E2F", // thai character pairannoi
@@ -43,6 +43,7 @@ const laoRange = "\u0E81-\u0EAE\u0EB0-\u0EC4\u0EC8-\u0ECB\u0ECD-\u0EDD";
 const noSpaceRange = burmeseRange + chineseRange + japaneseRange + laoRange;
 
 const splitWords = new RegExp(`(\\${splitChars.join("|\\")})*[^\\s|\\${splitChars.join("|\\")}]*(\\${splitChars.join("|\\")})*`, "g");
+// eslint-disable-next-line no-misleading-character-class
 const noSpaceLanguage = new RegExp(`[${noSpaceRange}]`);
 const splitAllChars = new RegExp(`(\\${prefixChars.join("|\\")})*[${noSpaceRange}](\\${suffixChars.join("|\\")}|\\${combiningMarks.join("|\\")})*|[a-z0-9]+`, "gi");
 

@@ -1,5 +1,5 @@
-import {default as textWidth} from "./textWidth";
-import {trim} from "./trim";
+import {default as textWidth} from "./textWidth.js";
+import {trim} from "./trim.js";
 
 const alpha = "abcdefghiABCDEFGHI_!@#$%^&*()_+1234567890",
       checked = {},
