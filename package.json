@@ -2,7 +2,7 @@
   "name": "d3plus-text",
   "version": "1.1.0",
   "description": "A smart SVG text box with line wrapping and automatic font size scaling.",
-  "main": "build/d3plus-text.full.js",
+  "main": "es/index.js",
   "jsnext:main": "es/index",
   "license": "MIT",
   "homepage": "https://d3plus.org",
@@ -26,7 +26,7 @@
     "d3-array": "^3.2.2",
     "d3-selection": "^3.0.0",
     "d3-transition": "^3.0.1",
-    "d3plus-common": "^1.2.0"
+    "d3plus-common": "^1.2.4"
   },
   "scripts": {
     "build": "d3plus-build",
@@ -37,9 +37,9 @@
     "test": "eslint src test && mocha 'test/**/*-test.js'"
   },
   "devDependencies": {
-    "d3plus-dev": "^1.2.6"
+    "d3plus-dev": "^1.2.8"
   },
-  "module": "es/index",
+  "module": "es/index.js",
   "sideEffects": false,
   "files": [
     "bin",
@@ -48,5 +48,7 @@
     "build/d3plus-text.min.js",
     "es"
   ],
-  "type": "module"
+  "type": "module",
+  "jsdelivr": "build/d3plus-text.full.min.js",
+  "unpkg": "build/d3plus-text.full.min.js"
 }
