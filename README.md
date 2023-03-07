@@ -30,7 +30,7 @@ Live examples can be found on [d3plus.org](https://d3plus.org/), which includes 
 
 ##### 
 * [fontExists](#fontExists) - Given either a single font-family or a list of fonts, returns the name of the first font that can be rendered, or `false` if none are installed on the user's machine.
-* [rtl](#rtl) - Returns `true` if the HTML or body element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl".
+* [rtl](#rtl) - Returns `true` if the <html> or <body> element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl". Accepts an optional DOM element as an argument, whose own inherited state will be evaluated rather than the default html/body logic.
 * [stringify](#stringify) - Coerces value into a String.
 * [strip](#strip) - Removes all non ASCII characters from a string.
 * [textSplit](#textSplit) - Splits a given sentence into an array of words.
@@ -440,9 +440,9 @@ This is a global function.
 ---
 
 <a name="rtl"></a>
-#### d3plus.**rtl**() [<>](https://github.com/d3plus/d3plus-text/blob/master/src/rtl.js#L3)
+#### d3plus.**rtl**([elem]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/rtl.js#L5)
 
-Returns `true` if the HTML or body element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl".
+Returns `true` if the <html> or <body> element has either the "dir" HTML attribute or the "direction" CSS property set to "rtl". Accepts an optional DOM element as an argument, whose own inherited state will be evaluated rather than the default html/body logic.
 
 
 This is a global function.
@@ -641,4 +641,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Wed, 25 Jan 2023 00:08:41 GMT</sub>
+###### <sub>Documentation generated on Tue, 07 Mar 2023 17:11:32 GMT</sub>
