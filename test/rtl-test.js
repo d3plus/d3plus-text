@@ -4,6 +4,7 @@ import it from "./jsdom.js";
 
 it("rtl", () => {
   assert.strictEqual(false, rtl(), "default ltr");
+  assert.strictEqual(false, rtl("#doesnt-exist"), "null case");
 });
 
 it("rtl - html", "<!doctype html><html dir='rtl'><head><meta charset='utf-8'></head><body></body></html>", () => {
