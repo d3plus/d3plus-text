@@ -265,7 +265,7 @@ export default class TextBox extends BaseClass {
         .call(rotate)
       .merge(boxes);
 
-    const rtl = detectRTL();
+    const rtl = detectRTL(this._select.node());
 
     update
       .order()
