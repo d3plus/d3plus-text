@@ -22,7 +22,7 @@ const diacritics = [
 */
 export default function(value) {
 
-  return `${value}`.replace(/[^A-Za-z0-9\-_]/g, char => {
+  return `${value}`.replace(/[^A-Za-z0-9\-_\u0621-\u064A]/g, char => {
 
     if (char === " ") return "-";
 
