@@ -19,12 +19,13 @@ const diacritics = [
     @function strip
     @desc Removes all non ASCII characters from a string.
     @param {String} value
+    @param {String} [spacer = "-"]
 */
-export default function(value) {
+export default function(value, spacer = "-") {
 
-  return `${value}`.replace(/[^A-Za-z0-9\-_]/g, char => {
+  return `${value}`.replace(/[^A-Za-z0-9\-_\u0621-\u064A]/g, char => {
 
-    if (char === " ") return "-";
+    if (char === " ") return spacer;
 
     let ret = false;
     for (let d = 0; d < diacritics.length; d++) {

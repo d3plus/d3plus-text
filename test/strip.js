@@ -3,9 +3,11 @@ import {default as strip} from "../src/strip.js";
 
 test("strip", assert => {
 
-  assert.equal(strip("one two"), "one-two", "Space");
-  assert.equal(strip("one@two"), "onetwo", "Removed");
-  assert.equal(strip("á"), "a", "Diacritic");
+  assert.equal(strip("one two"), "one-two", "Strips Spaces");
+  assert.equal(strip("one two", " "), "one two", "Changes Spacer Argument");
+  assert.equal(strip("one@two"), "onetwo", "Strips Non-character");
+  assert.equal(strip("á"), "a", "Strips Diacritic");
+  assert.equal(strip("والاجتماعية"), "والاجتماعية", "Keeps Arabic");
 
 });
 
