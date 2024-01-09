@@ -452,12 +452,18 @@ This is a global function.
 ---
 
 <a name="strip"></a>
-#### d3plus.**strip**(value) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/strip.js#L18)
+#### d3plus.**strip**(value, [spacer]) [<>](https://github.com/d3plus/d3plus-text/blob/master/src/strip.js#L18)
 
 Removes all non ASCII characters from a string.
 
 
 This is a global function.
+
+| Param | Type | Default |
+| --- | --- | --- |
+| value | <code>String</code> |  | 
+| [spacer] | <code>String</code> | <code>&quot;-&quot;</code> | 
+
 
 ---
 
@@ -633,4 +639,4 @@ This is a global function.
 
 
 
-###### <sub>Documentation generated on Wed, 06 Jul 2022 21:46:02 GMT</sub>
+###### <sub>Documentation generated on Tue, 09 Jan 2024 14:30:29 GMT</sub>
