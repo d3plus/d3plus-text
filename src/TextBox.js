@@ -22,7 +22,7 @@ const defaultHtmlLookup = {
   em: "font-style: italic;",
   b: "font-weight: bold;",
   strong: "font-weight: bold;",
-  bdi: "direction: ltr; unicode-bidi: embed;"
+  bdi: "unicode-bidi: embed;"
 };
 
 /**
@@ -288,7 +288,15 @@ export default class TextBox extends BaseClass {
               .replace(/<([^A-z^/]+)/g, (str, a) => `&lt;${a}`).replace(/<$/g, "&lt;") // replaces all non-HTML left angle brackets with escaped entity
               .replace(/(<[^>^/]+>)([^<^>]+)$/g, (str, a, b) => `${a}${b}${a.replace("<", "</")}`) // ands end tag to lines before mid-HTML break
               .replace(/^([^<^>]+)(<\/[^>]+>)/g, (str, a, b) => `${b.replace("</", "<")}${a}${b}`); // ands start tag to lines after mid-HTML break
-
+              
+            if (rtl) {
+              cleaned = cleaned.replace(/[^>^\s]{0,1}[0-9.,]{2,}[^<^\s]{0,1}/g, txt => {
+                const i = cleaned.indexOf(txt);
+                const prefix = cleaned.slice(i - 5, i);
+                return prefix === "<bdi>" ? txt : `<bdi>${txt}</bdi>`;
+              });
+            }
+            
             const tagRegex = new RegExp(/<([A-z]+)[^>]*>([^<^>]+)<\/[^>]+>/g);
             if (cleaned.match(tagRegex)) {
               cleaned = cleaned
@@ -305,7 +313,7 @@ export default class TextBox extends BaseClass {
             else if (tag.length) {
               cleaned = `<tspan style="${that._html[tag]}">${cleaned}</tspan>`;
             }
-
+            
             return cleaned;
 
           });
