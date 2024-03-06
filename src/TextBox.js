@@ -21,7 +21,8 @@ const defaultHtmlLookup = {
   i: "font-style: italic;",
   em: "font-style: italic;",
   b: "font-weight: bold;",
-  strong: "font-weight: bold;"
+  strong: "font-weight: bold;",
+  bdi: "direction: ltr; unicode-bidi: embed;"
 };
 
 /**
