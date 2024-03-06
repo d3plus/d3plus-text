@@ -26,7 +26,7 @@
     "d3-array": "^3.2.2",
     "d3-selection": "^3.0.0",
     "d3-transition": "^3.0.1",
-    "d3plus-common": "^1.2.4"
+    "d3plus-common": "^1.2.6"
   },
   "scripts": {
     "build": "d3plus-build",
@@ -37,7 +37,7 @@
     "test": "eslint src test && mocha 'test/**/*-test.js'"
   },
   "devDependencies": {
-    "d3plus-dev": "^1.2.8"
+    "d3plus-dev": "^1.2.9"
   },
   "module": "es/index.js",
   "sideEffects": false,
